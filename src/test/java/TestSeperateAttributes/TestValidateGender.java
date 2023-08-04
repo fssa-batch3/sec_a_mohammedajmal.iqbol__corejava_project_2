@@ -16,7 +16,7 @@ public class TestValidateGender {
 	void testValidGender() throws freshstocks.services.exception.ServiceException, ServiceException {
 		
 		UserService userService = new UserService();
-		assertTrue(UserValidator.validateGender("Male"));
+		assertTrue(UserValidator.validateGender("male"));
 	}
 	
 	@Test 

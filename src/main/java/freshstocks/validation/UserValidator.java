@@ -68,21 +68,21 @@ public class UserValidator {
 		return match;
 	}
 
-	public static boolean validateGender(String Gender) {
-		boolean match = false;
-		try {
-			String regex = "/^(male|female|others)$/i";
-			match = Pattern.matches(regex, Gender);
-			if (match) {
-				System.out.println("Given Gender is valid.");
-			} else {
-				System.out.println("Given Gender is not valid");
-			}
-		} catch (Exception e) {
-			System.out.println("Gender is not valid");
-		}
-		return match;
-	}
+	    public static boolean validateGender(String gender) {
+	        boolean match = false;
+	        try {
+	            String regex = "^(male|female|others)$";
+	            match = Pattern.matches(regex, gender.toLowerCase());
+	            if (match) {
+	                System.out.println("Given Gender is valid.");
+	            } else {
+	                System.out.println("Given Gender is not valid. Expected Input : male|female|others");
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Gender is not valid. Expected Input : male|female|others");
+	        }
+	        return match;
+	    }
 
 	public static boolean validatePassword(String password) {
 		boolean match = false;

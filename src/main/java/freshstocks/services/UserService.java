@@ -1,11 +1,9 @@
 package freshstocks.services;
 import freshstocks.services.*;
-
+import freshstocks.dao.UserDAO;
 import freshstocks.model.User;
 import freshstocks.services.exception.ServiceException;
 import java.sql.SQLException;
-
-import freshstocks.dao.*;
 import freshstocks.validation.UserValidator;
 import freshstocks.validation.exception.InvalidUserException;
 
@@ -31,13 +29,18 @@ public class UserService {
 	}
 	
 	//update user
-	public static boolean updateUser(User user , int userID) throws ServiceException {
+	public static boolean updateUser(User user , String userEmail) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		try {
-			if(userDAO.update(user , userID)) {
+			if(userDAO.emailAlreadyExist(userEmail)) {
+			if(userDAO.update(user , userEmail)) {
 				System.out.println("User Details Successfully Updated!");
 				return true;
 			} else {
+				return false;
+			}
+			} else {
+				System.out.println("User Email Doesn't Exist!");
 				return false;
 			}
 		} catch (SQLException e) {
@@ -47,15 +50,20 @@ public class UserService {
 	
 	
 	//delete user
-	public static boolean deleteUser(int userID , int isDeleted) throws ServiceException {
+	public static boolean deleteUser(String userEmail , int isDeleted) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		try {
-			if(userDAO.delete(userID, isDeleted)) {
+		if(userDAO.emailAlreadyExist(userEmail)) {
+			if(userDAO.delete(userEmail, isDeleted)) {
 				System.out.println("User Details Successfully Deleted!");
 				return true;
 			} else {
 				return false;
 			}
+		} else {
+			System.out.println("User Email Doesn't Exist!");
+			return false;
+		}
 		} catch (SQLException e) {
 			throw new ServiceException(e);
 		}

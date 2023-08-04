@@ -13,7 +13,7 @@ public class TestRegister {
 
 	public static void main(String[] args) {
 
-		User user1 = new User("Lakshmi_123","Female" ,"9500320194","2004-12-26", "lakshmi11@gmail.com","Lakshmi@123");
+		User user1 = new User("Lakshmi_123","Female" ,"9500320194","2004-12-26", "lakshmi12@gmail.com","Lakshmi@123");
 		UserService userService = new UserService();
 
 		try {
@@ -29,7 +29,7 @@ public class TestRegister {
 	@Test
 	void testRegistrationSuccess() throws freshstocks.services.exception.ServiceException, ServiceException {
 		UserService userService = new UserService();
-		User user1 = new User("Lakshmi_123","Female" ,"9500320194","2004-12-26", "lakshmi11@gmail.com","Lakshmi@123");
+		User user1 = new User("Lakshmi_123","Female" ,"9500320194","2004-12-26", "lakshmi12@gmail.com","Lakshmi@123");
 		assertTrue(UserService.registerUser(user1));
 	}
 
@@ -37,7 +37,7 @@ public class TestRegister {
 	void testInvalidPassword() {
 
 		UserService userService = new UserService();
-		User user1 = new User("Lakshmi_123","Female" ,"9500320194","2004-12-26", "lakshmi11@gmail.com","Lakshmi123");
+		User user1 = new User("Lakshmi_123","Female" ,"9500320194","2004-12-26", "lakshmi12@gmail.com","Lakshmi123");
 		try {
 			assertFalse(UserService.registerUser(user1));
 		} catch (freshstocks.services.exception.ServiceException e) {
@@ -46,15 +46,15 @@ public class TestRegister {
 		}
 	}
 
-//	@Test
-//	void testUserNull() {
-//
-//		UserService userService = new UserService();
-//		User user1 = null;
-//		
-//		 assertThrows(NullPointerException.class, () -> {
-//		        userService.registerUser(user1);
-//		    });
-//	}
+	@Test
+	void testUserNull() {
+
+		UserService userService = new UserService();
+		User user1 = null;
+		
+		 assertThrows(NullPointerException.class, () -> {
+		        userService.registerUser(user1);
+		    });
+	}
 
 }

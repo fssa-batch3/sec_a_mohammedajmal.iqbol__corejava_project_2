@@ -110,6 +110,48 @@ public class UserDAO {
 	   return match;
 	}
    
+   //email already exist using email params
+   public boolean emailAlreadyExist(String email) throws SQLException {
+		
+	   Connection connection = null;
+	   ResultSet resultSet = null;
+	   PreparedStatement pst = null;
+	   
+	   try {
+	   connection = getConnection();
+	   
+	   String EmailExistQuery = "SELECT * FROM freshstocks WHERE email = ?";
+	   pst = connection.prepareStatement(EmailExistQuery);
+	   pst.setString(1, email);
+	   resultSet = pst.executeQuery();
+	   
+	   while (resultSet.next()) {
+		   String emailID = resultSet.getString("email");
+		   String password = resultSet.getString("password");
+		   
+		   System.out.println("Email: " + emailID + " Password: " + password);
+		   
+		   if(email.equals(emailID)) {
+			   match = true;
+		   }
+	   }
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } finally {
+		   
+		   if(resultSet != null) {
+			   resultSet.close();
+		   }
+		   if(pst != null) {
+			   pst.close();
+		   }
+		   if(connection != null) {
+			   connection.close();
+		   }
+	   }
+	   return match;
+	}
+   
 	
 	//add new user to DB - Register
 	public boolean register(User user) throws SQLException {
@@ -150,7 +192,7 @@ public class UserDAO {
 	}
 	
 	// update user
-	public boolean update(User user , int userID) throws SQLException {
+	public boolean update(User user , String userEmail) throws SQLException {
 		   
 		   Connection connection = null;
 		   PreparedStatement pst = null;
@@ -159,7 +201,7 @@ public class UserDAO {
 		   try {
 		   connection = getConnection();
 		   
-		   String UpdateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE userID = " + userID + ";";
+		   String UpdateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = '" + userEmail + "';";
 		   pst = connection.prepareStatement(UpdateQuery);
 		   pst.setString(1, user.getGender());
 		   pst.setString(2, user.getmobileNumber());
@@ -184,7 +226,7 @@ public class UserDAO {
 	
 	//delete user
 	// update user
-	public boolean delete(int userID , int isDeleted) throws SQLException {
+	public boolean delete(String userEmail , int isDeleted) throws SQLException {
 		   
 		   Connection connection = null;
 		   PreparedStatement pst = null;
@@ -195,7 +237,7 @@ public class UserDAO {
 		   
 		   String isDelete = Integer.toString(isDeleted);
 		   
-		   String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE userID = " + userID + ";";
+		   String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = '" + userEmail + "';";
 		   pst = connection.prepareStatement(deleteQuery);
 		   pst.setString(1, isDelete);
 		   
