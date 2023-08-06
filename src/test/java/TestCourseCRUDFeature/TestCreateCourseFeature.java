@@ -11,11 +11,11 @@ import com.google.protobuf.ServiceException;
 import freshstocks.model.Course;
 import freshstocks.services.CourseService;
 
-public class TestCreateCourse {
+public class TestCreateCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course("CandleSticks Course","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
+		Course course1 = new Course("Stock Course","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
 		CourseService courseService = new CourseService();
 
 		try {
@@ -31,7 +31,7 @@ public class TestCreateCourse {
 	@Test
 	void testCreateCourseSuccess() throws freshstocks.services.exception.ServiceException, ServiceException {
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("CandleSticks Course","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
+		Course course1 = new Course("Stock Course","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
 		assertTrue(courseService.registerCourse(course1));
 	}
 
@@ -39,7 +39,7 @@ public class TestCreateCourse {
 	void testCreateCourseInvalid() {
 
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("Lakshmi_123","encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
+		Course course1 = new Course("Stock Course","encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
 		try {
 			assertFalse(courseService.registerCourse(course1));
 		} catch (freshstocks.services.exception.ServiceException e) {
@@ -48,12 +48,12 @@ public class TestCreateCourse {
 	}
 
 	@Test
-	void testCreateCourseNull() {
+	void testCreateCourseNull() throws freshstocks.services.exception.ServiceException {
 
 		CourseService courseService = new CourseService();
 		Course course1 = null;
 		
-		 assertThrows(NullPointerException.class, () -> {
+		 assertThrows(freshstocks.services.exception.ServiceException.class, () -> {
 		        courseService.registerCourse(course1);
 		    });
 	}

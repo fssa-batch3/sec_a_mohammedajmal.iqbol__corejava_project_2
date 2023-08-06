@@ -34,7 +34,7 @@ public class CourseDAO {
 		String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,instructor_name,company_name,company_category,top_skills) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 		pst = connection.prepareStatement(insertQuery);
 		pst.setInt(1, course.getCourseID());
-		pst.setString(2, course.getName());
+		pst.setString(2, course.getName().toLowerCase().trim());
 		pst.setString(3, course.getCoverImage());
 		pst.setString(4, course.getTiming());
 		pst.setString(5, course.getLanguage());
@@ -63,9 +63,10 @@ public class CourseDAO {
 	}
 	
 	   //Name Should Not Exist
-	   public boolean SameNameExist(Course course) throws SQLException {
+	   public boolean SameNameExist(String name) throws SQLException {
 			
 		   boolean match = false;
+		   int count = 0;
 		   Connection connection = null;
 		   ResultSet resultSet = null;
 		   PreparedStatement pst = null;
@@ -75,18 +76,23 @@ public class CourseDAO {
 		   
 		   String NameExistQuery = "SELECT * FROM course WHERE name = ?";
 		   pst = connection.prepareStatement(NameExistQuery);
-		   pst.setString(1, course.getName());
+		   pst.setString(1, name);
 		   resultSet = pst.executeQuery();
 		   
 		   while (resultSet.next()) {
-			   String name = resultSet.getString("name");
+			   String name1 = resultSet.getString("name");
 			   
-			   System.out.println("Name: " + name);
+			   System.out.println("Name: " + name1);
 			   
-			   if(course.getName().equals(name)) {
-				   match = true;
+			   if(name.toLowerCase().trim().equals(name1)) {
+				   count++;
 			   }
 		   }
+		   
+		   if(count > 0) {
+			   match = true;
+		   } 
+		   
 		   } catch (SQLException e) {
 			   e.printStackTrace();
 		   } finally {
@@ -103,6 +109,8 @@ public class CourseDAO {
 		   }
 		   return match;
 		}
+	   
+	  
 	   
 	   //get courses by course name
 	   public String readCourse(Course course) throws SQLException {
@@ -161,5 +169,78 @@ public class CourseDAO {
 	       return resultBuilder.toString();
 	   }
 
+		// update course
+		public boolean updateCourse(Course course, String name) throws SQLException {
+			   
+			   Connection connection = null;
+			   PreparedStatement pst = null;
+			   int rows = 0;
+			   
+			   try {
+			   connection = getConnection();
+			   
+			   String UpdateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE name = '" + name.toLowerCase().trim() + "';";
+			   pst = connection.prepareStatement(UpdateQuery);
+			   pst.setString(1, course.getCoverImage());
+			   pst.setString(2, course.getTiming());
+			   pst.setString(3, course.getLanguage());
+			   pst.setString(4, course.getMarkedPrice());
+			   pst.setString(5, course.getSellingPrice());
+			   pst.setString(6, course.getInstructorName());
+			   pst.setString(7, course.getCompanyName());
+			   pst.setString(8, course.getCompanyCategory());
+			   pst.setString(9, course.getTopSkills());
+			   
+			 //Execute query
+				rows = pst.executeUpdate();
+			   } catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					
+					   if(pst != null) {
+						   pst.close();
+					   }
+					   if(connection != null) {
+						   connection.close();
+					   }
+				}
+				//Return Successful or not
+				return (rows == 1);
+	}
+		
+
+	//delete course
+		public boolean deleteCourse(String name , int isDeleted) throws SQLException {
+			   
+			   Connection connection = null;
+			   PreparedStatement pst = null;
+			   int rows = 0;
+			   
+			   try {
+			   connection = getConnection();
+			   
+			   String isDelete = Integer.toString(isDeleted);
+			   
+			   String deleteQuery = "UPDATE course SET is_deleted = ? WHERE name = '" + name.toLowerCase().trim() + "';";
+			   pst = connection.prepareStatement(deleteQuery);
+			   pst.setString(1, isDelete);
+			   
+			 //Execute query
+				rows = pst.executeUpdate();
+				
+			   } catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					
+					   if(pst != null) {
+						   pst.close();
+					   }
+					   if(connection != null) {
+						   connection.close();
+					   }
+				}
+				//Return Successful or not
+				return (rows == 1);
+	     }
 	   
 }

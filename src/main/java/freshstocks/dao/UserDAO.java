@@ -225,7 +225,6 @@ public class UserDAO {
 }
 	
 	//delete user
-	// update user
 	public boolean delete(String userEmail , int isDeleted) throws SQLException {
 		   
 		   Connection connection = null;

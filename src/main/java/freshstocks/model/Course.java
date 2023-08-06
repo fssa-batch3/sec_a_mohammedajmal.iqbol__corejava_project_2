@@ -32,6 +32,22 @@ public class Course {
 		this.topSkills = topSkills;
 	}
 	
+	public Course(String coverImage, String timing, String language, String markedPrice,
+			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
+			String topSkills) {
+		super();
+		this.coverImage = coverImage;
+		this.timing = timing;
+		this.language = language;
+		this.markedPrice = markedPrice;
+		this.sellingPrice = sellingPrice;
+		this.description = description;
+		this.instructorName = instructorName;
+		this.companyName = companyName;
+		this.companyCategory = companyCategory;
+		this.topSkills = topSkills;
+	}
+	
 	public Course(String name) {
 		this.name = name;
 	}

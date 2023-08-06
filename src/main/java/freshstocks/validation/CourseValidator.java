@@ -27,6 +27,24 @@ public class CourseValidator {
 		}
 	}
 	
+	// if three conditions valid then user valid
+	public static boolean validateUpdatedCourse(Course course) throws InvalidUserException {
+		if(course != null && validateURL(course.getCoverImage())
+				&& validateLanguage(course.getLanguage()) 
+				&& validateMarkedPrice(course.getMarkedPrice())
+				&& validateSellingPrice(course.getSellingPrice())
+				&& validatePriceDifference(course.getMarkedPrice(),course.getSellingPrice())
+				&& validateTiming(course.getTiming())
+				&& validateInsutructorName(course.getInstructorName())
+				&& validateCompanyName(course.getCompanyName())
+				&& validateCompanyCategory(course.getCompanyCategory())
+				&& validateTopSkils(course.getTopSkills())) {
+			return true;
+		} else {
+			throw new InvalidUserException("User details not valid");
+		}
+	}
+	
 	public static boolean validateName(String name) {
 		boolean match = false;
 		try {

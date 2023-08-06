@@ -17,12 +17,12 @@ public class TestReadCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course("forex course");
+		Course course1 = new Course("CandleSticks Course");
 			CourseDAO c = new CourseDAO();
 		CourseService courseService = new CourseService();
 
 		try {
-			courseService.listCourse(course1);
+			System.out.println(courseService.listCourse(course1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
