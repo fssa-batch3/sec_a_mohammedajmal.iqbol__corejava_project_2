@@ -12,7 +12,7 @@
 
 ### Feature 1: Create User
 **User Story**: 
-  # `User details will successfully store in the database`
+   ``User details will successfully store in the database``
 
 **Pre-requisites**:
 - User table
