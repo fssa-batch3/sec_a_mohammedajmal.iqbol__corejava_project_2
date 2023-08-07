@@ -43,6 +43,25 @@
 - Invalid password input
 - User already exists
 
+  ### Feature 1: Read User
+**User Story**: 
+   `User details will successfully read from the database`
+
+**Pre-requisites**:
+- User Dao (create)
+- User service (create)
+
+**Validations**:
+- Form validator
+  - User object (null)
+
+**Business Validation**:
+- Email Already exists
+
+**Messages**:
+- User login not successful
+- User Email Doesn't exists
+
 ### Feature 2: Update User
 **User Story**: 
  `User details will successfully update and store in the database`
