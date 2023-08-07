@@ -1,5 +1,6 @@
 package freshstocks.dao;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,9 +13,10 @@ public class CourseDAO {
 	
 	 //connect to database
 	 public Connection getConnection() throws SQLException {
-	        String dbUrl = "jdbc:mysql://localhost:3306/project";
-	        String dbUser = "root";
-	        String dbPassword = "root";
+		    Dotenv dotenv = Dotenv.load(); 
+	        String dbUrl = dotenv.get("DB_URL");
+	        String dbUser = dotenv.get("DB_USERNAME");
+	        String dbPassword = dotenv.get("DB_PASSWORD");
 
 	     return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
 	 }

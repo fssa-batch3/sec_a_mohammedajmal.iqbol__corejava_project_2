@@ -12,7 +12,9 @@ CREATE TABLE freshstocks (
     date_of_birth DATE,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    is_deleted TINYINT(1) DEFAULT 0
+    is_deleted TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
   <-- READ USER BY USER BY USER EMAIL -->
@@ -47,7 +49,9 @@ CREATE TABLE course (
     company_name VARCHAR(100),
     company_category VARCHAR(100),
     top_skills VARCHAR(255),
-    is_deleted INT
+    is_deleted INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
   <-- READ COURSE FROM COURSE TABLE BY COURSE NAME -->

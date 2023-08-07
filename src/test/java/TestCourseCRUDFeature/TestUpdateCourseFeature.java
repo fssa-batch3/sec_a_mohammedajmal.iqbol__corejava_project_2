@@ -32,10 +32,10 @@ public class TestUpdateCourseFeature {
 	void testUpdateCourseSuccess() throws freshstocks.services.exception.ServiceException, ServiceException {
 		CourseService courseService = new CourseService();
 		Course course1 = new Course("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","20hrs","Tamil","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Gowtham","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
-		String name = "CandleSticks Course";
+		String name = "SMC High Course";
 		assertTrue(courseService.updateCourse(course1, name));
 	}
-
+	
 	@Test //invalid because invalid image URL without https://
 	void testUpdateCourseInvalid() throws freshstocks.services.exception.ServiceException {
 
