@@ -106,3 +106,12 @@
 - Invalid Email Input
 - User Email not found
 
+```javascript
+// Tab 3: JavaScript code
+function greet(name) {
+  console.log('Hello, ' + name + '!');
+}
+
+greet('AJMAL');
+```
+
