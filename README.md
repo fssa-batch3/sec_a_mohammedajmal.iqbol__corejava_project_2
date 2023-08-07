@@ -11,7 +11,8 @@
 ## Module: User
 
 ### Feature 1: Create User
-**User Story**: User details will successfully store in the database.
+**User Story**: 
+   `User details will successfully store in the database`
 
 **Pre-requisites**:
 - User table
@@ -43,7 +44,8 @@
 - User already exists
 
 ### Feature 2: Update User
-**User Story**: User details will successfully update and store in the database.
+**User Story**: 
+ `User details will successfully update and store in the database`
 
 **Pre-requisites**:
 - Completed feature 1 - create user
@@ -52,9 +54,9 @@
 
 **Validations**:
 - Form validator
-  - date of birth (null, empty,pattern)
-  - gender (null, empty,pattern)
-  - mobile Number (null, empty,pattern)
+  - date of birth (null, empty, patternRegex)
+  - gender (null, empty, patternRegex)
+  - mobile Number (null, empty, patternRegex)
 
 **Business Validation**:
 - Check whether the Same User Email exists
@@ -66,7 +68,8 @@
 - User Not Successfully Updated
 
 ### Feature 3: Delete User
-**User Story**: User details will successfully delete.
+**User Story**: 
+`User details will successfully delete`
 
 **Pre-requisites**:
 - Completed feature 1 - create user
