@@ -12,7 +12,8 @@
 
 ### Feature 1: Create User
 **User Story**: 
-   ```User details will successfully store in the database
+   ```
+User details will successfully store in the database
    ```
 
 **Pre-requisites**:
@@ -67,7 +68,8 @@ User details will successfully read from the database
 
 ### Feature 3: Update User
 **User Story**: 
- ```User details will successfully update and store in the database
+ ```
+User details will successfully update and store in the database
  ```
 
 **Pre-requisites**:
@@ -92,7 +94,9 @@ User details will successfully read from the database
 
 ### Feature 4: Delete User
 **User Story**: 
-`User details will successfully delete`
+```
+User details will successfully delete
+```
 
 **Pre-requisites**:
 - Completed feature 1 - create user
