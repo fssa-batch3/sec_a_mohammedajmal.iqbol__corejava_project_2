@@ -12,7 +12,8 @@
 
 ### Feature 1: Create User
 **User Story**: 
-   ```User details will successfully store in the database```
+   ```User details will successfully store in the database
+   ```
 
 **Pre-requisites**:
 - User table
@@ -45,7 +46,9 @@
 
 ### Feature 2: Read User
 **User Story**: 
-   `User details will successfully read from the database`
+   ```
+User details will successfully read from the database
+   ```
 
 **Pre-requisites**:
 - User Dao (create)
@@ -64,7 +67,8 @@
 
 ### Feature 3: Update User
 **User Story**: 
- `User details will successfully update and store in the database`
+ ```User details will successfully update and store in the database
+ ```
 
 **Pre-requisites**:
 - Completed feature 1 - create user
@@ -105,13 +109,3 @@
 **Messages**:
 - Invalid Email Input
 - User Email not found
-
-```javascript
-// Tab 3: JavaScript code
-function greet(name) {
-  console.log('Hello, ' + name + '!');
-}
-
-greet('AJMAL');
-```
-
