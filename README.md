@@ -43,7 +43,7 @@
 - Invalid password input
 - User already exists
 
-  ### Feature 1: Read User
+### Feature 2: Read User
 **User Story**: 
    `User details will successfully read from the database`
 
@@ -62,7 +62,7 @@
 - User login not successful
 - User Email Doesn't exists
 
-### Feature 2: Update User
+### Feature 3: Update User
 **User Story**: 
  `User details will successfully update and store in the database`
 
@@ -86,7 +86,7 @@
 - Invalid mobile Number input
 - User Not Successfully Updated
 
-### Feature 3: Delete User
+### Feature 4: Delete User
 **User Story**: 
 `User details will successfully delete`
 
