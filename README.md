@@ -227,7 +227,7 @@ User will successfully update the Course Details Except (Course Name)
 
 
 
-### Feature 4: Delete Course
+### Feature 8: Delete Course
 **User Story**: 
 ```
 User will successfully delete the Course
