@@ -1,17 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.fssa</groupId>
-  <artifactId>freshstocks</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>freshstocks</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.fssa</groupId>
+	<artifactId>freshstocks</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>freshstocks</name>
 
 	<properties>
 		<java.version>17</java.version>
 		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.source>17</maven.compiler.source>
 
-		<sonar.organization>fssa_batch3</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.organization>fssa-batch3</sonar.organization>
+<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+<sonar.projectKey>fssa-batch3_mohammedajmal_iqbol_corejava_project_2</sonar.projectKey>
 	</properties>
 
 	<build>
@@ -30,36 +33,37 @@
 	</build>
 
 	<dependencies>
-	  <dependency>
-	  	<groupId>mysql</groupId>
-	  	<artifactId>mysql-connector-java</artifactId>
-	  	<version>8.0.33</version>
-	  </dependency>
-	  
-	  <dependency>
-	  	<groupId>org.junit.jupiter</groupId>
-	  	<artifactId>junit-jupiter</artifactId>
-	  	<version>5.9.1</version>
-	  </dependency>
-	  
-	   <dependency>
-	  	<groupId>org.junit.jupiter</groupId>
-	  	<artifactId>junit-jupiter-api</artifactId>
-	  	<version>5.9.1</version>
-	  </dependency>
-	  
-	   <dependency>
-	  	<groupId>org.junit.jupiter</groupId>
-	  	<artifactId>junit-jupiter-engine</artifactId>
-	  	<version>5.9.1</version>
-	  </dependency>
-	  
-	  <dependency>
+		<!--
+		<https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv> -->
+		<dependency>
 			<groupId>io.github.cdimascio</groupId>
 			<artifactId>java-dotenv</artifactId>
 			<version>5.2.2</version>
-	  </dependency>
-	  
-  </dependencies>
-  
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.9.1</version>
+		</dependency>
+
+	</dependencies>
+
 </project>
