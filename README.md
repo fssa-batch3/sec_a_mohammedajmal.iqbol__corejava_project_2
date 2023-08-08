@@ -7,6 +7,7 @@
   - JDBC
   - MySQL Connector
   - JUnit
+  - Dotenv
 
 ## Module: User
 
