@@ -1,14 +1,15 @@
 package com.fssa.freshstocks.dao;
 
-import io.github.cdimascio.dotenv.Dotenv;
+//import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
-import com.fssa.freshstocks.model.User;
 
 public class CourseDAO {
 	
@@ -34,7 +35,7 @@ public class CourseDAO {
 	 }
 
 	//add new course to DB - Register
-	public boolean createCourse(Course course) throws SQLException {
+	public boolean createCourse(Course course) throws SQLException, DAOException {
 		
 		Connection connection = null;
 		PreparedStatement pst = null;
@@ -61,7 +62,7 @@ public class CourseDAO {
 		//Execute query
 		rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Error: " + e);
 		} finally {
 			
 			   if(pst != null) {
@@ -77,7 +78,7 @@ public class CourseDAO {
 	}
 	
 	   //Name Should Not Exist
-	   public boolean sameNameExist(String name) throws SQLException {
+	   public boolean sameNameExist(String name) throws SQLException, DAOException {
 			
 		   boolean match = false;
 		   int count = 0;
@@ -108,7 +109,7 @@ public class CourseDAO {
 		   } 
 		   
 		   } catch (SQLException e) {
-			   e.printStackTrace();
+			   throw new DAOException("Error: " + e);
 		   } finally {
 			   
 			   if(resultSet != null) {
@@ -127,7 +128,7 @@ public class CourseDAO {
 	  
 	   
 	   //get courses by course name
-	   public String readCourse(Course course) throws SQLException {
+	   public String readCourse(Course course) throws SQLException, DAOException {
 	       Connection connection = null;
 	       ResultSet resultSet = null;
 	       PreparedStatement pst = null;
@@ -168,7 +169,7 @@ public class CourseDAO {
 
 	           }
 	       } catch (SQLException e) {
-	           e.printStackTrace();
+	    	   throw new DAOException("Error: " + e);
 	       } finally {
 	           if (resultSet != null) {
 	               resultSet.close();
@@ -184,7 +185,7 @@ public class CourseDAO {
 	   }
 
 		// update course
-		public boolean updateCourse(Course course, String name) throws SQLException {
+		public boolean updateCourse(Course course, String name) throws SQLException, DAOException {
 			   
 			   Connection connection = null;
 			   PreparedStatement pst = null;
@@ -208,7 +209,7 @@ public class CourseDAO {
 			 //Execute query
 				rows = pst.executeUpdate();
 			   } catch (SQLException e) {
-					e.printStackTrace();
+				   throw new DAOException("Error: " + e);
 				} finally {
 					
 					   if(pst != null) {
@@ -224,7 +225,7 @@ public class CourseDAO {
 		
 
 	//delete course
-		public boolean deleteCourse(String name , int isDeleted) throws SQLException {
+		public boolean deleteCourse(String name , int isDeleted) throws SQLException, DAOException {
 			   
 			   Connection connection = null;
 			   PreparedStatement pst = null;
@@ -243,7 +244,7 @@ public class CourseDAO {
 				rows = pst.executeUpdate();
 				
 			   } catch (SQLException e) {
-					e.printStackTrace();
+				   throw new DAOException("Error: " + e);
 				} finally {
 					
 					   if(pst != null) {

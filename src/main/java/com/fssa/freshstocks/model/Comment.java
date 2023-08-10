@@ -3,6 +3,7 @@ package com.fssa.freshstocks.model;
 public class Comment {
 	
 	private int courseId;
+	private int commentId;
 	private int userId;
 	private String comment;
 	
@@ -13,6 +14,25 @@ public class Comment {
 		this.comment = comment;
 	}
 	
+	public Comment(int commentId,int courseId, int userId, String comment) {
+		super();
+		this.commentId = commentId;
+		this.courseId = courseId;
+		this.userId = userId;
+		this.comment = comment;
+	}
+	
+	public Comment(String comment) {
+		super();
+		this.comment = comment;
+	}
+	
+	@Override
+	public String toString() {
+		return "[courseId=" + courseId + ", commentId=" + commentId + ", userId=" + userId + ", comment="
+				+ comment + "]" + "\n";
+	}
+
 	public int getCourseId() {
 		return courseId;
 	}
@@ -30,11 +50,6 @@ public class Comment {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-	
-	@Override
-	public String toString() {
-		return "Comment [courseId=" + courseId + ", userId=" + userId + ", comment=" + comment + "]";
 	}
 
 }

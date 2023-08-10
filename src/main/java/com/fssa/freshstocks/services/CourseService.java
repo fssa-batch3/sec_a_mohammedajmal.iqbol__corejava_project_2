@@ -4,14 +4,16 @@ import java.sql.SQLException;
 
 import com.fssa.freshstocks.dao.CourseDAO;
 import com.fssa.freshstocks.dao.UserDAO;
+import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.CourseValidator;
+import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class CourseService {
 
-	public static boolean registerCourse(Course course) throws ServiceException {
+	public static boolean registerCourse(Course course) throws ServiceException, DAOException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 		if(CourseValidator.validateCourse(course) && !courseDAO.sameNameExist(course.getName())) { 
@@ -23,13 +25,13 @@ public class CourseService {
 			}		} else {
 			return false;
 		}
-		} catch ( SQLException | InvalidUserException e) {
+		} catch ( SQLException | InvalidCourseException e) {
 			throw new ServiceException(e);
 		}
 	}
 	
 	// get course details from course name
-	public static String listCourse(Course course) throws ServiceException, InvalidUserException {
+	public static String listCourse(Course course) throws ServiceException, InvalidUserException, DAOException {
 	    CourseDAO courseDAO = new CourseDAO();
 	    Course course1 = new Course(course.getName());
 	    try {
@@ -40,7 +42,7 @@ public class CourseService {
 	}
 	
 	//updated course
-	public static boolean updateCourse(Course course, String name) throws ServiceException {
+	public static boolean updateCourse(Course course, String name) throws ServiceException, DAOException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 		if(CourseValidator.validateUpdatedCourse(course)) { 
@@ -52,13 +54,13 @@ public class CourseService {
 			}		} else {
 			return false;
 		}
-		} catch ( SQLException | InvalidUserException e) {
+		} catch ( SQLException | InvalidCourseException e) {
 			throw new ServiceException(e);
 		}
 	}
 	
 	//delete course
-	public static boolean deleteCourse(String name , int isDeleted) throws ServiceException {
+	public static boolean deleteCourse(String name , int isDeleted) throws ServiceException, DAOException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 		if(courseDAO.sameNameExist(name)) {

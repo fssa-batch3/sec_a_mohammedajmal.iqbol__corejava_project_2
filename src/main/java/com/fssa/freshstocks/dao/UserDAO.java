@@ -1,14 +1,16 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 
-import io.github.cdimascio.dotenv.Dotenv;
+//import io.github.cdimascio.dotenv.Dotenv;
 
 
 public class UserDAO {
@@ -39,7 +41,7 @@ public class UserDAO {
 	
 	boolean match = false;
 //	Get user from DB - Login
-   public boolean login(User user) throws SQLException {
+   public boolean login(User user) throws SQLException, DAOException {
 	
 	   Connection connection = null;
 	   ResultSet resultSet = null;
@@ -65,7 +67,7 @@ public class UserDAO {
 		   }
 	   }
 	   } catch (SQLException e) {
-		   e.printStackTrace();
+		   throw new DAOException("Error: " + e);
 	   } finally {
 		   
 		   if(resultSet != null) {
@@ -83,7 +85,7 @@ public class UserDAO {
 	}
    
    //Email Not Exist
-   public boolean emailExist(User user) throws SQLException {
+   public boolean emailExist(User user) throws SQLException, DAOException {
 		
 	   Connection connection = null;
 	   ResultSet resultSet = null;
@@ -108,7 +110,7 @@ public class UserDAO {
 		   }
 	   }
 	   } catch (SQLException e) {
-		   e.printStackTrace();
+		   throw new DAOException("Error: " + e);
 	   } finally {
 		   
 		   if(resultSet != null) {
@@ -125,7 +127,7 @@ public class UserDAO {
 	}
    
    //email already exist using email params
-   public boolean emailAlreadyExist(String email) throws SQLException {
+   public boolean emailAlreadyExist(String email) throws SQLException, DAOException {
 		
 	   Connection connection = null;
 	   ResultSet resultSet = null;
@@ -150,7 +152,7 @@ public class UserDAO {
 		   }
 	   }
 	   } catch (SQLException e) {
-		   e.printStackTrace();
+		   throw new DAOException("Error: " + e);
 	   } finally {
 		   
 		   if(resultSet != null) {
@@ -168,7 +170,7 @@ public class UserDAO {
    
 	
 	//add new user to DB - Register
-	public boolean register(User user) throws SQLException {
+	public boolean register(User user) throws SQLException, DAOException {
 		
 		Connection connection = null;
 		PreparedStatement pst = null;
@@ -191,7 +193,7 @@ public class UserDAO {
 		//Execute query
 		rows = pst.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Error: " + e);
 		} finally {
 			
 			   if(pst != null) {
@@ -206,7 +208,7 @@ public class UserDAO {
 	}
 	
 	// update user
-	public boolean update(User user , String userEmail) throws SQLException {
+	public boolean update(User user , String userEmail) throws SQLException, DAOException {
 		   
 		   Connection connection = null;
 		   PreparedStatement pst = null;
@@ -224,7 +226,7 @@ public class UserDAO {
 		 //Execute query
 			rows = pst.executeUpdate();
 		   } catch (SQLException e) {
-				e.printStackTrace();
+			   throw new DAOException("Error: " + e);
 			} finally {
 				
 				   if(pst != null) {
@@ -239,7 +241,7 @@ public class UserDAO {
 }
 	
 	//delete user
-	public boolean delete(String userEmail , int isDeleted) throws SQLException {
+	public boolean delete(String userEmail , int isDeleted) throws SQLException, DAOException {
 		   
 		   Connection connection = null;
 		   PreparedStatement pst = null;
@@ -258,7 +260,7 @@ public class UserDAO {
 			rows = pst.executeUpdate();
 			
 		   } catch (SQLException e) {
-				e.printStackTrace();
+			   throw new DAOException("Error: " + e);
 			} finally {
 				
 				   if(pst != null) {

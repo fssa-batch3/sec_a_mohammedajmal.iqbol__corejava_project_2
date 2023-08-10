@@ -1,11 +1,16 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
+import com.fssa.freshstocks.model.Course;
 
 //import io.github.cdimascio.dotenv.Dotenv;
 
@@ -32,7 +37,7 @@ public class CommentDAO {
 		 return DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "root");
 	 }
 	 
-	 public static boolean createComment(Comment comment) throws SQLException {
+	 public static boolean createComment(Comment comment) throws SQLException, DAOException {
 		 
 		 Connection connection = null;
 		 PreparedStatement pst = null;
@@ -51,7 +56,7 @@ public class CommentDAO {
 				//Execute query
 				rows = pst.executeUpdate();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					throw new DAOException("Error: " + e);
 				} finally {
 					
 					   if(pst != null) {
@@ -65,5 +70,114 @@ public class CommentDAO {
 				//Return Successful or not
 				return (rows == 1);
 	 }
+	 
+	 
+	 
+	   //get courses by course name
+	   public List<Comment> getAllComments() throws SQLException, DAOException {
+	       Connection connection = null;
+	       ResultSet resultSet = null;
+	       PreparedStatement pst = null;
+	       StringBuilder resultBuilder = new StringBuilder();
+	       List<Comment> comments = new ArrayList<>();
+
+	       try {
+	           connection = getConnection();
+	           String selectQuery = "SELECT * FROM comment";
+	           pst = connection.prepareStatement(selectQuery);
+	           
+	           resultSet = pst.executeQuery();
+
+	           while (resultSet.next()) {
+	        	   int commentId = resultSet.getInt("commentID");
+	               int courseId = resultSet.getInt("courseID");
+	               int userId = resultSet.getInt("userID");
+	               String commentbody = resultSet.getString("comment");
+
+	               Comment comment = new Comment(commentId,courseId,userId,commentbody);
+	               comments.add(comment);
+
+	           }
+	       } catch (SQLException e) {
+	    	   throw new DAOException("Error: " + e);
+	       } finally {
+	           if (resultSet != null) {
+	               resultSet.close();
+	           }
+	           if (pst != null) {
+	               pst.close();
+	           }
+	           if (connection != null) {
+	               connection.close();
+	           }
+	       }
+	       return comments;
+	   }
+	   
+	   
+		// update comment
+		public boolean updateComment(Comment comment, int commentId) throws SQLException, DAOException {
+			   
+			   Connection connection = null;
+			   PreparedStatement pst = null;
+			   int rows = 0;
+			   
+			   try {
+			   connection = getConnection();
+			   
+			   String updateQuery = "UPDATE comment SET comment=? WHERE commentID = " + commentId + ";";
+			   pst = connection.prepareStatement(updateQuery);
+			   pst.setString(1, comment.getComment());
+			   
+			 //Execute query
+				rows = pst.executeUpdate();
+			   } catch (SQLException e) {
+				   throw new DAOException("Error: " + e);
+				} finally {
+					
+					   if(pst != null) {
+						   pst.close();
+					   }
+					   if(connection != null) {
+						   connection.close();
+					   }
+				}
+				//Return Successful or not
+				return (rows == 1);
+	}
+		
+		//delete comment
+		public boolean deleteComment(int commentId , int isDeleted) throws SQLException, DAOException {
+			   
+			   Connection connection = null;
+			   PreparedStatement pst = null;
+			   int rows = 0;
+			   
+			   try {
+			   connection = getConnection();
+			   
+			   String isDelete = Integer.toString(isDeleted);
+			   
+			   String deleteQuery = "UPDATE comment SET is_deleted = ? WHERE commentID = " + commentId + ";";
+			   pst = connection.prepareStatement(deleteQuery);
+			   pst.setString(1, isDelete);
+			   
+			 //Execute query
+				rows = pst.executeUpdate();
+				
+			   } catch (SQLException e) {
+				   throw new DAOException("Error: " + e);
+				} finally {
+					
+					   if(pst != null) {
+						   pst.close();
+					   }
+					   if(connection != null) {
+						   connection.close();
+					   }
+				}
+				//Return Successful or not
+				return (rows == 1);
+	     }
 
 }

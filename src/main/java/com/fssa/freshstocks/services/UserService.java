@@ -2,6 +2,7 @@ package com.fssa.freshstocks.services;
 import java.sql.SQLException;
 
 import com.fssa.freshstocks.dao.UserDAO;
+import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.*;
 import com.fssa.freshstocks.services.exception.ServiceException;
@@ -10,7 +11,7 @@ import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class UserService {
 	
-	public static boolean registerUser(User user) throws ServiceException {
+	public static boolean registerUser(User user) throws ServiceException, DAOException {
 		UserDAO userDAO = new UserDAO();
 		User user1 = new User(user.getEmail(),user.getPassword());
 		try {
@@ -30,7 +31,7 @@ public class UserService {
 	}
 	
 	//update user
-	public static boolean updateUser(User user , String userEmail) throws ServiceException {
+	public static boolean updateUser(User user , String userEmail) throws ServiceException, DAOException {
 		UserDAO userDAO = new UserDAO();
 		try {
 			if(userDAO.emailAlreadyExist(userEmail)) {
@@ -51,7 +52,7 @@ public class UserService {
 	
 	
 	//delete user
-	public static boolean deleteUser(String userEmail , int isDeleted) throws ServiceException {
+	public static boolean deleteUser(String userEmail , int isDeleted) throws ServiceException, DAOException {
 		UserDAO userDAO = new UserDAO();
 		try {
 		if(userDAO.emailAlreadyExist(userEmail)) {
@@ -71,7 +72,7 @@ public class UserService {
 	}
 	
 	
-	public static boolean loginUser(User user) throws ServiceException {
+	public static boolean loginUser(User user) throws ServiceException, DAOException {
 		UserDAO userDAO = new UserDAO();
 		try {
 			if(userDAO.login(user)) {
