@@ -1,4 +1,4 @@
-package com.fssa.freshstocks.validation.course;
+package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,13 +10,13 @@ import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateName {
+public class TestValidateCourseMarkedPrice {
 
 	@Test 
-	void testValidName() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testValidMarkedPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
 		
 		try {
-			assertTrue(CourseValidator.validateName("forex course"));
+			assertTrue(CourseValidator.validateMarkedPrice("1000"));
 		} catch (InvalidCourseException e) {
 			e.printStackTrace();
 			fail();
@@ -24,12 +24,11 @@ public class TestValidateName {
 	}
 	
 	@Test 
-	void testInvalidName() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testInvalidMarkedPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
 		
 		try {
-			assertFalse(CourseValidator.validateName("candles5_course"));
+			assertFalse(CourseValidator.validateMarkedPrice("Rs.1000"));
 		} catch (InvalidCourseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

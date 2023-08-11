@@ -1,4 +1,4 @@
-package com.fssa.freshstocks.validation.course;
+package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,13 +10,13 @@ import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateURL {
+public class TestValidateCourseLanguage {
 
 	@Test 
-	void testValidURL() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testValidLanguage() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
 		
 		try {
-			assertTrue(CourseValidator.validateURL("https://example.com"));
+			assertTrue(CourseValidator.validateLanguage("English"));
 		} catch (InvalidCourseException e) {
 			e.printStackTrace();
 			fail();
@@ -24,13 +24,13 @@ public class TestValidateURL {
 	}
 	
 	@Test 
-	void testInvalidURL() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testInvalidLanguage() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
 		
 		try {
-			assertFalse(CourseValidator.validateURL("example.com"));
+			assertFalse(CourseValidator.validateLanguage("India500"));
 		} catch (InvalidCourseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}	
-		
+	}
 }

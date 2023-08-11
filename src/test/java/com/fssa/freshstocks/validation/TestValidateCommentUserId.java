@@ -1,4 +1,4 @@
-package com.fssa.freshstocks.validation.comment;
+package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,23 +9,23 @@ import com.fssa.freshstocks.validation.CommentValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateCommentCourseId {
+public class TestValidateCommentUserId {
 
 	@Test 
-	void testValidCommentCourseID() throws ServiceException {
+	void testValidCommentUserID() throws ServiceException {
 		
 		try {
-			assertTrue(CommentValidator.validateCourseId("12"));
+			assertTrue(CommentValidator.validateUserId("12"));
 		} catch (InvalidCommentException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
 	@Test 
-	void testInvalidCommentCourseID() throws ServiceException {
+	void testInvalidCommentUserID() throws ServiceException {
 		
 		try {
-			assertFalse(CommentValidator.validateCourseId("123a"));
+			assertFalse(CommentValidator.validateUserId("123a"));
 		} catch (InvalidCommentException e) {
 			System.out.println(e.getMessage());
 		}

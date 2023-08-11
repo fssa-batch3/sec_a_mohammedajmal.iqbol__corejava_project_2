@@ -1,4 +1,4 @@
-package com.fssa.freshstocks.validation.course;
+package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,13 +10,13 @@ import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateMarkedPrice {
+public class TestValidateCourseURL {
 
 	@Test 
-	void testValidMarkedPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testValidURL() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
 		
 		try {
-			assertTrue(CourseValidator.validateMarkedPrice("1000"));
+			assertTrue(CourseValidator.validateURL("https://example.com"));
 		} catch (InvalidCourseException e) {
 			e.printStackTrace();
 			fail();
@@ -24,12 +24,13 @@ public class TestValidateMarkedPrice {
 	}
 	
 	@Test 
-	void testInvalidMarkedPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testInvalidURL() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
 		
 		try {
-			assertFalse(CourseValidator.validateMarkedPrice("Rs.1000"));
+			assertFalse(CourseValidator.validateURL("example.com"));
 		} catch (InvalidCourseException e) {
 			e.printStackTrace();
 		}
-	}
+	}	
+		
 }

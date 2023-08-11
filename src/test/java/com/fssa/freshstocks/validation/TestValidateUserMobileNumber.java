@@ -1,4 +1,4 @@
-package com.fssa.freshstocks.validation.user;
+package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,7 @@ import com.fssa.freshstocks.services.UserService;
 import com.fssa.freshstocks.validation.UserValidator;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateMobileNumber {
+public class TestValidateUserMobileNumber {
 
 	@Test 
 	void testValidMobileNumber() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {

@@ -1,4 +1,4 @@
-package com.fssa.freshstocks.validation.user;
+package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
