@@ -27,6 +27,11 @@ public class Comment {
 		this.comment = comment;
 	}
 	
+	public Comment(int courseId) {
+		super();
+		this.courseId = courseId;
+	}
+	
 	@Override
 	public String toString() {
 		return "[courseId=" + courseId + ", commentId=" + commentId + ", userId=" + userId + ", comment="

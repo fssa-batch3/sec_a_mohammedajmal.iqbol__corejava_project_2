@@ -1,5 +1,6 @@
 package com.fssa.freshstocks.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,11 +17,12 @@ import com.fssa.freshstocks.dao.*;
 
 public class TestGetAllCommentsFeature {
 
-	public static void main(String[] args) throws SQLException, DAOException {
+	public static void main(String[] args) throws DAOException {
 
 		CommentDAO commentDAO = new CommentDAO();
+		int courseID = 21;
 		
-		 List<Comment> cleanedEntries = commentDAO.getAllComments();
+		 List<Comment> cleanedEntries = commentDAO.getAllComments(courseID);
 
 		try {
 			 for(Comment str : cleanedEntries) {
@@ -36,15 +38,17 @@ public class TestGetAllCommentsFeature {
 	@Test
 	void testGetAllCommentSuccess() throws DAOException, SQLException {
 		CommentDAO commentDAO = new CommentDAO();
-		 List<Comment> cleanedEntries = commentDAO.getAllComments();
+		int courseID = 21;
+		 List<Comment> cleanedEntries = commentDAO.getAllComments(courseID);
 		assertTrue(cleanedEntries.size() > 0);
 	}
 	
 	@Test
 	void testGetAllCommentsInvalid() throws DAOException, SQLException {
 		CommentDAO commentDAO = new CommentDAO();
-		 List<Comment> cleanedEntries = commentDAO.getAllComments();
-		assertFalse(cleanedEntries.size() <= 0);
+		int courseID = 10;
+		 List<Comment> cleanedEntries = commentDAO.getAllComments(courseID);
+		 assertFalse(!cleanedEntries.isEmpty());
 	}
 	
 	@Test

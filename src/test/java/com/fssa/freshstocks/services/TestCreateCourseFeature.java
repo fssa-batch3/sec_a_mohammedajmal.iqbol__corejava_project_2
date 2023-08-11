@@ -16,7 +16,7 @@ public class TestCreateCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course("Stock Course","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
+		Course course1 = new Course("Stock Courses","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
 		CourseService courseService = new CourseService();
 
 		try {
@@ -33,7 +33,7 @@ public class TestCreateCourseFeature {
 	@Test
 	void testCreateCourseSuccess() throws DAOException {
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("SMC High Course","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
+		Course course1 = new Course("SMC High Courses","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU","10hrs","English","5000","2000","the course gives you the fair idea about how to start trading and become a day trader","Ajmal","freshstocks","Trading and Finance","learn core concepts SMC and Technical Analysis");
 		try {
 			assertTrue(courseService.registerCourse(course1));
 		} catch (com.fssa.freshstocks.services.exception.ServiceException e) {

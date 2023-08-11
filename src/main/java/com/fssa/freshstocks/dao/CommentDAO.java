@@ -74,46 +74,30 @@ public class CommentDAO {
 	 
 	 
 	   //get courses by course name
-	   public List<Comment> getAllComments() throws SQLException, DAOException {
-	       Connection connection = null;
-	       ResultSet resultSet = null;
-	       PreparedStatement pst = null;
-	       StringBuilder resultBuilder = new StringBuilder();
-	       List<Comment> comments = new ArrayList<>();
+	 public static List<Comment> getAllComments(int courseID) throws DAOException {
+		    List<Comment> comments = new ArrayList<>();
 
-	       try {
-	           connection = getConnection();
-	           String selectQuery = "SELECT * FROM comment";
-	           pst = connection.prepareStatement(selectQuery);
-	           
-	           resultSet = pst.executeQuery();
+		    try (Connection connection = getConnection();
+		         PreparedStatement pst = connection.prepareStatement("SELECT * FROM comment WHERE courseID =?");
+		         ) {
+		    	
+		    	pst.setInt(1, courseID);
+		    	ResultSet resultSet = pst.executeQuery();
 
-	           while (resultSet.next()) {
-	        	   int commentId = resultSet.getInt("commentID");
-	               int courseId = resultSet.getInt("courseID");
-	               int userId = resultSet.getInt("userID");
-	               String commentbody = resultSet.getString("comment");
+		        while (resultSet.next()) {
+		            int commentId = resultSet.getInt("commentID");
+		            int courseId = resultSet.getInt("courseID");
+		            int userId = resultSet.getInt("userID");
+		            String commentBody = resultSet.getString("comment");
+		            Comment comment1 = new Comment(commentId, courseId, userId, commentBody);
+		            comments.add(comment1);
+		        }
+		    } catch (SQLException e) {
+		        throw new DAOException("Error: " + e);
+		    }
 
-	               Comment comment = new Comment(commentId,courseId,userId,commentbody);
-	               comments.add(comment);
-
-	           }
-	       } catch (SQLException e) {
-	    	   throw new DAOException("Error: " + e);
-	       } finally {
-	           if (resultSet != null) {
-	               resultSet.close();
-	           }
-	           if (pst != null) {
-	               pst.close();
-	           }
-	           if (connection != null) {
-	               connection.close();
-	           }
-	       }
-	       return comments;
-	   }
-	   
+		    return comments;
+		}
 	   
 		// update comment
 		public boolean updateComment(Comment comment, int commentId) throws SQLException, DAOException {

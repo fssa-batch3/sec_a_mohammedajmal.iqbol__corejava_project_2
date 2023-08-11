@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.services;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.fssa.freshstocks.dao.CommentDAO;
 import com.fssa.freshstocks.dao.CourseDAO;
@@ -31,8 +32,20 @@ public class CommentService {
 		}
 	}
 	
+	public static List<Comment> ListComment(Comment comment) throws ServiceException, DAOException {
+		
+		try {
+			String courseID = Integer.toString(comment.getCourseId());
+			CommentValidator.validateCourseId(courseID);
+		 return CommentDAO.getAllComments(comment.getCourseId());
+		} catch ( InvalidCommentException e) {
+			throw new ServiceException(e);
+		}
+	}
 	
-	//updated course
+	
+	
+	//updated comment
 	public static boolean updateComment(Comment comment, int commentId) throws ServiceException, DAOException, InvalidCommentException {
 		CommentDAO commentDAO = new CommentDAO();
 		try {

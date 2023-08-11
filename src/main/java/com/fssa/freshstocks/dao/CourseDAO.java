@@ -240,7 +240,7 @@ public class CourseDAO {
 			   pst = connection.prepareStatement(deleteQuery);
 			   pst.setString(1, isDelete);
 			   
-			 //Execute query
+			   //Execute query
 				rows = pst.executeUpdate();
 				
 			   } catch (SQLException e) {
