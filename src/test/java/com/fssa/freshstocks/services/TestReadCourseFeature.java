@@ -20,7 +20,7 @@ public class TestReadCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course("CandleSticks Course");
+		Course course1 = new Course("stock courses");
 		CourseDAO c = new CourseDAO();
 		CourseService courseService = new CourseService();
 

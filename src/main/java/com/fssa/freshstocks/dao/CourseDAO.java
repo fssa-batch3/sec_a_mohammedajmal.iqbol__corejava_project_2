@@ -90,23 +90,15 @@ public class CourseDAO {
 
 	// get courses by course name
 	public String readCourse(Course course) throws DAOException {
-		Connection connection = null;
-		ResultSet resultSet = null;
-		PreparedStatement pst = null;
-		StringBuilder resultBuilder = new StringBuilder();
-
-		try {
-			connection = ConnectionUtil.getConnection();
-			String selectQuery = "SELECT * FROM course WHERE name = ?";
-			pst = connection.prepareStatement(selectQuery);
-			pst.setString(1, course.getName());
-			resultSet = pst.executeQuery();
-
-			if (!resultSet.isBeforeFirst()) {
-				return "No courses found for the given name: " + course.getName();
-			}
-
-			while (resultSet.next()) {
+	    StringBuilder resultBuilder = new StringBuilder();
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE name = ?")) {
+	        pst.setString(1, course.getName());
+	        try (ResultSet resultSet = pst.executeQuery()) {
+	            if (!resultSet.isBeforeFirst()) {
+	                return "No courses found for the given name: " + course.getName();
+	            }
+	            while (resultSet.next()) {
 				String name = resultSet.getString("name");
 				String coverImage = resultSet.getString("cover_image");
 				String timing = resultSet.getString("timing");
@@ -130,25 +122,12 @@ public class CourseDAO {
 				}
 
 			}
-		} catch (SQLException e) {
-			throw new DAOException("Error while reading course: " + e);
-		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
-			}
-		}
-		return resultBuilder.toString();
-	}
+	        }
+	        } catch (SQLException e) {
+	            throw new DAOException("Error while reading course: " + e);
+	        }
+	        return resultBuilder.toString();
+	    }
 
 	// update course
 	public boolean updateCourse(Course course, String name) throws DAOException {

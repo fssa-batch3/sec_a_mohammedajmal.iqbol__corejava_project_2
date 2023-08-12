@@ -187,7 +187,7 @@ public class UserDAO {
 			String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = ?;";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
-			pst.setString(3, userEmail);
+			pst.setString(2, userEmail);
 
 			// Execute query
 			rows = pst.executeUpdate();
