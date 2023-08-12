@@ -11,24 +11,21 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateUserGender {
 
-	@Test 
-	void testValidGender() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidGender() {
 		UserService userService = new UserService();
 		assertTrue(UserValidator.validateGender("male"));
 	}
-	
-	@Test 
-	void testInvalidGender() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidGender() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validateGender("121323"));
-	}	
-	
-	@Test 
-	void testGenderOthers() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	}
+
+	@Test
+	void testGenderOthers() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validateGender("non-conforming"));
-	}	
+	}
 }

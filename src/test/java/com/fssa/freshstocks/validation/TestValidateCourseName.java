@@ -11,13 +11,13 @@ import com.google.protobuf.ServiceException;
 public class TestValidateCourseName {
 
 	@Test 
-	void testValidCompanyName() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testValidCompanyName()  {
 		
 		assertTrue(CourseValidator.validateCompanyName("freshstocks"));
 	}
 	
 	@Test 
-	void testInvalidCompanyName() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testInvalidCompanyName()  {
 		
 		assertFalse(CourseValidator.validateCompanyName("freshworks_STS_Academy"));
 	}

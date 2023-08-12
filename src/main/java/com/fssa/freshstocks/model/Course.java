@@ -14,7 +14,7 @@ public class Course {
 	private String companyName;
 	private String companyCategory;
 	private String topSkills;
-	
+
 	public Course(String name, String coverImage, String timing, String language, String markedPrice,
 			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills) {
@@ -31,10 +31,9 @@ public class Course {
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
 	}
-	
-	public Course(String coverImage, String timing, String language, String markedPrice,
-			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
-			String topSkills) {
+
+	public Course(String coverImage, String timing, String language, String markedPrice, String sellingPrice,
+			String description, String instructorName, String companyName, String companyCategory, String topSkills) {
 		super();
 		this.coverImage = coverImage;
 		this.timing = timing;
@@ -47,78 +46,99 @@ public class Course {
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
 	}
-	
+
 	public Course(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getCoverImage() {
 		return coverImage;
 	}
+
 	public void setCoverImage(String coverImage) {
 		this.coverImage = coverImage;
 	}
+
 	public String getTiming() {
 		return timing;
 	}
+
 	public void setTiming(String timing) {
 		this.timing = timing;
 	}
+
 	public String getLanguage() {
 		return language;
 	}
+
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+
 	public String getMarkedPrice() {
 		return markedPrice;
 	}
+
 	public void setMarkedPrice(String markedPrice) {
 		this.markedPrice = markedPrice;
 	}
+
 	public String getSellingPrice() {
 		return sellingPrice;
 	}
+
 	public void setSellingPrice(String sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getInstructorName() {
 		return instructorName;
 	}
+
 	public void setInstructorName(String instructorName) {
 		this.instructorName = instructorName;
 	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
 	public String getCompanyCategory() {
 		return companyCategory;
 	}
+
 	public void setCompanyCategory(String companyCategory) {
 		this.companyCategory = companyCategory;
 	}
+
 	public String getTopSkills() {
 		return topSkills;
 	}
+
 	public void setTopSkills(String topSkills) {
 		this.topSkills = topSkills;
 	}
-	
+
 	public int getCourseID() {
 		return courseID;
 	}

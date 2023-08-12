@@ -13,7 +13,7 @@ import com.google.protobuf.ServiceException;
 public class TestValidateCourseMarkedPrice {
 
 	@Test 
-	void testValidMarkedPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testValidMarkedPrice()  {
 		
 		try {
 			assertTrue(CourseValidator.validateMarkedPrice("1000"));
@@ -24,7 +24,7 @@ public class TestValidateCourseMarkedPrice {
 	}
 	
 	@Test 
-	void testInvalidMarkedPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testInvalidMarkedPrice()  {
 		
 		try {
 			assertFalse(CourseValidator.validateMarkedPrice("Rs.1000"));

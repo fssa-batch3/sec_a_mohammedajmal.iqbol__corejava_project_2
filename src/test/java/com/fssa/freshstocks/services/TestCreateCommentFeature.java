@@ -11,17 +11,16 @@ import com.fssa.freshstocks.services.exception.ServiceException;
 
 public class TestCreateCommentFeature {
 
-	
 	public static void main(String[] args) {
 
-		Comment comment1 = new Comment(23,12,"This course is really good and well-structured.");
+		Comment comment1 = new Comment(21, 32, "This course is really good and well-structured.");
 		CommentService commentService = new CommentService();
 
 		try {
-			if(!commentService.registerComment(comment1)) {
+			if (!commentService.registerComment(comment1)) {
 				System.out.println("Create Comment not successful! Error : Comment Validation Failed");
 			}
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
 		}
@@ -29,35 +28,35 @@ public class TestCreateCommentFeature {
 	}
 
 	@Test
-	void testCreateCommentSuccess() throws DAOException {
+	void testCreateCommentSuccess() {
 		CommentService commentService = new CommentService();
-		Comment comment1 = new Comment(23,12,"This course is really informative and well-structured.");
+		Comment comment1 = new Comment(21, 32, "This course is really informative and well-structured.");
 		try {
 			assertTrue(CommentService.registerComment(comment1));
-		} catch (com.fssa.freshstocks.services.exception.ServiceException e) {
+		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
 
-	@Test //invalid because invalid comment
-	void testCreateCommentInvalid() throws ServiceException, DAOException {
-		
-		 CommentService commentService = new CommentService();
-		 Comment comment1 = new Comment(21,11,"");
+	@Test // invalid because invalid comment
+	void testCreateCommentInvalid() {
 
-		 assertThrows(ServiceException.class, () -> {
-		        commentService.registerComment(comment1);
-		    });
+		CommentService commentService = new CommentService();
+		Comment comment1 = new Comment(21, 11, "");
+
+		assertThrows(ServiceException.class, () -> {
+			commentService.registerComment(comment1);
+		});
 	}
 
 	@Test
 	void testCreateCommentNull() {
-	    CommentService commentService = new CommentService();
-	    Comment comment1 = null;
+		CommentService commentService = new CommentService();
+		Comment comment1 = null;
 
-	    assertThrows(NullPointerException.class, () -> {
-	        commentService.registerComment(comment1);
-	    });
+		assertThrows(NullPointerException.class, () -> {
+			commentService.registerComment(comment1);
+		});
 	}
-	}
+}

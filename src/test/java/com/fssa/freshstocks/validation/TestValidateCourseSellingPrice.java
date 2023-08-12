@@ -10,15 +10,13 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateCourseSellingPrice {
 
-	@Test 
-	void testValidSellingPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidSellingPrice() {
 		assertTrue(CourseValidator.validateSellingPrice("5000"));
 	}
-	
-	@Test 
-	void testInvalidSellingPrice() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidSellingPrice() {
 		assertFalse(CourseValidator.validateSellingPrice("Rs.5000"));
 	}
 }

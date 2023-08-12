@@ -10,15 +10,13 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateCourseTopSkills {
 
-	@Test 
-	void testValidTopSkills() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidTopSkills() {
 		assertTrue(CourseValidator.validateTopSkils("smart money concepts"));
 	}
-	
-	@Test 
-	void testInvalidTopSkills() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidTopSkills() {
 		assertFalse(CourseValidator.validateTopSkils("number theory 12345"));
-	}	
+	}
 }

@@ -11,19 +11,19 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateCommentBody {
 
-	@Test 
-	void testValidCommentBody() throws ServiceException {
-		
+	@Test
+	void testValidCommentBody() {
+
 		try {
 			assertTrue(CommentValidator.validateComment("this is test comment"));
 		} catch (InvalidCommentException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	@Test 
-	void testInvalidCommentBody() throws ServiceException {
-		
+
+	@Test
+	void testInvalidCommentBody() {
+
 		try {
 			assertFalse(CommentValidator.validateComment(""));
 		} catch (InvalidCommentException e) {

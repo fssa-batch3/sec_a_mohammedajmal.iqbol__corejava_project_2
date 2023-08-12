@@ -9,9 +9,10 @@ public class User {
 	private String dateOfBirth;
 	String email;
 	String password;
-	
-	//register
-	public User(String username, String gender , String mobileNumber , String dateOfBirth, String email, String password) {
+
+	// register
+	public User(String username, String gender, String mobileNumber, String dateOfBirth, String email,
+			String password) {
 		super();
 		this.username = username;
 		this.gender = gender;
@@ -20,30 +21,31 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	
-	//update
-	public User(String gender, String mobileNumber , String dateOfBirth) {
+
+	// update
+	public User(String gender, String mobileNumber, String dateOfBirth) {
 		super();
 		this.gender = gender;
 		this.mobileNumber = mobileNumber;
 		this.dateOfBirth = dateOfBirth;
 	}
-	
-	//delete
-		public User(int userId) {
-			super();
-			this.userId = userId;
-		}
-	
-	//login
+
+	// delete
+	public User(int userId) {
+		super();
+		this.userId = userId;
+	}
+
+	// login
 	public User(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	public String toString() {
-		return "UserID: " + userId + "username: " + username + "gender: " + gender + "mobile_number: " + mobileNumber + "date_of_birth: " + dateOfBirth + "Email: " + email + " Password: " + password;
+		return "UserID: " + userId + "username: " + username + "gender: " + gender + "mobile_number: " + mobileNumber
+				+ "date_of_birth: " + dateOfBirth + "Email: " + email + " Password: " + password;
 	}
 
 	public int getUserID() {

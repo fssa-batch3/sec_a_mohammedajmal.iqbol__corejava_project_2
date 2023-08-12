@@ -12,9 +12,8 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidCourseName {
 
-	@Test 
-	void testValidName() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidName() {
 		try {
 			assertTrue(CourseValidator.validateName("forex course"));
 		} catch (InvalidCourseException e) {
@@ -22,14 +21,12 @@ public class TestValidCourseName {
 			fail();
 		}
 	}
-	
-	@Test 
-	void testInvalidName() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidName() {
 		try {
 			assertFalse(CourseValidator.validateName("candles5_course"));
 		} catch (InvalidCourseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

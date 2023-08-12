@@ -7,17 +7,16 @@ import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class UserValidator {
-	
+
 	// if three conditions valid then user valid
 	public static boolean validateUser(User user) throws InvalidUserException {
-		if(user != null && validateName(user.getUsername()) && validateEmail(user.getEmail()) 
+		if (user != null && validateName(user.getUsername()) && validateEmail(user.getEmail())
 				&& validatePassword(user.getPassword())) {
 			return true;
 		} else {
 			throw new InvalidUserException("User details not valid");
 		}
 	}
-
 
 	public static boolean validateName(String name) {
 		boolean match = false;
@@ -34,8 +33,7 @@ public class UserValidator {
 		}
 		return match;
 	}
-	
-			
+
 	public static boolean validateMobileNumber(String mobileNumber) {
 		boolean match = false;
 		try {
@@ -51,7 +49,7 @@ public class UserValidator {
 		}
 		return match;
 	}
-	
+
 	public static boolean validateDateOfBirth(String DateOfBirth) {
 		boolean match = false;
 		try {
@@ -68,21 +66,21 @@ public class UserValidator {
 		return match;
 	}
 
-	    public static boolean validateGender(String gender) {
-	        boolean match = false;
-	        try {
-	            String regex = "^(male|female|others)$";
-	            match = Pattern.matches(regex, gender.toLowerCase());
-	            if (match) {
-	                System.out.println("Given Gender is valid.");
-	            } else {
-	                System.out.println("Given Gender is not valid. Expected Input : male|female|others");
-	            }
-	        } catch (Exception e) {
-	            System.out.println("Gender is not valid. Expected Input : male|female|others");
-	        }
-	        return match;
-	    }
+	public static boolean validateGender(String gender) {
+		boolean match = false;
+		try {
+			String regex = "^(male|female|others)$";
+			match = Pattern.matches(regex, gender.toLowerCase());
+			if (match) {
+				System.out.println("Given Gender is valid.");
+			} else {
+				System.out.println("Given Gender is not valid. Expected Input : male|female|others");
+			}
+		} catch (Exception e) {
+			System.out.println("Gender is not valid. Expected Input : male|female|others");
+		}
+		return match;
+	}
 
 	public static boolean validatePassword(String password) {
 		boolean match = false;
@@ -117,5 +115,5 @@ public class UserValidator {
 		}
 		return isMatch;
 
-    }
+	}
 }

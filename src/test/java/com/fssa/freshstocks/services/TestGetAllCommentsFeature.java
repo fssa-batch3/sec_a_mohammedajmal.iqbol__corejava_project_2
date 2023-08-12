@@ -10,51 +10,60 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-
+import com.fssa.freshstocks.services.exception.*;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.dao.*;
 
 public class TestGetAllCommentsFeature {
 
-	public static void main(String[] args) throws DAOException {
+	public static void main(String[] args) {
 
 		CommentDAO commentDAO = new CommentDAO();
 		int courseID = 21;
-		
-		 List<Comment> cleanedEntries = commentDAO.getAllComments(courseID);
 
+		List<Comment> cleanedEntries = null;
 		try {
-			 for(Comment str : cleanedEntries) {
-				 System.out.println(str);
-			 }
-			 
-		} catch (Exception e) {
+			cleanedEntries = commentDAO.getAllComments(courseID);
+		} catch (DAOException e) {
 			e.printStackTrace();
-			fail();
+		}
+
+		for (Comment str : cleanedEntries) {
+			System.out.println(str);
 		}
 	}
 
 	@Test
-	void testGetAllCommentSuccess() throws DAOException, SQLException {
+	void testGetAllCommentSuccess() {
 		CommentDAO commentDAO = new CommentDAO();
 		int courseID = 21;
-		 List<Comment> cleanedEntries = commentDAO.getAllComments(courseID);
+		List<Comment> cleanedEntries = null;
+		try {
+			cleanedEntries = commentDAO.getAllComments(courseID);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 		assertTrue(cleanedEntries.size() > 0);
 	}
-	
+
 	@Test
-	void testGetAllCommentsInvalid() throws DAOException, SQLException {
+	void testGetAllCommentsInvalid() {
 		CommentDAO commentDAO = new CommentDAO();
 		int courseID = 10;
-		 List<Comment> cleanedEntries = commentDAO.getAllComments(courseID);
-		 assertFalse(!cleanedEntries.isEmpty());
+		List<Comment> cleanedEntries = null;
+		try {
+			cleanedEntries = commentDAO.getAllComments(courseID);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		assertFalse(!cleanedEntries.isEmpty());
 	}
-	
+
 	@Test
-	void testGetAllCommentsNull() throws DAOException, SQLException {
+	void testGetAllCommentsNull() {
 		CommentDAO commentDAO = new CommentDAO();
-		 List<Comment> cleanedEntries = null;
-		 assertNull(cleanedEntries);
+		List<Comment> cleanedEntries = null;
+		assertNull(cleanedEntries);
 	}
 }

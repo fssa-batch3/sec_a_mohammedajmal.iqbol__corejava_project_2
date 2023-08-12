@@ -12,47 +12,39 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateUserPassword {
 
-	@Test 
-	void testValidPassword() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidPassword() {
 		UserService userService = new UserService();
 		assertTrue(UserValidator.validatePassword("Ajmal@123"));
 	}
 
-	@Test 
-	void testInvalidPasswordWithoutSpecialCharacters() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testInvalidPasswordWithoutSpecialCharacters() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validatePassword("Ajmal123"));
 	}
-	
-	
-	@Test 
-	void testInvalidPasswordWithoutNumbers() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidPasswordWithoutNumbers() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validatePassword("Ajmal@@@@"));
 	}
-	
-	@Test 
-	void testInvalidPasswordWithoutSpecialAlphabets() throws ServiceException, com.fssa.freshstocks.services.exception.ServiceException {
-		
+
+	@Test
+	void testInvalidPasswordWithoutSpecialAlphabets() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validatePassword("@1234567"));
 	}
-	
-	@Test 
-	void testInvalidPasswordLengthlessThan8() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidPasswordLengthlessThan8() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validatePassword("Ajmal@1"));
 	}
-	
-	@Test 
-	void testInvalidPasswordWithoutUppercase() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidPasswordWithoutUppercase() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validatePassword("ajmal@1234"));
 	}
 }
-

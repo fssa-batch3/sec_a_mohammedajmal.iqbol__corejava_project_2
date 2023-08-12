@@ -13,7 +13,7 @@ import com.google.protobuf.ServiceException;
 public class TestValidateCourseLanguage {
 
 	@Test 
-	void testValidLanguage() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testValidLanguage()  {
 		
 		try {
 			assertTrue(CourseValidator.validateLanguage("English"));
@@ -24,7 +24,7 @@ public class TestValidateCourseLanguage {
 	}
 	
 	@Test 
-	void testInvalidLanguage() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
+	void testInvalidLanguage()  {
 		
 		try {
 			assertFalse(CourseValidator.validateLanguage("India500"));

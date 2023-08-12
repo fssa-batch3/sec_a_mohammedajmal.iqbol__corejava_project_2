@@ -11,24 +11,21 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateUserMobileNumber {
 
-	@Test 
-	void testValidMobileNumber() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidMobileNumber() {
 		UserService userService = new UserService();
 		assertTrue(UserValidator.validateMobileNumber("+919500320194"));
 	}
-	
-	@Test 
-	void testInvalidMobileNumber() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidMobileNumber() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validateMobileNumber("abc1234567"));
-	}	
-	
-	@Test 
-	void testValidOutsideIndiaMobileNumber() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	}
+
+	@Test
+	void testValidOutsideIndiaMobileNumber() {
 		UserService userService = new UserService();
 		assertTrue(UserValidator.validateMobileNumber("+44-7890123456"));
-	}	
+	}
 }

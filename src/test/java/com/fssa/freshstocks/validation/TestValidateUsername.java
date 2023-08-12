@@ -12,17 +12,15 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateUsername {
 
-	@Test 
-	void testValidUsername() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidUsername() {
 		UserService userService = new UserService();
 		assertTrue(UserValidator.validateName("Username_123"));
 	}
-	
-	@Test 
-	void testInvalidUsernameLengthlessThan3() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidUsernameLengthlessThan3() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validateName("Us"));
-	}	
+	}
 }

@@ -9,16 +9,16 @@ import com.fssa.freshstocks.validation.CourseValidator;
 import com.google.protobuf.ServiceException;
 
 public class TestValidateCourseCategory {
-	
-	@Test 
-	void testValidCompanyCategory() throws ServiceException {
-		
+
+	@Test
+	void testValidCompanyCategory() {
+
 		assertTrue(CourseValidator.validateCompanyCategory("Money and Finance"));
 	}
-	
-	@Test 
-	void testInvalidCompanyCategory() throws ServiceException {
-		
+
+	@Test
+	void testInvalidCompanyCategory() {
+
 		assertFalse(CourseValidator.validateCompanyCategory("Money & finance"));
 	}
 }

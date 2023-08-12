@@ -11,27 +11,27 @@ import com.fssa.freshstocks.services.CommentService;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 public class TestDeleteCommentFeature {
-	
+
 	@Test
-	void TestDeleteCommentSuccess() throws DAOException {
+	void TestDeleteCommentSuccess() {
 		int commentId = 7;
 		int isDeleted = 1;
-		CommentService  commentService = new CommentService();
-        try {
-			assertTrue(commentService.deleteComment(commentId,isDeleted));
+		CommentService commentService = new CommentService();
+		try {
+			assertTrue(commentService.deleteComment(commentId, isDeleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
-	
+
 	@Test
-	void TestDeleteCommentFail() throws com.fssa.freshstocks.services.exception.ServiceException, DAOException {
+	void TestDeleteCommentFail() {
 		int commentId = 2;
 		int isDeleted = 1;
-		CommentService  commentService = new CommentService();
-        try {
-			assertFalse(commentService.deleteComment(commentId,isDeleted));
+		CommentService commentService = new CommentService();
+		try {
+			assertFalse(commentService.deleteComment(commentId, isDeleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

@@ -16,66 +16,62 @@ import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class CommentService {
 
-	public static boolean registerComment(Comment comment) throws ServiceException, DAOException {
+	public static boolean registerComment(Comment comment) throws ServiceException {
 		try {
-		if(CommentValidator.validateComment(comment)) { 
-			if(CommentDAO.createComment(comment)) {
-				System.out.println("Comment for the Course ID: " + comment.getCourseId() + " Successfully Added!");
-				return true;
-			} else {
-				return false;
-			}		} else {
-			return false;
-		}
-		} catch ( SQLException | InvalidCommentException e) {
-			throw new ServiceException(e);
-		}
-	}
-	
-	public static List<Comment> ListComment(Comment comment) throws ServiceException, DAOException {
-		
-		try {
-			String courseID = Integer.toString(comment.getCourseId());
-			CommentValidator.validateCourseId(courseID);
-		 return CommentDAO.getAllComments(comment.getCourseId());
-		} catch ( InvalidCommentException e) {
-			throw new ServiceException(e);
-		}
-	}
-	
-	
-	
-	//updated comment
-	public static boolean updateComment(Comment comment, int commentId) throws ServiceException, DAOException, InvalidCommentException {
-		CommentDAO commentDAO = new CommentDAO();
-		try {
-		if(CommentValidator.validateComment(comment.getComment())) { 
-			if(commentDAO.updateComment(comment,commentId)) {
-				System.out.println("CommentID of Comment: " + commentId + " Successfully Updated!");
-				return true;
-			} else {
-				return false;
-			}		} else {
-			return false;
-		}
-		} catch ( SQLException e) {
-			throw new ServiceException(e);
-		}
-	}
-	
-	
-	//delete comment
-	public static boolean deleteComment(int commentId , int isDeleted) throws ServiceException, DAOException {
-		CommentDAO commentDAO = new CommentDAO();
-		try {
-			if(commentDAO.deleteComment(commentId, isDeleted)) {
-				System.out.println("Comment of CommentID: " + commentId + " Successfully Deleted!");
-				return true;
+			if (CommentValidator.validateComment(comment)) {
+				boolean success = CommentDAO.createComment(comment);
+				if (success) {
+					System.out.println("Comment for the Course ID: " + comment.getCourseId() + " Successfully Added!");
+				}
+				return success;
 			} else {
 				return false;
 			}
-		} catch (SQLException e) {
+		} catch (DAOException | InvalidCommentException e) {
 			throw new ServiceException(e);
+		}
+	}
+
+	public static List<Comment> ListComment(Comment comment) throws ServiceException {
+
+		try {
+			String courseID = Integer.toString(comment.getCourseId());
+			CommentValidator.validateCourseId(courseID);
+			return CommentDAO.getAllComments(comment.getCourseId());
+		} catch (DAOException | InvalidCommentException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	// updated comment
+	public static boolean updateComment(Comment comment, int commentId) throws ServiceException {
+		CommentDAO commentDAO = new CommentDAO();
+		try {
+			if (CommentValidator.validateComment(comment.getComment())) {
+				boolean success = commentDAO.updateComment(comment, commentId);
+				if (success) {
+					System.out.println("CommentID of Comment: " + commentId + " Successfully Updated!");
+				}
+				return success;
+			} else {
+				return false;
+			}
+		} catch (DAOException | InvalidCommentException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	// delete comment
+	public static boolean deleteComment(int commentId, int isDeleted) throws ServiceException {
+		CommentDAO commentDAO = new CommentDAO();
+		try {
+			boolean success = commentDAO.deleteComment(commentId, isDeleted);
+			if (success) {
+				System.out.println("Comment of CommentID: " + commentId + " Successfully Deleted!");
+			}
+			return success;
+		} catch (DAOException e) {
+			throw new ServiceException("Error while deleting comment. " + e);
 		}
 	}
 }

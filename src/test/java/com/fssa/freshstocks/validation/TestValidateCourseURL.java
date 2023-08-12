@@ -13,8 +13,7 @@ import com.google.protobuf.ServiceException;
 public class TestValidateCourseURL {
 
 	@Test 
-	void testValidURL() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	void testValidURL()  {
 		try {
 			assertTrue(CourseValidator.validateURL("https://example.com"));
 		} catch (InvalidCourseException e) {
@@ -24,8 +23,7 @@ public class TestValidateCourseURL {
 	}
 	
 	@Test 
-	void testInvalidURL() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	void testInvalidURL()  {
 		try {
 			assertFalse(CourseValidator.validateURL("example.com"));
 		} catch (InvalidCourseException e) {

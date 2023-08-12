@@ -11,24 +11,21 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateUserEmail {
 
-	@Test 
-	void testValidEmail() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidEmail() {
 		UserService userService = new UserService();
 		assertTrue(UserValidator.validateEmail("ajmal@gmail.com"));
 	}
-	
-	@Test 
-	void testInvalidEmail() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidEmail() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validateEmail("ajmalgmail.com"));
-	}	
-	
-	@Test 
-	void testEmailWithoutdot() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	}
+
+	@Test
+	void testEmailWithoutdot() {
 		UserService userService = new UserService();
 		assertFalse(UserValidator.validateEmail("ajmal@gmailcom"));
-	}	
+	}
 }

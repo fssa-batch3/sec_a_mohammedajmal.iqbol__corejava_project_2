@@ -10,15 +10,13 @@ import com.google.protobuf.ServiceException;
 
 public class TestValidateCourseTiming {
 
-	@Test 
-	void testValidTiming() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+	@Test
+	void testValidTiming() {
 		assertTrue(CourseValidator.validateTiming("40hrs"));
 	}
-	
-	@Test 
-	void testInvalidTiming() throws com.fssa.freshstocks.services.exception.ServiceException, ServiceException {
-		
+
+	@Test
+	void testInvalidTiming() {
 		assertFalse(CourseValidator.validateTiming("12.50hrs"));
 	}
 }
