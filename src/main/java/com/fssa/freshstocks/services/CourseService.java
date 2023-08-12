@@ -25,7 +25,7 @@ public class CourseService {
 			} else {
 				return false;
 			}
-		} catch (DAOException | SQLException | InvalidCourseException e) {
+		} catch (DAOException | InvalidCourseException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -73,7 +73,7 @@ public class CourseService {
 				System.out.println("Course Name Doesn't Exist!");
 				return false;
 			}
-		} catch (SQLException | DAOException e) {
+		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 	}

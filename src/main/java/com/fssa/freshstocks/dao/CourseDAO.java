@@ -10,29 +10,10 @@ import java.sql.SQLException;
 
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
+import com.fssa.freshstocks.utils.ConnectionUtil;
 
 public class CourseDAO {
 
-	// connect to database
-	public Connection getConnection() throws SQLException {
-//			String DB_URL;
-//			String DB_USER;
-//			String DB_PASSWORD;
-//
-//			if (System.getenv("CI") != null) {
-//				DB_URL = System.getenv("DB_URL");
-//				DB_USER = System.getenv("DB_USER");
-//				DB_PASSWORD = System.getenv("DB_PASSWORD");
-//			} else {
-//				Dotenv env = Dotenv.load();
-//				DB_URL = env.get("DB_URL");
-//				DB_USER = env.get("DB_USER");
-//				DB_PASSWORD = env.get("DB_PASSWORD");
-//			}
-//
-//	     return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "root");
-	}
 
 	// add new course to DB - Register
 	public boolean createCourse(Course course) throws DAOException {
@@ -43,7 +24,7 @@ public class CourseDAO {
 
 		try {
 			// Get Connection
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
 			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,instructor_name,company_name,company_category,top_skills) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -72,7 +53,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 
@@ -81,51 +62,30 @@ public class CourseDAO {
 	}
 
 	// Name Should Not Exist
-	public boolean sameNameExist(String name) throws SQLException, DAOException {
+	public boolean sameNameExist(String name) throws DAOException {
+	    boolean match = false;
+	    int count = 0;
 
-		boolean match = false;
-		int count = 0;
-		Connection connection = null;
-		ResultSet resultSet = null;
-		PreparedStatement pst = null;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE name = ?")) {
+	        pst.setString(1, name);
+	        try (ResultSet resultSet = pst.executeQuery()) {
+	            while (resultSet.next()) {
+	                String name1 = resultSet.getString("name");
+	                System.out.println("Name: " + name1);
+	                if (name.toLowerCase().trim().equals(name1)) {
+	                    count++;
+	                }
+	            }
+	        }
+	        if (count > 0) {
+	            match = true;
+	        }
+	    } catch (SQLException e) {
+	        throw new DAOException("Error: " + e);
+	    }
 
-		try {
-			connection = getConnection();
-
-			String nameExistQuery = "SELECT * FROM course WHERE name = ?";
-			pst = connection.prepareStatement(nameExistQuery);
-			pst.setString(1, name);
-			resultSet = pst.executeQuery();
-
-			while (resultSet.next()) {
-				String name1 = resultSet.getString("name");
-
-				System.out.println("Name: " + name1);
-
-				if (name.toLowerCase().trim().equals(name1)) {
-					count++;
-				}
-			}
-
-			if (count > 0) {
-				match = true;
-			}
-
-		} catch (SQLException e) {
-			throw new DAOException("Error: " + e);
-		} finally {
-
-			if (resultSet != null) {
-				resultSet.close();
-			}
-			if (pst != null) {
-				pst.close();
-			}
-			if (connection != null) {
-				connection.close();
-			}
-		}
-		return match;
+	    return match;
 	}
 
 	// get courses by course name
@@ -136,7 +96,7 @@ public class CourseDAO {
 		StringBuilder resultBuilder = new StringBuilder();
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 			String selectQuery = "SELECT * FROM course WHERE name = ?";
 			pst = connection.prepareStatement(selectQuery);
 			pst.setString(1, course.getName());
@@ -184,7 +144,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		return resultBuilder.toString();
@@ -198,10 +158,9 @@ public class CourseDAO {
 		int rows = 0;
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE name = '"
-					+ name.toLowerCase().trim() + "';";
+			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE name = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());
@@ -212,6 +171,7 @@ public class CourseDAO {
 			pst.setString(7, course.getCompanyName());
 			pst.setString(8, course.getCompanyCategory());
 			pst.setString(9, course.getTopSkills());
+			pst.setString(10, name.toLowerCase().trim());
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -226,7 +186,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -241,13 +201,14 @@ public class CourseDAO {
 		int rows = 0;
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			String isDelete = Integer.toString(isDeleted);
 
-			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE name = '" + name.toLowerCase().trim() + "';";
+			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE name = ?;";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
+			pst.setString(2, name.toLowerCase().trim());
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -264,7 +225,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not

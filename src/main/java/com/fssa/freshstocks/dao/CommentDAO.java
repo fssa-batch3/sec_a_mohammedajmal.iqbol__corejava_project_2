@@ -7,35 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
-import com.fssa.freshstocks.model.Course;
-
-//import io.github.cdimascio.dotenv.Dotenv;
+import com.fssa.freshstocks.utils.*;
 
 public class CommentDAO {
-
-	// connect to database
-	public static Connection getConnection() throws SQLException {
-//			String DB_URL;
-//			String DB_USER;
-//			String DB_PASSWORD;
-//
-//			if (System.getenv("CI") != null) {
-//				DB_URL = System.getenv("DB_URL");
-//				DB_USER = System.getenv("DB_USER");
-//				DB_PASSWORD = System.getenv("DB_PASSWORD");
-//			} else {
-//				Dotenv env = Dotenv.load();
-//				DB_URL = env.get("DB_URL");
-//				DB_USER = env.get("DB_USER");
-//				DB_PASSWORD = env.get("DB_PASSWORD");
-//			}
-//
-//	     return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "root");
-	}
 
 	public static boolean createComment(Comment comment) throws DAOException {
 
@@ -45,7 +21,7 @@ public class CommentDAO {
 
 		try {
 			// Get Connection
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
 			String insertQuery = "INSERT INTO Comment (courseID, userID, comment) VALUES (?,?,?);";
@@ -67,7 +43,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 
@@ -79,8 +55,8 @@ public class CommentDAO {
 	public static List<Comment> getAllComments(int courseID) throws DAOException {
 		List<Comment> comments = new ArrayList<>();
 
-		try (Connection connection = getConnection();
-				PreparedStatement pst = connection.prepareStatement("SELECT * FROM comment WHERE courseID =?");) {
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement pst = connection.prepareStatement("SELECT * FROM Comment WHERE courseID =?");) {
 
 			pst.setInt(1, courseID);
 			ResultSet resultSet = pst.executeQuery();
@@ -108,11 +84,12 @@ public class CommentDAO {
 		int rows = 0;
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE comment SET comment=? WHERE commentID = " + commentId + ";";
+			String updateQuery = "UPDATE Comment SET comment=? WHERE commentID = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, comment.getComment());
+		    pst.setInt(2, commentId);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -128,7 +105,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -143,13 +120,14 @@ public class CommentDAO {
 		int rows = 0;
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			String isDelete = Integer.toString(isDeleted);
 
-			String deleteQuery = "UPDATE comment SET is_deleted = ? WHERE commentID = " + commentId + ";";
+			String deleteQuery = "UPDATE Comment SET is_deleted = ? WHERE commentID = ?;";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
+			pst.setInt(2, commentId);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -166,7 +144,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not

@@ -68,3 +68,31 @@ instructor_name="Ajmal", company_name="freshstocks", company_category="Finance a
       
 UPDATE course SET is_deleted = 1 WHERE name = "forex course";
       
+   <-- CREATE COMMENTS -->
+   
+   
+   CREATE TABLE Comment (
+    commentID INT PRIMARY KEY AUTO_INCREMENT,
+    courseID INT NOT NULL,
+    userID INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    is_deleted INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (courseID) REFERENCES course(courseID),
+    FOREIGN KEY (userID) REFERENCES freshstocks(userID)
+);
+
+
+      <-- READ ALL COMMENTS BY SEPERATE COURSE ID -->
+      
+      SELECT * FROM Comment;
+
+
+      <-- UPDATE COMMENTS BY COMMENT ID -->
+       
+       UPDATE Comment SET comment=? WHERE commentID = ?;
+       
+       <-- DELETE COMMENTS BY COMMENT ID -->
+       
+       UPDATE Comment SET is_deleted = ? WHERE commentID = ?;

@@ -45,14 +45,11 @@ public class CommentValidator {
 	}
 
 	public static boolean validateComment(String commentbody) throws InvalidCommentException {
-		boolean match = false;
-		String regex = "^.*\\S.*$";
-		match = Pattern.matches(regex, commentbody);
-		if (match) {
-			System.out.println("The course comment is valid.");
-		} else {
-			throw new InvalidCommentException("course comment is not valid");
-		}
-		return match;
+		if (commentbody != null && !commentbody.trim().isEmpty()) {
+	        System.out.println("The course comment is valid.");
+	        return true;
+	    } else {
+	        throw new InvalidCommentException("Course comment is not valid");
+	    }
 	}
 }

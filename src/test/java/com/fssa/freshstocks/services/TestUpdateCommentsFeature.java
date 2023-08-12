@@ -18,7 +18,9 @@ public class TestUpdateCommentsFeature {
 		Comment comment = new Comment("this is test update comments");
 		CommentService commentService = new CommentService();
 		try {
-			commentService.updateComment(comment, commentId);
+			if(!commentService.updateComment(comment, commentId)) {
+				System.out.println("CommentID Doesn't Exist");
+			}
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
@@ -47,7 +49,7 @@ public class TestUpdateCommentsFeature {
 		try {
 			assertFalse(commentService.updateComment(comment, commentId));
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
 

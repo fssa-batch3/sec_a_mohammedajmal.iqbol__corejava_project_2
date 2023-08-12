@@ -100,20 +100,13 @@ public class UserValidator {
 	}
 
 	public static boolean validateEmail(String email) {
-		boolean isMatch = false;
-		try {
-			String regex = "^.*@.*\\..*$";
-			isMatch = Pattern.matches(regex, email);
-			if (isMatch) {
-				System.out.println("The email address is: Valid");
-			} else {
-				System.out.println("The email address is: Invalid");
-			}
-			return isMatch;
-		} catch (PatternSyntaxException e) {
-			System.out.println(e.getMessage());
-		}
-		return isMatch;
-
+		if (email != null && email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+	        System.out.println("The email address is: Valid");
+	        return true;
+	    } else {
+	        System.out.println("The email address is: Invalid");
+	        return false;
+	    }
 	}
+	
 }

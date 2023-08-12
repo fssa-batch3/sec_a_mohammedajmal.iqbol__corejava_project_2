@@ -9,51 +9,23 @@ import java.sql.SQLException;
 
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
+import com.fssa.freshstocks.utils.ConnectionUtil;
 
 //import io.github.cdimascio.dotenv.Dotenv;
 
 public class UserDAO {
 
-	// connect to database
-	// connection to database from environment variable in run configurations secure
-	// method
-	public Connection getConnection() throws SQLException {
-		String DB_URL;
-		String DB_USER;
-		String DB_PASSWORD;
-
-//		if (System.getenv("CI") != null) {
-//			DB_URL = System.getenv("DB_URL");
-//			DB_USER = System.getenv("DB_USER");
-//			DB_PASSWORD = System.getenv("DB_PASSWORD");
-//		} else {
-//			Dotenv env = Dotenv.load();
-//			DB_URL = env.get("DB_URL");
-//			DB_USER = env.get("DB_USER");
-//			DB_PASSWORD = env.get("DB_PASSWORD");
-//		}
-
-//        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/project", "root", "root");
-	}
 
 	boolean match = false;
 
 //	Get user from DB - Login
 	public boolean login(User user) throws DAOException {
 
-		Connection connection = null;
-		ResultSet resultSet = null;
-		PreparedStatement pst = null;
-
-		try {
-
-			connection = getConnection();
-
-			String selectQuery = "SELECT * FROM freshstocks WHERE email = ?";
-			pst = connection.prepareStatement(selectQuery);
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement pst = connection.prepareStatement("SELECT * FROM freshstocks WHERE email = ?")) 
+		{ 
 			pst.setString(1, user.getEmail());
-			resultSet = pst.executeQuery();
+			try(ResultSet resultSet = pst.executeQuery()) {
 
 			while (resultSet.next()) {
 				String emailId = resultSet.getString("email");
@@ -65,117 +37,61 @@ public class UserDAO {
 					match = true;
 				}
 			}
-		} catch (SQLException e) {
-			throw new DAOException("Error while loggingIn user: " + e);
-		} finally {
-
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
 			}
-
-		}
+		} catch (SQLException e) {
+	        throw new DAOException("Error checking email exist: " + e);
+	    }
 		return match;
 	}
 
 	// Email Not Exist
 	public boolean emailExist(User user) throws DAOException {
+	    boolean match = false;
 
-		Connection connection = null;
-		ResultSet resultSet = null;
-		PreparedStatement pst = null;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM freshstocks WHERE email = ?")) {
+	        pst.setString(1, user.getEmail());
+	        try (ResultSet resultSet = pst.executeQuery()) {
+	            while (resultSet.next()) {
+	                String emailId = resultSet.getString("email");
+	                String password = resultSet.getString("password");
+	                System.out.println("Email: " + emailId + " Password: " + password);
+	                if (user.getEmail().equals(emailId)) {
+	                    match = true;
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new DAOException("Error checking email exist: " + e);
+	    }
 
-		try {
-			connection = getConnection();
-
-			String emailExistQuery = "SELECT * FROM freshstocks WHERE email = ?";
-			pst = connection.prepareStatement(emailExistQuery);
-			pst.setString(1, user.getEmail());
-			resultSet = pst.executeQuery();
-
-			while (resultSet.next()) {
-				String emailId = resultSet.getString("email");
-				String password = resultSet.getString("password");
-
-				System.out.println("Email: " + emailId + " Password: " + password);
-
-				if (user.getEmail().equals(emailId)) {
-					match = true;
-				}
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Error checking email exist: " + e);
-		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
-			}
-		}
-		return match;
+	    return match;
 	}
 
 	// email already exist using email params
 	public boolean emailAlreadyExist(String email) throws DAOException {
+	    boolean match = false;
 
-		Connection connection = null;
-		ResultSet resultSet = null;
-		PreparedStatement pst = null;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM freshstocks WHERE email = ?")) {
+	        pst.setString(1, email);
+	        try (ResultSet resultSet = pst.executeQuery()) {
+	            while (resultSet.next()) {
+	                String emailId = resultSet.getString("email");
+	                String password = resultSet.getString("password");
+	                System.out.println("Email: " + emailId + " Password: " + password);
+	                if (email.equals(emailId)) {
+	                    match = true;
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while checking email exist: " + e);
+	    }
 
-		try {
-			connection = getConnection();
-
-			String emailExistQuery = "SELECT * FROM freshstocks WHERE email = ?";
-			pst = connection.prepareStatement(emailExistQuery);
-			pst.setString(1, email);
-			resultSet = pst.executeQuery();
-
-			while (resultSet.next()) {
-				String emailId = resultSet.getString("email");
-				String password = resultSet.getString("password");
-
-				System.out.println("Email: " + emailId + " Password: " + password);
-
-				if (email.equals(emailId)) {
-					match = true;
-				}
-			}
-		} catch (SQLException e) {
-			throw new DAOException("Error while email exist: " + e);
-		} finally {
-			try {
-				if (resultSet != null) {
-					resultSet.close();
-				}
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
-			}
-		}
-		return match;
+	    return match;
 	}
+
 
 	// add new user to DB - Register
 	public boolean register(User user) throws DAOException {
@@ -186,7 +102,7 @@ public class UserDAO {
 
 		try {
 			// Get Connection
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
 			String insertQuery = "INSERT INTO freshstocks (userID,username,gender,mobile_number,date_of_birth,email,password) VALUES (?,?,?,?,?,?,?);";
@@ -212,7 +128,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -227,14 +143,14 @@ public class UserDAO {
 		int rows = 0;
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = '"
-					+ userEmail + "';";
+			String updateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, user.getGender());
 			pst.setString(2, user.getmobileNumber());
 			pst.setString(3, user.getdateOfBirth());
+			pst.setString(4, user.getEmail());
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -249,7 +165,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -264,13 +180,14 @@ public class UserDAO {
 		int rows = 0;
 
 		try {
-			connection = getConnection();
+			connection = ConnectionUtil.getConnection();
 
 			String isDelete = Integer.toString(isDeleted);
 
-			String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = '" + userEmail + "';";
+			String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = ?;";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
+			pst.setString(3, userEmail);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -286,7 +203,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Error while closing resources." + e);
+				System.err.println("Error while closing resources: " + e.getMessage());
 			}
 		}
 		// Return Successful or not
