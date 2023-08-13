@@ -20,11 +20,14 @@ public class TestGetAllCommentsFeature {
 	public static void main(String[] args) {
 
 		CommentDAO commentDAO = new CommentDAO();
-		int courseID = 21;
+		int courseID = 1;
 
 		List<Comment> cleanedEntries = null;
 		try {
 			cleanedEntries = commentDAO.getAllComments(courseID);
+			if(cleanedEntries.isEmpty()) {
+				System.out.println("Comments Doesn't Exist!");
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
@@ -37,10 +40,13 @@ public class TestGetAllCommentsFeature {
 	@Test
 	void testGetAllCommentSuccess() {
 		CommentDAO commentDAO = new CommentDAO();
-		int courseID = 21;
+		int courseID = 1;
 		List<Comment> cleanedEntries = null;
 		try {
 			cleanedEntries = commentDAO.getAllComments(courseID);
+			if(cleanedEntries.isEmpty()) {
+				System.out.println("Comments Doesn't Exist!");
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
@@ -54,6 +60,9 @@ public class TestGetAllCommentsFeature {
 		List<Comment> cleanedEntries = null;
 		try {
 			cleanedEntries = commentDAO.getAllComments(courseID);
+			if(cleanedEntries.isEmpty()) {
+				System.out.println("Comments Doesn't Exist!");
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}

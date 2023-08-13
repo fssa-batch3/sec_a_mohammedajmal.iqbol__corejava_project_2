@@ -13,7 +13,7 @@ import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class CourseService {
 
-	public static boolean registerCourse(Course course) throws ServiceException {
+	public boolean registerCourse(Course course) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 			if (CourseValidator.validateCourse(course) && !courseDAO.sameNameExist(course.getName())) {
@@ -31,7 +31,7 @@ public class CourseService {
 	}
 
 	// get course details from course name
-	public static String listCourse(Course course) throws ServiceException {
+	public String listCourse(Course course) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		Course course1 = new Course(course.getName());
 		try {
@@ -42,7 +42,7 @@ public class CourseService {
 	}
 
 	// updated course
-	public static boolean updateCourse(Course course, String name) throws ServiceException {
+	public boolean updateCourse(Course course, String name) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 			if (CourseValidator.validateUpdatedCourse(course)) {
@@ -60,7 +60,7 @@ public class CourseService {
 	}
 
 	// delete course
-	public static boolean deleteCourse(String name, int isDeleted) throws ServiceException {
+	public boolean deleteCourse(String name, int isDeleted) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 			if (courseDAO.sameNameExist(name)) {

@@ -13,7 +13,7 @@ import com.fssa.freshstocks.utils.*;
 
 public class CommentDAO {
 
-	public static boolean createComment(Comment comment) throws DAOException {
+	public boolean createComment(Comment comment) throws DAOException {
 
 		Connection connection = null;
 		PreparedStatement pst = null;
@@ -52,7 +52,7 @@ public class CommentDAO {
 	}
 
 	// get courses by course name
-	public static List<Comment> getAllComments(int courseID) throws DAOException {
+	public List<Comment> getAllComments(int courseID) throws DAOException {
 		List<Comment> comments = new ArrayList<>();
 
 		try (Connection connection = ConnectionUtil.getConnection();

@@ -32,7 +32,7 @@ public class TestCreateCommentFeature {
 		CommentService commentService = new CommentService();
 		Comment comment1 = new Comment(1, 1, "This course is really informative and well-structured.");
 		try {
-			assertTrue(CommentService.registerComment(comment1));
+			assertTrue(commentService.registerComment(comment1));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();

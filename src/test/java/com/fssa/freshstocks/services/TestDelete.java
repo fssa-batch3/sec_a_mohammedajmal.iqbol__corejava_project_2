@@ -36,7 +36,7 @@ public class TestDelete {
 		int isDeleted = 1;
 		UserService userService = new UserService();
 		try {
-			assertTrue(UserService.deleteUser(userEmail, isDeleted));
+			assertTrue(userService.deleteUser(userEmail, isDeleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
@@ -49,7 +49,7 @@ public class TestDelete {
 		int is_deleted = 1;
 		UserService userService = new UserService();
 		try {
-			assertFalse(UserService.deleteUser(userEmail, is_deleted));
+			assertFalse(userService.deleteUser(userEmail, is_deleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

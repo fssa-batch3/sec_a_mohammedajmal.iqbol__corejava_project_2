@@ -36,7 +36,7 @@ public class TestRegister {
 		User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com",
 				"Lakshmi@123");
 		try {
-			assertTrue(UserService.registerUser(user1));
+			assertTrue(userService.registerUser(user1));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
@@ -49,7 +49,7 @@ public class TestRegister {
 		UserService userService = new UserService();
 		User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com", "Lakshmi123");
 		try {
-			assertFalse(UserService.registerUser(user1));
+			assertFalse(userService.registerUser(user1));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

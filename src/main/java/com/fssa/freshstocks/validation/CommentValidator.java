@@ -13,7 +13,7 @@ public class CommentValidator {
 		String userId = Integer.toString(comment.getUserId());
 		String courseId = Integer.toString(comment.getCourseId());
 		if (comment != null && validateUserId(userId) && validateCourseId(courseId)
-				&& validateComment(comment.getComment())) {
+				&& validateComment(comment.getComment()) && !comment.getComment().trim().isEmpty()) {
 			return true;
 		} else {
 			throw new InvalidCommentException("Comment details not valid");
