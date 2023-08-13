@@ -105,7 +105,7 @@ public class UserDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO freshstocks (userID,username,gender,mobile_number,date_of_birth,email,password) VALUES (?,?,?,?,?,?,?);";
+			String insertQuery = "INSERT INTO freshstocks (userID,username,gender,mobile_number,date_of_birth,email,password,is_seller) VALUES (?,?,?,?,?,?,?,?);";
 			pst = connection.prepareStatement(insertQuery);
 			pst.setInt(1, user.getUserID());
 			pst.setString(2, user.getUsername());
@@ -114,6 +114,7 @@ public class UserDAO {
 			pst.setString(5, user.getdateOfBirth());
 			pst.setString(6, user.getEmail());
 			pst.setString(7, user.getPassword());
+			pst.setInt(8, user.getIsSeller());
 			// Execute query
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {

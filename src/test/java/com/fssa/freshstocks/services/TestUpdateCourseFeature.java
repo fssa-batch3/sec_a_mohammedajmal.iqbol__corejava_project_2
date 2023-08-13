@@ -20,7 +20,7 @@ public class TestUpdateCourseFeature {
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
 				"20hrs", "Tamil", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
-				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
+				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis",4);
 		int courseID = 1;
 		CourseService courseService = new CourseService();
 
@@ -41,7 +41,7 @@ public class TestUpdateCourseFeature {
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
 				"20hrs", "Tamil", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
-				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
+				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis",4);
 		int courseID = 1;
 		try {
 			assertTrue(courseService.updateCourse(course1, courseID));
@@ -59,7 +59,7 @@ public class TestUpdateCourseFeature {
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
 				"20hrs", "Tamil", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
-				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
+				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis",1);
 		int courseID = -1;
 		try {
 			assertFalse(courseService.updateCourse(course1, courseID));

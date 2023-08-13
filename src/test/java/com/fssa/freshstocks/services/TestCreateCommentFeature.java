@@ -13,7 +13,7 @@ public class TestCreateCommentFeature {
 
 	public static void main(String[] args) {
 
-		Comment comment1 = new Comment(1, 1, "This course is really good and well-structured.");
+		Comment comment1 = new Comment(4, 4, "This course is really good and well-structured.");
 		CommentService commentService = new CommentService();
 
 		try {
@@ -24,13 +24,12 @@ public class TestCreateCommentFeature {
 			e.printStackTrace();
 			fail();
 		}
-
 	}
 
 	@Test
 	void testCreateCommentSuccess() {
 		CommentService commentService = new CommentService();
-		Comment comment1 = new Comment(1, 1, "This course is really informative and well-structured.");
+		Comment comment1 = new Comment(4, 4, "This course is really informative and well-structured.");
 		try {
 			assertTrue(commentService.registerComment(comment1));
 		} catch (ServiceException e) {

@@ -14,10 +14,11 @@ public class Course {
 	private String companyName;
 	private String companyCategory;
 	private String topSkills;
+	private int sellerID;
 
 	public Course(String name, String coverImage, String timing, String language, String markedPrice,
 			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
-			String topSkills) {
+			String topSkills,int sellerID) {
 		super();
 		this.name = name;
 		this.coverImage = coverImage;
@@ -30,10 +31,12 @@ public class Course {
 		this.companyName = companyName;
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
+		this.sellerID = sellerID;
 	}
 
 	public Course(String coverImage, String timing, String language, String markedPrice, String sellingPrice,
-			String description, String instructorName, String companyName, String companyCategory, String topSkills) {
+			String description, String instructorName, String companyName, String companyCategory, String topSkills
+			,int sellerID) {
 		super();
 		this.coverImage = coverImage;
 		this.timing = timing;
@@ -45,12 +48,21 @@ public class Course {
 		this.companyName = companyName;
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
+		this.sellerID = sellerID;
+	}
+	
+	public int getSellerID() {
+		return sellerID;
+	}
+
+	public void setSellerID(int sellerID) {
+		this.sellerID = sellerID;
 	}
 
 	public Course(String name) {
 		this.name = name;
 	}
-	
+
 	public Course(int courseID) {
 		this.courseID = courseID;
 	}

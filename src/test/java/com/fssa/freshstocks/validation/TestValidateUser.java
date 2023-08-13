@@ -14,7 +14,7 @@ public class TestValidateUser {
     @Test
     void testValidUser() throws InvalidUserException {
     	User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com",
-				"Lakshmi@123");
+				"Lakshmi@123",1);
         assertTrue(UserValidator.validateUser(user1));
     }
 
@@ -27,14 +27,14 @@ public class TestValidateUser {
     @Test
     void testInvalidUserWithInvalidEmail() {
     	User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12gmail.com",
-				"Lakshmi@123"); // Invalid email
+				"Lakshmi@123",1); // Invalid email
         assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(user1));
     }
 
     @Test
     void testInvalidUserWithInvalidPassword() {
     	User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com",
-				"Lakshmi123"); // Invalid password
+				"Lakshmi123",1); // Invalid password
         assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(user1));
     }
     

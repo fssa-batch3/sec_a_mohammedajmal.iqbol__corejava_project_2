@@ -9,10 +9,11 @@ public class User {
 	private String dateOfBirth;
 	String email;
 	String password;
+	int isSeller;
 
 	// register
 	public User(String username, String gender, String mobileNumber, String dateOfBirth, String email,
-			String password) {
+			String password,int isSeller) {
 		super();
 		this.username = username;
 		this.gender = gender;
@@ -20,6 +21,7 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
 		this.password = password;
+		this.isSeller = isSeller;
 	}
 
 	// update
@@ -50,6 +52,14 @@ public class User {
 
 	public int getUserID() {
 		return userId;
+	}
+	
+	public int getIsSeller() {
+		return isSeller;
+	}
+
+	public void setIsSeller(int isSeller) {
+		this.isSeller = isSeller;
 	}
 
 	public void setUserID(int userId) {

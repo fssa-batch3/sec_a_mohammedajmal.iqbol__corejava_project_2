@@ -27,7 +27,7 @@ public class CourseDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,instructor_name,company_name,company_category,top_skills) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,description,instructor_name,company_name,company_category,top_skills,sellerID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			pst = connection.prepareStatement(insertQuery);
 			pst.setInt(1, course.getCourseID());
 			pst.setString(2, course.getName().toLowerCase().trim());
@@ -36,10 +36,12 @@ public class CourseDAO {
 			pst.setString(5, course.getLanguage());
 			pst.setString(6, course.getMarkedPrice());
 			pst.setString(7, course.getSellingPrice());
-			pst.setString(8, course.getInstructorName());
-			pst.setString(9, course.getCompanyName());
-			pst.setString(10, course.getCompanyCategory());
-			pst.setString(11, course.getTopSkills());
+			pst.setString(8, course.getDescription());
+			pst.setString(9, course.getInstructorName());
+			pst.setString(10, course.getCompanyName());
+			pst.setString(11, course.getCompanyCategory());
+			pst.setString(12, course.getTopSkills());
+			pst.setInt(13, course.getSellerID());
 			// Execute query
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -139,18 +141,20 @@ public class CourseDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE courseID = ?;";
+			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? sellerID=? WHERE courseID = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());
 			pst.setString(3, course.getLanguage());
 			pst.setString(4, course.getMarkedPrice());
 			pst.setString(5, course.getSellingPrice());
-			pst.setString(6, course.getInstructorName());
-			pst.setString(7, course.getCompanyName());
-			pst.setString(8, course.getCompanyCategory());
-			pst.setString(9, course.getTopSkills());
-			pst.setInt(10, courseID);
+			pst.setString(6, course.getDescription());
+			pst.setString(7, course.getInstructorName());
+			pst.setString(8, course.getCompanyName());
+			pst.setString(9, course.getCompanyCategory());
+			pst.setString(10, course.getTopSkills());
+			pst.setInt(11, course.getSellerID());
+			pst.setInt(12, courseID);
 
 			// Execute query
 			rows = pst.executeUpdate();
