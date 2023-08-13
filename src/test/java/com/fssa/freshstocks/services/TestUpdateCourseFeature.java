@@ -21,11 +21,11 @@ public class TestUpdateCourseFeature {
 				"20hrs", "Tamil", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
 				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
-		String name = "CandleSticks Course";
+		int courseID = 1;
 		CourseService courseService = new CourseService();
 
 		try {
-			if (!courseService.updateCourse(course1, name)) {
+			if (!courseService.updateCourse(course1, courseID)) {
 				System.out.println("Update Course not successful! Error : Validation Failed Or Course Doesn't Exist");
 			}
 		} catch (ServiceException e) {
@@ -42,9 +42,9 @@ public class TestUpdateCourseFeature {
 				"20hrs", "Tamil", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
 				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
-		String name = "SMC High Course";
+		int courseID = 1;
 		try {
-			assertTrue(courseService.updateCourse(course1, name));
+			assertTrue(courseService.updateCourse(course1, courseID));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
@@ -60,9 +60,9 @@ public class TestUpdateCourseFeature {
 				"20hrs", "Tamil", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
 				"freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
-		String name = "CandleSticks Cours";
+		int courseID = -1;
 		try {
-			assertFalse(courseService.updateCourse(course1, name));
+			assertFalse(courseService.updateCourse(course1, courseID));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

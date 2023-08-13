@@ -62,18 +62,18 @@ public class CourseDAO {
 	}
 
 	// Name Should Not Exist
-	public boolean sameNameExist(String name) throws DAOException {
+	public boolean sameNameExist(Course course) throws DAOException {
 	    boolean match = false;
 	    int count = 0;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE name = ?")) {
-	        pst.setString(1, name);
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE courseID = ?")) {
+	        pst.setInt(1, course.getCourseID());
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
 	                String name1 = resultSet.getString("name");
 	                System.out.println("Name: " + name1);
-	                if (name.toLowerCase().trim().equals(name1)) {
+	                if (course.getName().toLowerCase().trim().equals(name1)) {
 	                    count++;
 	                }
 	            }
@@ -92,11 +92,11 @@ public class CourseDAO {
 	public String readCourse(Course course) throws DAOException {
 	    StringBuilder resultBuilder = new StringBuilder();
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE name = ?")) {
-	        pst.setString(1, course.getName());
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE courseID = ?")) {
+	        pst.setInt(1, course.getCourseID());
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            if (!resultSet.isBeforeFirst()) {
-	                return "No courses found for the given name: " + course.getName();
+	                return "No courses found";
 	            }
 	            while (resultSet.next()) {
 				String name = resultSet.getString("name");
@@ -130,7 +130,7 @@ public class CourseDAO {
 	    }
 
 	// update course
-	public boolean updateCourse(Course course, String name) throws DAOException {
+	public boolean updateCourse(Course course, int courseID) throws DAOException {
 
 		Connection connection = null;
 		PreparedStatement pst = null;
@@ -139,7 +139,7 @@ public class CourseDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE name = ?;";
+			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE courseID = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());
@@ -150,7 +150,7 @@ public class CourseDAO {
 			pst.setString(7, course.getCompanyName());
 			pst.setString(8, course.getCompanyCategory());
 			pst.setString(9, course.getTopSkills());
-			pst.setString(10, name.toLowerCase().trim());
+			pst.setInt(10, courseID);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -173,7 +173,7 @@ public class CourseDAO {
 	}
 
 	// delete course
-	public boolean deleteCourse(String name, int isDeleted) throws DAOException {
+	public boolean deleteCourse(int courseID, int isDeleted) throws DAOException {
 
 		Connection connection = null;
 		PreparedStatement pst = null;
@@ -184,10 +184,10 @@ public class CourseDAO {
 
 			String isDelete = Integer.toString(isDeleted);
 
-			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE name = ?;";
+			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE courseID = ?;";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
-			pst.setString(2, name.toLowerCase().trim());
+			pst.setInt(2, courseID);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -196,7 +196,7 @@ public class CourseDAO {
 			throw new DAOException("Error while deleting course: " + e);
 		} finally {
 
-			try {
+		try {
 				if (pst != null) {
 					pst.close();
 				}

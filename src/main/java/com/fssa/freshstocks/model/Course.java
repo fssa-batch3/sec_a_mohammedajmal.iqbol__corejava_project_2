@@ -50,6 +50,15 @@ public class Course {
 	public Course(String name) {
 		this.name = name;
 	}
+	
+	public Course(int courseID) {
+		this.courseID = courseID;
+	}
+	
+	public Course(int courseID , String name) {
+		this.courseID = courseID;
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;

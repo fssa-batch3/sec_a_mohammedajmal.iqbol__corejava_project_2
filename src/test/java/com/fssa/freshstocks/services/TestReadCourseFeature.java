@@ -20,7 +20,7 @@ public class TestReadCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course("stock courses");
+		Course course1 = new Course(1,"stock courses");
 		CourseDAO c = new CourseDAO();
 		CourseService courseService = new CourseService();
 
@@ -35,7 +35,7 @@ public class TestReadCourseFeature {
 	@Test
 	void testListCourseEquals() {
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("forex course");
+		Course course1 = new Course(1,"stock courses");
 		String s = null;
 		try {
 			s = courseService.listCourse(course1);
@@ -44,14 +44,14 @@ public class TestReadCourseFeature {
 			fail();
 		}
 		String[] split = s.split(",");
-		assertEquals("name: forex course", split[0].toLowerCase().trim());
+		assertEquals("name: stock courses", split[0].toLowerCase().trim());
 	}
 
 	@Test
 	void testListCourseValid() {
 
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("forex course");
+		Course course1 = new Course(1,"stock courses");
 		String s = null;
 		try {
 			s = courseService.listCourse(course1);
@@ -60,14 +60,14 @@ public class TestReadCourseFeature {
 			fail();
 		}
 		String[] split = s.split(",");
-		assertTrue(split[0].toLowerCase().trim().contains("name: forex course"));
+		assertTrue(split[0].toLowerCase().trim().equals("name: stock courses"));
 	}
 
 	@Test
 	void testListCourseInvalid() {
 
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("forex course");
+		Course course1 = new Course(1,"stock courses");
 		String s = null;
 		try {
 			s = courseService.listCourse(course1);
@@ -75,7 +75,7 @@ public class TestReadCourseFeature {
 			e.printStackTrace();
 		}
 		String[] split = s.split(",");
-		assertFalse(split[0].toLowerCase().trim().contains("name: stock course"));
+		assertFalse(split[0].toLowerCase().trim().equals("name: stock course"));
 	}
 
 	@Test

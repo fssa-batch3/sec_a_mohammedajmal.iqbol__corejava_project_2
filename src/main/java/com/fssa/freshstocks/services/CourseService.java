@@ -16,7 +16,7 @@ public class CourseService {
 	public boolean registerCourse(Course course) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-			if (CourseValidator.validateCourse(course) && !courseDAO.sameNameExist(course.getName())) {
+			if (CourseValidator.validateCourse(course) && !courseDAO.sameNameExist(course)) {
 				boolean success = courseDAO.createCourse(course);
 				if (success) {
 					System.out.println(course.getName() + " Successfully Registered!");
@@ -33,22 +33,21 @@ public class CourseService {
 	// get course details from course name
 	public String listCourse(Course course) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
-		Course course1 = new Course(course.getName());
 		try {
-			return courseDAO.readCourse(course1);
+			return courseDAO.readCourse(course);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 	}
 
 	// updated course
-	public boolean updateCourse(Course course, String name) throws ServiceException {
+	public boolean updateCourse(Course course, int courseID) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 			if (CourseValidator.validateUpdatedCourse(course)) {
-				boolean success = courseDAO.updateCourse(course, name);
+				boolean success = courseDAO.updateCourse(course, courseID);
 				if (success) {
-					System.out.println("Course " + name + " Successfully Updated!");
+					System.out.println("Course with CourseID: " + courseID + " Successfully Updated!");
 				}
 				return success;
 			} else {
@@ -60,13 +59,13 @@ public class CourseService {
 	}
 
 	// delete course
-	public boolean deleteCourse(String name, int isDeleted) throws ServiceException {
+	public boolean deleteCourse(Course course, int isDeleted) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-			if (courseDAO.sameNameExist(name)) {
-				boolean success = courseDAO.deleteCourse(name, isDeleted);
+			if (courseDAO.sameNameExist(course)) {
+				boolean success = courseDAO.deleteCourse(course.getCourseID(), isDeleted);
 				if (success) {
-					System.out.println("Course " + name + " Successfully Deleted!");
+					System.out.println("Course with courseID: " + course.getCourseID() + " Successfully Deleted!");
 				}
 				return success;
 			} else {
