@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
+
 import java.util.ArrayList;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

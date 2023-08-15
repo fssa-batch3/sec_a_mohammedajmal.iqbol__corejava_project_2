@@ -14,11 +14,12 @@ public class Course {
 	private String companyName;
 	private String companyCategory;
 	private String topSkills;
-	private int sellerID;
+	private int userID;
+	
 
 	public Course(String name, String coverImage, String timing, String language, String markedPrice,
 			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
-			String topSkills,int sellerID) {
+			String topSkills,int userID) {
 		super();
 		this.name = name;
 		this.coverImage = coverImage;
@@ -31,12 +32,12 @@ public class Course {
 		this.companyName = companyName;
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
-		this.sellerID = sellerID;
+		this.userID = userID;
 	}
 
 	public Course(String coverImage, String timing, String language, String markedPrice, String sellingPrice,
 			String description, String instructorName, String companyName, String companyCategory, String topSkills
-			,int sellerID) {
+			,int userID) {
 		super();
 		this.coverImage = coverImage;
 		this.timing = timing;
@@ -48,23 +49,24 @@ public class Course {
 		this.companyName = companyName;
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
-		this.sellerID = sellerID;
+		this.userID = userID;
 	}
 	
-	public int getSellerID() {
-		return sellerID;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setSellerID(int sellerID) {
-		this.sellerID = sellerID;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public Course(String name) {
 		this.name = name;
 	}
-
-	public Course(int courseID) {
-		this.courseID = courseID;
+	
+	public Course(int userID) {
+		super();
+		this.userID = userID;
 	}
 	
 	public Course(int courseID , String name) {
@@ -170,7 +172,7 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage + ", timing=" + timing
+		return "[courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage + ", timing=" + timing
 				+ ", language=" + language + ", markedPrice=" + markedPrice + ", sellingPrice=" + sellingPrice
 				+ ", description=" + description + ", instructorName=" + instructorName + ", companyName=" + companyName
 				+ ", companyCategory=" + companyCategory + ", topSkills=" + topSkills + "]";

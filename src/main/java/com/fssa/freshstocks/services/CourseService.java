@@ -1,7 +1,7 @@
 package com.fssa.freshstocks.services;
 
 import java.sql.SQLException;
-
+import java.util.*;
 import com.fssa.freshstocks.dao.CourseDAO;
 import com.fssa.freshstocks.dao.UserDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
@@ -31,7 +31,7 @@ public class CourseService {
 	}
 
 	// get course details from course name
-	public String listCourse(Course course) throws ServiceException {
+	public List<Course> listCourse(Course course) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
 			return courseDAO.readCourse(course);

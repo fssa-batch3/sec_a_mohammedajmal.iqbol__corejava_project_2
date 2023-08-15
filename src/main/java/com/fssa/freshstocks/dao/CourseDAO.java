@@ -1,7 +1,7 @@
 package com.fssa.freshstocks.dao;
 
 //import io.github.cdimascio.dotenv.Dotenv;
-
+import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,7 +27,7 @@ public class CourseDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,description,instructor_name,company_name,company_category,top_skills,sellerID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,description,instructor_name,company_name,company_category,top_skills,userID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			pst = connection.prepareStatement(insertQuery);
 			pst.setInt(1, course.getCourseID());
 			pst.setString(2, course.getName().toLowerCase().trim());
@@ -41,7 +41,7 @@ public class CourseDAO {
 			pst.setString(10, course.getCompanyName());
 			pst.setString(11, course.getCompanyCategory());
 			pst.setString(12, course.getTopSkills());
-			pst.setInt(13, course.getSellerID());
+			pst.setInt(13, course.getUserID());
 			// Execute query
 			rows = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -91,15 +91,13 @@ public class CourseDAO {
 	}
 
 	// get courses by course name
-	public String readCourse(Course course) throws DAOException {
-	    StringBuilder resultBuilder = new StringBuilder();
+	public List<Course> readCourse(Course course) throws DAOException {
+	    List<Course> list1 = new ArrayList<>();
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE courseID = ?")) {
-	        pst.setInt(1, course.getCourseID());
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE userID = ?")) {
+	        pst.setInt(1, course.getUserID());
 	        try (ResultSet resultSet = pst.executeQuery()) {
-	            if (!resultSet.isBeforeFirst()) {
-	                return "No courses found";
-	            }
+	            
 	            while (resultSet.next()) {
 				String name = resultSet.getString("name");
 				String coverImage = resultSet.getString("cover_image");
@@ -112,23 +110,18 @@ public class CourseDAO {
 				String companyName = resultSet.getString("company_name");
 				String companyCategory = resultSet.getString("company_category");
 				String topSkills = resultSet.getString("top_skills");
+				int userID = resultSet.getInt("userID");
+                
+				Course course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
+						description, instructorName, companyName, companyCategory,topSkills,userID);
+				list1.add(course1);
 
-				if (course.getName().equalsIgnoreCase(name)) {
-					resultBuilder.append("Name: ").append(name).append(", Cover Image: ").append(coverImage)
-							.append(", Timing: ").append(timing).append(", Language: ").append(language)
-							.append(", Marked Price: ").append(markedPrice).append(", Selling Price: ")
-							.append(sellingPrice).append(", Description: ").append(description)
-							.append(", Instructor Name: ").append(instructorName).append(", Company Name: ")
-							.append(companyName).append(", Company Category: ").append(companyCategory)
-							.append(", Top Skills: ").append(topSkills).append("\n");
-				}
-
-			}
-	        }
+			 }
+	       }
 	        } catch (SQLException e) {
 	            throw new DAOException("Error while reading course: " + e);
 	        }
-	        return resultBuilder.toString();
+	        return list1;
 	    }
 
 	// update course
@@ -141,7 +134,7 @@ public class CourseDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? sellerID=? WHERE courseID = ?;";
+			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? userID=? WHERE courseID = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());
@@ -153,7 +146,7 @@ public class CourseDAO {
 			pst.setString(8, course.getCompanyName());
 			pst.setString(9, course.getCompanyCategory());
 			pst.setString(10, course.getTopSkills());
-			pst.setInt(11, course.getSellerID());
+			pst.setInt(11, course.getUserID());
 			pst.setInt(12, courseID);
 
 			// Execute query
