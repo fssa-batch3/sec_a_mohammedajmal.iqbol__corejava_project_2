@@ -5,13 +5,13 @@ public class Comment {
 	private int courseId;
 	private int commentId;
 	private int userId;
-	private String comment;
+	private String commentBody;
 
 	public Comment(int courseId, int userId, String comment) {
 		super();
 		this.courseId = courseId;
 		this.userId = userId;
-		this.comment = comment;
+		this.commentBody = comment;
 	}
 
 	public Comment(int commentId, int courseId, int userId, String comment) {
@@ -19,12 +19,12 @@ public class Comment {
 		this.commentId = commentId;
 		this.courseId = courseId;
 		this.userId = userId;
-		this.comment = comment;
+		this.commentBody = comment;
 	}
 
 	public Comment(String comment) {
 		super();
-		this.comment = comment;
+		this.commentBody = comment;
 	}
 
 	public Comment(int courseId) {
@@ -34,7 +34,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "[courseId=" + courseId + ", commentId=" + commentId + ", userId=" + userId + ", comment=" + comment
+		return "[courseId=" + courseId + ", commentId=" + commentId + ", userId=" + userId + ", comment=" + commentBody
 				+ "]" + "\n";
 	}
 
@@ -55,11 +55,11 @@ public class Comment {
 	}
 
 	public String getComment() {
-		return comment;
+		return commentBody;
 	}
 
 	public void setComment(String comment) {
-		this.comment = comment;
+		this.commentBody = comment;
 	}
 
 }

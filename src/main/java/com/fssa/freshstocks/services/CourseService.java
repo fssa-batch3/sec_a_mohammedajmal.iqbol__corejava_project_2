@@ -1,15 +1,12 @@
 package com.fssa.freshstocks.services;
 
-import java.sql.SQLException;
 import java.util.*;
 import com.fssa.freshstocks.dao.CourseDAO;
-import com.fssa.freshstocks.dao.UserDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
-import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class CourseService {
 

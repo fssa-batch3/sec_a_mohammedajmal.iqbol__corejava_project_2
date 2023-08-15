@@ -1,9 +1,7 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
-
 import java.util.ArrayList;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +11,10 @@ import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.utils.*;
 
 public class CommentDAO {
+	
+	public static final String closeResourseError = "Error while closing resources: ";
 
 	public boolean createComment(Comment comment) throws DAOException {
-
 		Connection connection = null;
 		PreparedStatement pst = null;
 		int rows = 0;
@@ -44,7 +43,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
+				System.err.println(closeResourseError + e.getMessage());
 			}
 		}
 
@@ -106,7 +105,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
+				System.err.println(closeResourseError + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -145,7 +144,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
+				System.err.println(closeResourseError + e.getMessage());
 			}
 		}
 		// Return Successful or not

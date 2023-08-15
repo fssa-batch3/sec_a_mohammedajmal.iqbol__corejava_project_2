@@ -1,11 +1,8 @@
 package com.fssa.freshstocks.services;
 
-import java.sql.SQLException;
-
 import com.fssa.freshstocks.dao.UserDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
-import com.fssa.freshstocks.services.*;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.UserValidator;
 import com.fssa.freshstocks.validation.exception.InvalidUserException;

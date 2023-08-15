@@ -1,8 +1,6 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
-
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,27 +9,33 @@ import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.utils.ConnectionUtil;
 
-//import io.github.cdimascio.dotenv.Dotenv;
 
 public class UserDAO {
 
 
 	boolean match = false;
+	
+	private static final String userSelectQuery = "SELECT * FROM freshstocks WHERE email = ?";
+	private static final String emailColumnName = "email";
+    private static final String passwordColumnName = "password";
+    private static final String prefixEmailString = "Email: ";
+    private static final String prefixPasswordString = "Password: ";
+    public static final String closeResourseError = "Error while closing resources: ";
 
 //	Get user from DB - Login
 	public boolean login(User user) throws DAOException {
 
 		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement("SELECT * FROM freshstocks WHERE email = ?")) 
+				PreparedStatement pst = connection.prepareStatement(userSelectQuery)) 
 		{ 
 			pst.setString(1, user.getEmail());
 			try(ResultSet resultSet = pst.executeQuery()) {
 
 			while (resultSet.next()) {
-				String emailId = resultSet.getString("email");
-				String password = resultSet.getString("password");
+				String emailId = resultSet.getString(emailColumnName);
+				String password = resultSet.getString(passwordColumnName);
 
-				System.out.println("Email: " + emailId + " Password: " + password);
+				System.out.println(prefixEmailString + emailId + prefixPasswordString + password);
 
 				if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
 					match = true;
@@ -46,18 +50,18 @@ public class UserDAO {
 
 	// Email Not Exist
 	public boolean emailExist(User user) throws DAOException {
-	    boolean match = false;
+	    boolean emailExists = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM freshstocks WHERE email = ?")) {
+	         PreparedStatement pst = connection.prepareStatement(userSelectQuery)) {
 	        pst.setString(1, user.getEmail());
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
-	                String emailId = resultSet.getString("email");
-	                String password = resultSet.getString("password");
-	                System.out.println("Email: " + emailId + " Password: " + password);
+	                String emailId = resultSet.getString(emailColumnName);
+	                String password = resultSet.getString(passwordColumnName);
+	                System.out.println(prefixEmailString + emailId + prefixPasswordString + password);
 	                if (user.getEmail().equals(emailId)) {
-	                    match = true;
+	                	emailExists = true;
 	                }
 	            }
 	        }
@@ -65,23 +69,23 @@ public class UserDAO {
 	        throw new DAOException("Error checking email exist: " + e);
 	    }
 
-	    return match;
+	    return emailExists;
 	}
 
 	// email already exist using email params
 	public boolean emailAlreadyExist(String email) throws DAOException {
-	    boolean match = false;
+	    boolean emailAlreadyExist = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM freshstocks WHERE email = ?")) {
+	         PreparedStatement pst = connection.prepareStatement(userSelectQuery)) {
 	        pst.setString(1, email);
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
-	                String emailId = resultSet.getString("email");
-	                String password = resultSet.getString("password");
-	                System.out.println("Email: " + emailId + " Password: " + password);
+	                String emailId = resultSet.getString(emailColumnName);
+	                String password = resultSet.getString(passwordColumnName);
+	                System.out.println(prefixEmailString + emailId + prefixPasswordString + password);
 	                if (email.equals(emailId)) {
-	                    match = true;
+	                	emailAlreadyExist = true;
 	                }
 	            }
 	        }
@@ -89,7 +93,7 @@ public class UserDAO {
 	        throw new DAOException("Error while checking email exist: " + e);
 	    }
 
-	    return match;
+	    return emailAlreadyExist;
 	}
 
 
@@ -129,7 +133,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
+				System.err.println(closeResourseError + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -151,7 +155,7 @@ public class UserDAO {
 			pst.setString(1, user.getGender());
 			pst.setString(2, user.getmobileNumber());
 			pst.setString(3, user.getdateOfBirth());
-			pst.setString(4, user.getEmail());
+			pst.setString(4, userEmail);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -166,7 +170,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
+				System.err.println(closeResourseError + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -204,7 +208,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println("Error while closing resources: " + e.getMessage());
+				System.err.println(closeResourseError + e.getMessage());
 			}
 		}
 		// Return Successful or not

@@ -1,28 +1,23 @@
 package com.fssa.freshstocks.services;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.fssa.freshstocks.dao.CommentDAO;
-import com.fssa.freshstocks.dao.CourseDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
-import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.CommentValidator;
-import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
-import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class CommentService {
 
 	public boolean registerComment(Comment comment) throws ServiceException {
 		try {
-			CommentDAO CommentDAO = new CommentDAO();
+			CommentDAO commentDAO = new CommentDAO();
 	        if (!CommentValidator.validateComment(comment)) {
 	            return false;
 	        }
-	        boolean success = CommentDAO.createComment(comment);
+	        boolean success = commentDAO.createComment(comment);
 	        if (success) {
 	            System.out.println("Comment for the Course ID: " + comment.getCourseId() + " Successfully Added!");
 	        }
@@ -32,12 +27,12 @@ public class CommentService {
 		}
 	}
 
-	public List<Comment> ListComment(Comment comment) throws ServiceException {
+	public List<Comment> listComment(Comment comment) throws ServiceException {
 	    String courseID = Integer.toString(comment.getCourseId());
-	    CommentDAO CommentDAO = new CommentDAO();
+	    CommentDAO commentDAO = new CommentDAO();
 	    try {
 	        CommentValidator.validateCourseId(courseID);
-	        return CommentDAO.getAllComments(comment.getCourseId());
+	        return commentDAO.getAllComments(comment.getCourseId());
 	    } catch (DAOException | InvalidCommentException e) {
 	        throw new ServiceException(e);
 	    }
