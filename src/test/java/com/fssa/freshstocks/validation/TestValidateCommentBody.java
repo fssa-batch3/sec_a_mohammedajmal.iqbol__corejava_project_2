@@ -10,7 +10,7 @@ import com.fssa.freshstocks.model.*;
 import com.fssa.freshstocks.validation.CommentValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 
-public class TestValidateCommentBody {
+class TestValidateCommentBody {
 
 	@Test
 	void testValidCommentBody() {

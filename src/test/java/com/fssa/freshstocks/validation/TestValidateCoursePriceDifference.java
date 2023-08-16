@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
-public class TestValidateCoursePriceDifference {
+class TestValidateCoursePriceDifference {
 
 	@Test 
 	void testValidCoursePriceDifference() {

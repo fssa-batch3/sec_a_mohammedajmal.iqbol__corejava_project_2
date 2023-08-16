@@ -15,7 +15,7 @@ import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.dao.*;
 
-public class TestGetAllCommentsFeature {
+class TestGetAllCommentsFeature {
 
 	public static void main(String[] args) {
 

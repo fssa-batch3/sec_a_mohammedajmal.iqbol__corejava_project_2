@@ -10,7 +10,7 @@ import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.services.UserService;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
-public class TestDelete {
+class TestDelete {
 
 	public static void main(String[] args) {
 

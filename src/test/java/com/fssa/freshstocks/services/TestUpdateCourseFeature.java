@@ -12,7 +12,7 @@ import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.services.exception.*;
 
-public class TestUpdateCourseFeature {
+class TestUpdateCourseFeature {
 
 	public static void main(String[] args) {
 

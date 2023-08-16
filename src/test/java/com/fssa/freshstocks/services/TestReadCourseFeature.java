@@ -21,7 +21,7 @@ import com.fssa.freshstocks.services.CourseService;
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 import com.fssa.freshstocks.services.exception.*;
 
-public class TestReadCourseFeature {
+class TestReadCourseFeature {
 
 	public static void main(String[] args) {
 

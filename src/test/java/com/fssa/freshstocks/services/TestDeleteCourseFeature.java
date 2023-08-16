@@ -7,7 +7,7 @@ import com.fssa.freshstocks.model.*;
 import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
-public class TestDeleteCourseFeature {
+class TestDeleteCourseFeature {
 
 	@Test
 	void TestDeleteCourseSuccess() {

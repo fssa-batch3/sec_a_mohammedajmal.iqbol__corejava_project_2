@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.model.*;
 
-public class TestValidateComment {
+class TestValidateComment {
 
     @Test
     void testValidComment() throws InvalidCommentException {

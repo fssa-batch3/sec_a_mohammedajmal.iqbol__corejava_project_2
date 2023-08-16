@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
-public class TestValidateUpdatedCourse {
+class TestValidateUpdatedCourse {
 
 	@Test
 	void testValidUpdatedCourse() throws InvalidCourseException {

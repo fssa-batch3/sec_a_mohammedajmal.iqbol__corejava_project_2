@@ -45,7 +45,7 @@ public class CommentValidator {
 	}
 
 	public static boolean validateComment(String commentbody) throws InvalidCommentException {
-		if (!commentbody.trim().isEmpty() && !commentbody.trim().isEmpty()) {
+		if (!commentbody.trim().isEmpty()) {
 	        System.out.println("The course comment is valid.");
 	        return true;
 	    } else {

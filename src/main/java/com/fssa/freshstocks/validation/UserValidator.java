@@ -21,7 +21,7 @@ public class UserValidator {
 	public static boolean validateName(String name) {
 		boolean match = false;
 		try {
-			String regex = "^[A-Za-z0-9_]{3,30}$";
+			String regex = "^[\\w]{3,30}$";
 			match = Pattern.matches(regex, name);
 			if (match) {
 				System.out.println("The user name is valid.");
@@ -37,7 +37,7 @@ public class UserValidator {
 	public static boolean validateMobileNumber(String mobileNumber) {
 		boolean match = false;
 		try {
-			String regex = "^\\+?[0-9]{1,4}-?[0-9]{5,14}$";
+			String regex = "^\\+?\\d{1,4}-?\\d{5,14}$";
 			match = Pattern.matches(regex, mobileNumber);
 			if (match) {
 				System.out.println("Given mobileNumber is valid.");
@@ -50,11 +50,11 @@ public class UserValidator {
 		return match;
 	}
 
-	public static boolean validateDateOfBirth(String DateOfBirth) {
+	public static boolean validateDateOfBirth(String dateOfBirth) {
 		boolean match = false;
 		try {
 			String regex = "^(?:19|20)\\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\\d|3[0-1])$";
-			match = Pattern.matches(regex, DateOfBirth);
+			match = Pattern.matches(regex, dateOfBirth);
 			if (match) {
 				System.out.println("Given DateOfBirth is valid.");
 			} else {

@@ -10,7 +10,7 @@ import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateCourseLanguage {
+class TestValidateCourseLanguage {
 
 	@Test 
 	void testValidLanguage()  {

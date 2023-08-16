@@ -9,7 +9,7 @@ import com.fssa.freshstocks.validation.CommentValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateCommentUserId {
+class TestValidateCommentUserId {
 
 	@Test
 	void testValidCommentUserID() {

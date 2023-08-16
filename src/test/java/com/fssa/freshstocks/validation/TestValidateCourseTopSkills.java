@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.validation.CourseValidator;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateCourseTopSkills {
+class TestValidateCourseTopSkills {
 
 	@Test
 	void testValidTopSkills() {

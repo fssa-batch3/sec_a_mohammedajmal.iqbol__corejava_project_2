@@ -12,7 +12,7 @@ import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.UserService;
 import com.fssa.freshstocks.services.exception.*;
 
-public class TestUpdate {
+class TestUpdate {
 
 	public static void main(String[] args) {
 

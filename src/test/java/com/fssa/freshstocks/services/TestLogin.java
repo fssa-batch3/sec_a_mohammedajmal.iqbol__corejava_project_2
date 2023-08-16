@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.services.exception.*;
 import com.fssa.freshstocks.model.*;
 
-public class TestLogin {
+class TestLogin {
 
 	public static void main(String[] args) {
 

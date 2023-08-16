@@ -9,7 +9,7 @@ import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.services.CommentService;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
-public class TestCreateCommentFeature {
+class TestCreateCommentFeature {
 
 	public static void main(String[] args) {
 

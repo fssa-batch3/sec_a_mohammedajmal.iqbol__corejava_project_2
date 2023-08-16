@@ -13,7 +13,7 @@ import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.services.CourseService;
 import com.fssa.freshstocks.services.exception.*;
 
-public class TestCreateCourseFeature {
+class TestCreateCourseFeature {
 
 	public static void main(String[] args) {
 

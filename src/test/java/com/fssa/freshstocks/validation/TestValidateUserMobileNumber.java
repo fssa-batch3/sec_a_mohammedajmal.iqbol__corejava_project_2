@@ -9,7 +9,7 @@ import com.fssa.freshstocks.services.UserService;
 import com.fssa.freshstocks.validation.UserValidator;
 import com.google.protobuf.ServiceException;
 
-public class TestValidateUserMobileNumber {
+class TestValidateUserMobileNumber {
 
 	@Test
 	void testValidMobileNumber() {

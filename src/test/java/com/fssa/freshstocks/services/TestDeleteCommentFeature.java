@@ -10,7 +10,7 @@ import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.services.CommentService;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
-public class TestDeleteCommentFeature {
+class TestDeleteCommentFeature {
 
 	@Test
 	void TestDeleteCommentSuccess() {
