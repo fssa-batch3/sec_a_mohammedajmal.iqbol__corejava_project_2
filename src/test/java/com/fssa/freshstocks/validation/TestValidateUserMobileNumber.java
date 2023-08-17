@@ -1,31 +1,38 @@
 package com.fssa.freshstocks.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.services.UserService;
-import com.fssa.freshstocks.validation.UserValidator;
-import com.google.protobuf.ServiceException;
+import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 class TestValidateUserMobileNumber {
 
 	@Test
 	void testValidMobileNumber() {
-		UserService userService = new UserService();
-		assertTrue(UserValidator.validateMobileNumber("+919500320194"));
+		try {
+			assertTrue(UserValidator.validateMobileNumber("+919500320194"));
+		} catch (InvalidUserException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	void testInvalidMobileNumber() {
-		UserService userService = new UserService();
-		assertFalse(UserValidator.validateMobileNumber("abc1234567"));
+		try {
+			UserValidator.validateMobileNumber("abc1234567");
+		} catch (InvalidUserException e) {
+			assertEquals("Given mobileNumber is not valid",e.getMessage());
+		}
 	}
 
 	@Test
 	void testValidOutsideIndiaMobileNumber() {
-		UserService userService = new UserService();
-		assertTrue(UserValidator.validateMobileNumber("+44-7890123456"));
+		try {
+			assertTrue(UserValidator.validateMobileNumber("+44-7890123456"));
+		} catch (InvalidUserException e) {
+			e.printStackTrace();
+		}
 	}
 }

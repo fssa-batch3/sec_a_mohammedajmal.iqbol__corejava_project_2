@@ -15,27 +15,27 @@ public class UserDAO {
 
 	boolean match = false;
 	
-	private static final String userSelectQuery = "SELECT * FROM freshstocks WHERE email = ?";
-	private static final String emailColumnName = "email";
-    private static final String passwordColumnName = "password";
-    private static final String prefixEmailString = "Email: ";
-    private static final String prefixPasswordString = "Password: ";
-    public static final String closeResourseError = "Error while closing resources: ";
+	private static final String USER_SELECT_QUERY = "SELECT * FROM freshstocks WHERE email = ?";
+	private static final String EMAIL_COLUMN_NAME = "email";
+	private static final String PASSWORD_COLUMN_NAME = "password";
+	private static final String PREFIX_EMAIL_STRING = "Email: ";
+	private static final String PREFIX_PASSWORD_STRING = "Password: ";
+    public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
 //	Get user from DB - Login
 	public boolean login(User user) throws DAOException {
 
 		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(userSelectQuery)) 
+				PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) 
 		{ 
 			pst.setString(1, user.getEmail());
 			try(ResultSet resultSet = pst.executeQuery()) {
 
 			while (resultSet.next()) {
-				String emailId = resultSet.getString(emailColumnName);
-				String password = resultSet.getString(passwordColumnName);
+				String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
+				String password = resultSet.getString(PASSWORD_COLUMN_NAME);
 
-				System.out.println(prefixEmailString + emailId + prefixPasswordString + password);
+				System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
 
 				if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
 					match = true;
@@ -53,13 +53,13 @@ public class UserDAO {
 	    boolean emailExists = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement(userSelectQuery)) {
+	         PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) {
 	        pst.setString(1, user.getEmail());
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
-	                String emailId = resultSet.getString(emailColumnName);
-	                String password = resultSet.getString(passwordColumnName);
-	                System.out.println(prefixEmailString + emailId + prefixPasswordString + password);
+	                String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
+	                String password = resultSet.getString(PASSWORD_COLUMN_NAME);
+	                System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
 	                if (user.getEmail().equals(emailId)) {
 	                	emailExists = true;
 	                }
@@ -77,13 +77,13 @@ public class UserDAO {
 	    boolean emailAlreadyExist = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement(userSelectQuery)) {
+	         PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) {
 	        pst.setString(1, email);
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
-	                String emailId = resultSet.getString(emailColumnName);
-	                String password = resultSet.getString(passwordColumnName);
-	                System.out.println(prefixEmailString + emailId + prefixPasswordString + password);
+	                String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
+	                String password = resultSet.getString(PASSWORD_COLUMN_NAME);
+	                System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
 	                if (email.equals(emailId)) {
 	                	emailAlreadyExist = true;
 	                }
@@ -133,7 +133,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -170,7 +170,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -208,7 +208,7 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not

@@ -8,16 +8,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
-import com.fssa.freshstocks.services.CourseService;
 import com.fssa.freshstocks.services.exception.*;
 
 class TestCreateCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course("Mutual Fund Courses",
+		Course course1 = new Course("Funds Courses",
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
 				"10hrs", "English", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",

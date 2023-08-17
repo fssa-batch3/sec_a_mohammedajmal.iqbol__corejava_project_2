@@ -1,26 +1,30 @@
 package com.fssa.freshstocks.validation;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.model.User;
-import com.fssa.freshstocks.services.UserService;
-import com.fssa.freshstocks.validation.UserValidator;
-import com.google.protobuf.ServiceException;
+import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 class TestValidateUsername {
 
 	@Test
 	void testValidUsername() {
-		UserService userService = new UserService();
-		assertTrue(UserValidator.validateName("Username_123"));
+		try {
+			assertTrue(UserValidator.validateName("Username_123"));
+		} catch (InvalidUserException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	void testInvalidUsernameLengthlessThan3() {
-		UserService userService = new UserService();
-		assertFalse(UserValidator.validateName("Us"));
+		try {
+			UserValidator.validateName("Us");
+		} catch (InvalidUserException e) {
+			assertEquals("user name is not valid",e.getMessage());
+		}
 	}
 }

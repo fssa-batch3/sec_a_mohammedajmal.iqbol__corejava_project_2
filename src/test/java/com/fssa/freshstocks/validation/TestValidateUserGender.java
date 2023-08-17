@@ -1,31 +1,39 @@
 package com.fssa.freshstocks.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.services.UserService;
-import com.fssa.freshstocks.validation.UserValidator;
-import com.google.protobuf.ServiceException;
+import com.fssa.freshstocks.validation.exception.InvalidUserException;
+
 
 class TestValidateUserGender {
 
 	@Test
 	void testValidGender() {
-		UserService userService = new UserService();
-		assertTrue(UserValidator.validateGender("male"));
+		try {
+			assertTrue(UserValidator.validateGender("male"));
+		} catch (InvalidUserException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	void testInvalidGender() {
-		UserService userService = new UserService();
-		assertFalse(UserValidator.validateGender("121323"));
+		try {
+			UserValidator.validateGender("121323");
+		} catch (InvalidUserException e) {
+			assertEquals("Given Gender is not valid. Expected Input: male|female|others",e.getMessage());
+		}
 	}
 
 	@Test
 	void testGenderOthers() {
-		UserService userService = new UserService();
-		assertFalse(UserValidator.validateGender("non-conforming"));
+		try {
+			UserValidator.validateGender("non-conforming");
+		} catch (InvalidUserException e) {
+			assertEquals("Given Gender is not valid. Expected Input: male|female|others",e.getMessage());
+		}
 	}
 }

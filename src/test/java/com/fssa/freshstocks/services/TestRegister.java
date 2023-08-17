@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
-import com.fssa.freshstocks.services.UserService;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestRegister {

@@ -12,7 +12,7 @@ import com.fssa.freshstocks.utils.*;
 
 public class CommentDAO {
 	
-	public static final String closeResourseError = "Error while closing resources: ";
+	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
 	public boolean createComment(Comment comment) throws DAOException {
 		Connection connection = null;
@@ -43,7 +43,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 
@@ -105,7 +105,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -144,7 +144,7 @@ public class CommentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not

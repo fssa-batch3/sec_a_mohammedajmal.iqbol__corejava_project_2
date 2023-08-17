@@ -1,209 +1,143 @@
 package com.fssa.freshstocks.validation;
 
-import java.net.URL;
 import java.util.regex.Pattern;
-
 import com.fssa.freshstocks.model.Course;
-import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
-import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class CourseValidator {
 
 	// if three conditions valid then user valid
 	public static boolean validateCourse(Course course) throws InvalidCourseException {
-		if (course != null && validateName(course.getName()) && validateURL(course.getCoverImage())
-				&& validateLanguage(course.getLanguage()) && validateMarkedPrice(course.getMarkedPrice())
-				&& validateSellingPrice(course.getSellingPrice())
-				&& validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())
-				&& validateTiming(course.getTiming()) && validateInsutructorName(course.getInstructorName())
-				&& validateCompanyName(course.getCompanyName()) && validateCompanyCategory(course.getCompanyCategory())
-				&& validateTopSkils(course.getTopSkills())) {
-			return true;
-		} else {
-			throw new InvalidCourseException("Course details not valid");
-		}
+	    boolean isValid = course != null &&
+	        validateName(course.getName()) &&
+	        validateURL(course.getCoverImage()) &&
+	        validateLanguage(course.getLanguage()) &&
+	        validateMarkedPrice(course.getMarkedPrice()) &&
+	        validateSellingPrice(course.getSellingPrice()) &&
+	        validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice()) &&
+	        validateTiming(course.getTiming()) &&
+	        validateInsutructorName(course.getInstructorName()) &&
+	        validateCompanyName(course.getCompanyName()) &&
+	        validateCompanyCategory(course.getCompanyCategory()) &&
+	        validateTopSkils(course.getTopSkills());
+
+	    if (!isValid) {
+	        throw new InvalidCourseException("Course details not valid");
+	    }
+
+	    return isValid;
 	}
+
 
 	// if three conditions valid then user valid
 	public static boolean validateUpdatedCourse(Course course) throws InvalidCourseException {
-		if (course != null && validateURL(course.getCoverImage()) && validateLanguage(course.getLanguage())
-				&& validateMarkedPrice(course.getMarkedPrice()) && validateSellingPrice(course.getSellingPrice())
-				&& validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())
-				&& validateTiming(course.getTiming()) && validateInsutructorName(course.getInstructorName())
-				&& validateCompanyName(course.getCompanyName()) && validateCompanyCategory(course.getCompanyCategory())
-				&& validateTopSkils(course.getTopSkills())) {
-			return true;
-		} else {
-			throw new InvalidCourseException("Course details not valid");
-		}
+	    boolean isValid = course != null &&
+	        validateURL(course.getCoverImage()) &&
+	        validateLanguage(course.getLanguage()) &&
+	        validateMarkedPrice(course.getMarkedPrice()) &&
+	        validateSellingPrice(course.getSellingPrice()) &&
+	        validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice()) &&
+	        validateTiming(course.getTiming()) &&
+	        validateInsutructorName(course.getInstructorName()) &&
+	        validateCompanyName(course.getCompanyName()) &&
+	        validateCompanyCategory(course.getCompanyCategory()) &&
+	        validateTopSkils(course.getTopSkills());
+
+	    if (!isValid) {
+	        throw new InvalidCourseException("Course details not valid");
+	    }
+
+	    return isValid;
 	}
 
 	public static boolean validateName(String name) throws InvalidCourseException {
-		boolean match = false;
 		String regex = "^[A-Za-z\\s]{3,30}$";
-		match = Pattern.matches(regex, name);
-		if (match) {
-			System.out.println("course name is valid");
-		} else {
-			throw new InvalidCourseException("course name is invalid");
-		}
-		return match;
+	    if (!Pattern.matches(regex, name)) {
+	        throw new InvalidCourseException("Course Name is Invalid");
+	    }
+	    return true;
 	}
 
 	public static boolean validateURL(String url) throws InvalidCourseException {
-		boolean match = false;
 		String regex = "^https?://\\S+$";
-		match = Pattern.matches(regex, url);
-		if (match) {
-			System.out.println("course Image URL is valid");
-		} else {
-			throw new InvalidCourseException("course Image is Invalid");
-		}
-		return match;
+	    if (!Pattern.matches(regex, url)) {
+	        throw new InvalidCourseException("Course Image is Invalid");
+	    }
+	    return true;
 	}
 
 	public static boolean validateLanguage(String name) throws InvalidCourseException {
-		boolean match = false;
-		String regex = "^[A-Za-z\\s]{3,30}$";
-		match = Pattern.matches(regex, name);
-		if (match) {
-			System.out.println("course language is valid");
-		} else {
-			System.out.println("course language is invalid");
-		}
-		return match;
+		String regex = "^[A-Za-z\\\\s]{3,30}$";
+	    if (!Pattern.matches(regex, name)) {
+	        throw new InvalidCourseException("Course language is Invalid");
+	    }
+	    return true;
 	}
 
 	public static boolean validateMarkedPrice(String markedprice) throws InvalidCourseException {
-		boolean match = false;
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
-		match = Pattern.matches(pricePattern, markedprice);
-		if (match) {
-			System.out.println("course marked price is valid");
-		} else {
-			System.out.println("course marked price is invalid");
-		}
-		return match;
+	    if (!Pattern.matches(pricePattern, markedprice)) {
+	        throw new InvalidCourseException("Course marked price is Invalid");
+	    }
+	    return true;
 	}
 
-	public static boolean validateSellingPrice(String sellingprice) {
-		boolean match = false;
+	public static boolean validateSellingPrice(String sellingprice) throws InvalidCourseException {
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
-		match = Pattern.matches(pricePattern, sellingprice);
-		if (match) {
-			System.out.println("course selling price is valid");
-		} else {
-			System.out.println("course selling price is invalid");
-		}
-		return match;
+	    if (!Pattern.matches(pricePattern, sellingprice)) {
+	        throw new InvalidCourseException("Course selling price is Invalid");
+	    }
+	    return true;
 	}
 
-	public static boolean validatePriceDifference(String markedprice, String sellingprice) {
-		boolean match = false;
-		try {
-			match = (Integer.parseInt(markedprice) > Integer.parseInt(sellingprice));
-			if (match) {
-				System.out.println("course price is valid");
-				return true;
-			} else {
-				System.out.println("course price is invalid");
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("course price is invalid");
-		}
-		return match;
+	public static boolean validatePriceDifference(String markedPrice, String sellingPrice) {
+	    try {
+	        int marked = Integer.parseInt(markedPrice);
+	        int selling = Integer.parseInt(sellingPrice);
+	        return marked > selling;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
 	}
 
-	public static boolean validateTiming(String timing) {
-		boolean match = false;
-		try {
-			String courseTimingPattern = "^(\\d+)hrs$";
-			match = Pattern.matches(courseTimingPattern, timing);
-			if (match) {
-				System.out.println("course timing is valid");
-				return true;
-			} else {
-				System.out.println("course price is invalid  Input Hint : 10hrs");
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("course price is invalid  Input Hint : 10hrs");
-		}
-		return match;
+	public static boolean validateTiming(String timing) throws InvalidCourseException {
+		String courseTimingPattern = "^(\\d+)hrs$";
+	    if (!Pattern.matches(courseTimingPattern, timing)) {
+	        throw new InvalidCourseException("Course timing is Invalid");
+	    }
+	    return true;
 	}
 
-	public static boolean validateInsutructorName(String instructorname) {
-		boolean match = false;
-		try {
-			String regex = "^[A-Za-z\\s]{3,50}$";
-			match = Pattern.matches(regex, instructorname);
-			if (match) {
-				System.out.println("course instructor name is valid");
-				return true;
-			} else {
-				System.out.println("course instructor name is invalid");
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("course instructor name is invalid");
-		}
-		return match;
+	public static boolean validateInsutructorName(String instructorname) throws InvalidCourseException {
+		String regex = "^[A-Za-z\\s]{3,50}$";
+	    if (!Pattern.matches(regex, instructorname)) {
+	        throw new InvalidCourseException("Course instructor name is Invalid");
+	    }
+	    return true;
 	}
 
-	public static boolean validateCompanyName(String companyname) {
-		boolean match = false;
-		try {
-			String regex = "^[A-Za-z\\s]{3,100}$";
-			match = Pattern.matches(regex, companyname);
-			if (match) {
-				System.out.println("course company name is valid");
-				return true;
-			} else {
-				System.out.println("course company name is invalid");
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("course company name is invalid");
-		}
-		return match;
+	public static boolean validateCompanyName(String companyname) throws InvalidCourseException {
+		String regex = "^[A-Za-z\\s]{3,100}$";
+	    if (!Pattern.matches(regex, companyname)) {
+	        throw new InvalidCourseException("Course company name is Invalid");
+	    }
+	    return true;
 	}
 
-	public static boolean validateCompanyCategory(String companycategory) {
-		boolean match = false;
-		try {
-			String regex = "^[A-Za-z\\s]{3,100}$";
-			match = Pattern.matches(regex, companycategory);
-			if (match) {
-				System.out.println("course company category is valid");
-				return true;
-			} else {
-				System.out.println("course company category is invalid");
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("course company category is invalid");
-		}
-		return match;
+	public static boolean validateCompanyCategory(String companycategory) throws InvalidCourseException {	
+		String regex = "^[A-Za-z\\s]{3,100}$";
+	    if (!Pattern.matches(regex, companycategory)) {
+	        throw new InvalidCourseException("Course company category is Invalid");
+	    }
+	    return true;
 	}
 
-	public static boolean validateTopSkils(String topskills) {
-		boolean match = false;
-		try {
-			String regex = "^[A-Za-z\\s]{3,150}$";
-			match = Pattern.matches(regex, topskills);
-			if (match) {
-				System.out.println("course top skills is valid");
-				return true;
-			} else {
-				System.out.println("course top skills is invalid");
-				return false;
-			}
-		} catch (Exception e) {
-			System.out.println("course top skills is invalid");
-		}
-		return match;
+	public static boolean validateTopSkils(String topskills) throws InvalidCourseException {
+		String regex = "^[A-Za-z\\s]{3,150}$";
+	    if (!Pattern.matches(regex, topskills)) {
+	        throw new InvalidCourseException("Course topskills is Invalid");
+	    }
+	    return true;
 	}
 
 }

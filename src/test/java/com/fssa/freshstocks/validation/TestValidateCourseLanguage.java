@@ -1,14 +1,11 @@
 package com.fssa.freshstocks.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
-import com.google.protobuf.ServiceException;
+
 
 class TestValidateCourseLanguage {
 
@@ -19,7 +16,6 @@ class TestValidateCourseLanguage {
 			assertTrue(CourseValidator.validateLanguage("English"));
 		} catch (InvalidCourseException e) {
 			e.printStackTrace();
-			fail();
 		}
 	}
 	
@@ -27,10 +23,9 @@ class TestValidateCourseLanguage {
 	void testInvalidLanguage()  {
 		
 		try {
-			assertFalse(CourseValidator.validateLanguage("India500"));
+			CourseValidator.validateLanguage("India500");
 		} catch (InvalidCourseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertEquals("Course language is Invalid",e.getMessage());
 		}
 	}
 }

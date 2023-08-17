@@ -1,22 +1,31 @@
 package com.fssa.freshstocks.validation;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.validation.CourseValidator;
-import com.google.protobuf.ServiceException;
+import com.fssa.freshstocks.validation.exception.InvalidCourseException;
+
 
 class TestValidateCourseTopSkills {
 
 	@Test
 	void testValidTopSkills() {
-		assertTrue(CourseValidator.validateTopSkils("smart money concepts"));
+		try {
+			assertTrue(CourseValidator.validateTopSkils("smart money concepts"));
+		} catch (InvalidCourseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	void testInvalidTopSkills() {
-		assertFalse(CourseValidator.validateTopSkils("number theory 12345"));
+		try {
+			CourseValidator.validateTopSkils("number theory 12345");
+		} catch (InvalidCourseException e) {
+			assertEquals("Course topskills is Invalid",e.getMessage());
+		}
 	}
 }

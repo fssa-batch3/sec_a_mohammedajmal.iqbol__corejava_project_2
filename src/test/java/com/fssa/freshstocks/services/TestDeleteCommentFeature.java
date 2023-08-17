@@ -1,13 +1,11 @@
 package com.fssa.freshstocks.services;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import com.fssa.freshstocks.model.*;
-import com.fssa.freshstocks.dao.exception.DAOException;
-import com.fssa.freshstocks.services.CommentService;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestDeleteCommentFeature {

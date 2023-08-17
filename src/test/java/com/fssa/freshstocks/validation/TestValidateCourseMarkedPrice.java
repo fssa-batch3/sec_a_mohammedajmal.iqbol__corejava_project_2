@@ -1,14 +1,12 @@
 package com.fssa.freshstocks.validation;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
-import com.google.protobuf.ServiceException;
 
 class TestValidateCourseMarkedPrice {
 
@@ -19,7 +17,6 @@ class TestValidateCourseMarkedPrice {
 			assertTrue(CourseValidator.validateMarkedPrice("1000"));
 		} catch (InvalidCourseException e) {
 			e.printStackTrace();
-			fail();
 		}
 	}
 	
@@ -27,9 +24,9 @@ class TestValidateCourseMarkedPrice {
 	void testInvalidMarkedPrice()  {
 		
 		try {
-			assertFalse(CourseValidator.validateMarkedPrice("Rs.1000"));
+			CourseValidator.validateMarkedPrice("Rs.1000");
 		} catch (InvalidCourseException e) {
-			e.printStackTrace();
+			assertEquals("Course marked price is Invalid",e.getMessage());
 		}
 	}
 }

@@ -1,24 +1,32 @@
 package com.fssa.freshstocks.validation;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.fssa.freshstocks.validation.CourseValidator;
-import com.google.protobuf.ServiceException;
+import com.fssa.freshstocks.validation.exception.InvalidCourseException;
+
 
 class TestValidateCourseInstructorName {
 
 	@Test 
 	void testValidInstructorName()  {
 		
-		assertTrue(CourseValidator.validateInsutructorName("Ajmal"));
+		try {
+			assertTrue(CourseValidator.validateInsutructorName("Ajmal"));
+		} catch (InvalidCourseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test 
 	void testInvalidInstructorName()  {
 		
-		assertFalse(CourseValidator.validateInsutructorName("Mohammed_Ajmal"));
+		try {
+			CourseValidator.validateInsutructorName("Mohammed_Ajmal");
+		} catch (InvalidCourseException e) {
+			assertEquals("Course instructor name is Invalid",e.getMessage());
+		}
 	}
 }

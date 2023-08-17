@@ -6,10 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-
-import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
-import com.fssa.freshstocks.services.UserService;
 import com.fssa.freshstocks.services.exception.*;
 
 class TestUpdate {

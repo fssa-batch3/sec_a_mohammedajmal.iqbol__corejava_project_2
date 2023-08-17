@@ -11,7 +11,7 @@ import com.fssa.freshstocks.utils.ConnectionUtil;
 
 public class CourseDAO {
 
-	public static final String closeResourseError = "Error while closing resources: ";
+	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
 	// add new course to DB - Register
 	public boolean createCourse(Course course) throws DAOException {
@@ -53,7 +53,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 
@@ -160,7 +160,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not
@@ -199,7 +199,7 @@ public class CourseDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				System.err.println(closeResourseError + e.getMessage());
+				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
 			}
 		}
 		// Return Successful or not

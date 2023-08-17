@@ -1,16 +1,12 @@
 package com.fssa.freshstocks.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.SQLException;
 import java.util.*;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-import com.fssa.freshstocks.services.exception.*;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.dao.*;
@@ -71,7 +67,6 @@ class TestGetAllCommentsFeature {
 
 	@Test
 	void testGetAllCommentsNull() {
-		CommentDAO commentDAO = new CommentDAO();
 		List<Comment> cleanedEntries = null;
 		assertNull(cleanedEntries);
 	}
