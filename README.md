@@ -1,6 +1,6 @@
 # freshstocks Trading Website
 
-### [Milestones](https://github.com/fssa-batch3/sec_a_mohammedajmal.iqbol__corejava_project_2/milestone/1)
+### [Milestones](https://github.com/fssa-batch3/sec_a_mohammedajmal.iqbol__corejava_project_2/milestones)
 
 ### ER Diagram:
 
