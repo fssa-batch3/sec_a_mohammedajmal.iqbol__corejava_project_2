@@ -26,7 +26,7 @@ class TestValidateCourseCategory {
 		try {
 			CourseValidator.validateCompanyCategory("&&&finance");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course company category is Invalid",e.getMessage());
+			assertEquals("Invalid course company category. Company categories must be 3 to 100 characters long and may include letters and spaces.",e.getMessage());
 		}
 	}
 }

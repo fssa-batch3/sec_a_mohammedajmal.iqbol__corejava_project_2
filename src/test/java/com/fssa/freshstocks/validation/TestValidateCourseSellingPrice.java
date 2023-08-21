@@ -23,7 +23,7 @@ class TestValidateCourseSellingPrice {
 		try {
 			CourseValidator.validateSellingPrice("Rs.5000");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course selling price is Invalid",e.getMessage());
+			assertEquals("Invalid course selling price. Please provide a valid price (e.g., 100 or 99.99).",e.getMessage());
 		}
 	}
 }

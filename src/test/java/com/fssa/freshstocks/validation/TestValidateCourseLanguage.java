@@ -25,7 +25,7 @@ class TestValidateCourseLanguage {
 		try {
 			CourseValidator.validateLanguage("India500");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course language is Invalid",e.getMessage());
+			assertEquals("Invalid course language. Course languages must be 3 to 30 characters long and may include letters and spaces.",e.getMessage());
 		}
 	}
 }

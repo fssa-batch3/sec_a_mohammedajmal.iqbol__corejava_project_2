@@ -24,7 +24,7 @@ class TestValidateCourseTopSkills {
 		try {
 			CourseValidator.validateTopSkils("number theory 12345");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course topskills is Invalid",e.getMessage());
+			assertEquals("Invalid course top skills. Top skills must be 3 to 150 characters long and may include letters and spaces.",e.getMessage());
 		}
 	}
 }

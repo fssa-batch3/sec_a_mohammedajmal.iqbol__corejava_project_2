@@ -2,6 +2,7 @@ package com.fssa.freshstocks.validation;
 
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,8 +20,10 @@ class TestValidateComment {
 
     @Test
     void testInvalidCommentWithNull() {
-    	Comment comment = new Comment(null);
-        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(comment));
+        Comment comment = null;
+        assertThrows(NullPointerException.class, () -> {
+            CommentValidator.validateComment(comment);
+        });
     }
 
     @Test

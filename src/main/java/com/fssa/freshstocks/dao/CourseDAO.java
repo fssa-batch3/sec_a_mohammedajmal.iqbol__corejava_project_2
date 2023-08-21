@@ -110,11 +110,11 @@ public class CourseDAO {
 	 * @return A list of Course objects representing the courses associated with the user.
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
-	public List<Course> readCourse(Course course) throws DAOException {
+	public List<Course> readCourse(int userID) throws DAOException {
 	    List<Course> list1 = new ArrayList<>();
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement pst = connection.prepareStatement("SELECT c.*, f.username FROM course c INNER JOIN freshstocks f ON c.userID = f.userID WHERE c.userID = ?")) {
-	        pst.setInt(1, course.getUserID());
+	        pst.setInt(1, userID);
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            
 	            while (resultSet.next()) {
@@ -130,11 +130,11 @@ public class CourseDAO {
 				String companyName = resultSet.getString("company_name");
 				String companyCategory = resultSet.getString("company_category");
 				String topSkills = resultSet.getString("top_skills");
-				int userID = resultSet.getInt("userID");
+				int userID1 = resultSet.getInt("userID");
 				int courseID = resultSet.getInt("courseID");
                 
 				Course course1 = new Course(username,courseID,name, coverImage,timing,language,markedPrice,sellingPrice,
-						description, instructorName, companyName, companyCategory,topSkills,userID);
+						description, instructorName, companyName, companyCategory,topSkills,userID1);
 				list1.add(course1);
 
 			 }
@@ -163,7 +163,7 @@ public class CourseDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? userID=? WHERE courseID = ?";
+			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? ,userID=? WHERE courseID = ?";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());

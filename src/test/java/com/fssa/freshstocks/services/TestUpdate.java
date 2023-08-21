@@ -14,7 +14,7 @@ class TestUpdate {
 	@Test
 	void TestUpdateSuccess() {
 		User user1 = new User("Male", "9500320194", "2004-12-26");
-		String userEmail = "lakshmi12@gmail.com";
+		String userEmail = "ajmal@gmail.com";
 		UserService userService = new UserService();
 		try {
 			assertTrue(userService.updateUser(user1, userEmail));
@@ -28,7 +28,7 @@ class TestUpdate {
 	void TestUpdateFail() {
 		User user1 = new User("Male", "9500320194", "2004-12-26");
 		// this userEmail doesn't exist so, it return false and our test cases is true
-		String userEmail = "ajmal@gmail.com";
+		String userEmail = "aj@gmail.com";
 		UserService userService = new UserService();
 		try {
 			assertFalse(userService.updateUser(user1, userEmail));

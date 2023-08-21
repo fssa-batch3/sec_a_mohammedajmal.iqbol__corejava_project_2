@@ -22,7 +22,7 @@ public class CourseValidator {
 	        validateTopSkils(course.getTopSkills());
 
 	    if (!isValid) {
-	        throw new InvalidCourseException("Course details not valid");
+	    	throw new InvalidCourseException("Invalid course details. Please ensure that all course information is valid.");
 	    }
 
 	    return isValid;
@@ -44,16 +44,16 @@ public class CourseValidator {
 	        validateTopSkils(course.getTopSkills());
 
 	    if (!isValid) {
-	        throw new InvalidCourseException("Course details not valid");
+	    	throw new InvalidCourseException("Invalid Updating course details. Please ensure that all course information is valid.");
 	    }
 
 	    return isValid;
 	}
 
 	public static boolean validateName(String name) throws InvalidCourseException {
-		String regex = "^[A-Za-z\\s]{3,30}$";
+		String regex = "^(?=.*[A-Za-z])[A-Za-z0-9\\s]{3,30}$";
 	    if (!Pattern.matches(regex, name)) {
-	        throw new InvalidCourseException("Course Name is Invalid");
+	    	 throw new InvalidCourseException("Invalid course name. Course names must be 3 to 30 characters long and may include letters, numbers, and spaces.");
 	    }
 	    return true;
 	}
@@ -61,7 +61,7 @@ public class CourseValidator {
 	public static boolean validateURL(String url) throws InvalidCourseException {
 		String regex = "^https?://\\S+$";
 	    if (!Pattern.matches(regex, url)) {
-	        throw new InvalidCourseException("Course Image is Invalid");
+	    	throw new InvalidCourseException("Invalid course image URL. Please provide a valid HTTP or HTTPS URL.");
 	    }
 	    return true;
 	}
@@ -69,7 +69,7 @@ public class CourseValidator {
 	public static boolean validateLanguage(String name) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,30}$";
 	    if (!Pattern.matches(regex, name)) {
-	        throw new InvalidCourseException("Course language is Invalid");
+	    	throw new InvalidCourseException("Invalid course language. Course languages must be 3 to 30 characters long and may include letters and spaces.");
 	    }
 	    return true;
 	}
@@ -77,7 +77,7 @@ public class CourseValidator {
 	public static boolean validateMarkedPrice(String markedprice) throws InvalidCourseException {
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
 	    if (!Pattern.matches(pricePattern, markedprice)) {
-	        throw new InvalidCourseException("Course marked price is Invalid");
+	    	throw new InvalidCourseException("Invalid course marked price. Please provide a valid price (e.g., 100 or 99.99).");
 	    }
 	    return true;
 	}
@@ -85,7 +85,7 @@ public class CourseValidator {
 	public static boolean validateSellingPrice(String sellingprice) throws InvalidCourseException {
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
 	    if (!Pattern.matches(pricePattern, sellingprice)) {
-	        throw new InvalidCourseException("Course selling price is Invalid");
+	    	throw new InvalidCourseException("Invalid course selling price. Please provide a valid price (e.g., 100 or 99.99).");
 	    }
 	    return true;
 	}
@@ -103,7 +103,7 @@ public class CourseValidator {
 	public static boolean validateTiming(String timing) throws InvalidCourseException {
 		String courseTimingPattern = "^(\\d+)hrs$";
 	    if (!Pattern.matches(courseTimingPattern, timing)) {
-	        throw new InvalidCourseException("Course timing is Invalid");
+	    	 throw new InvalidCourseException("Invalid course timing. Please provide a valid timing format (e.g., 10hrs).");
 	    }
 	    return true;
 	}
@@ -111,7 +111,7 @@ public class CourseValidator {
 	public static boolean validateInsutructorName(String instructorname) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,50}$";
 	    if (!Pattern.matches(regex, instructorname)) {
-	        throw new InvalidCourseException("Course instructor name is Invalid");
+	    	throw new InvalidCourseException("Invalid course instructor name. Instructor names must be 3 to 50 characters long and may include letters and spaces.");
 	    }
 	    return true;
 	}
@@ -119,7 +119,7 @@ public class CourseValidator {
 	public static boolean validateCompanyName(String companyname) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,100}$";
 	    if (!Pattern.matches(regex, companyname)) {
-	        throw new InvalidCourseException("Course company name is Invalid");
+	    	throw new InvalidCourseException("Invalid course company name. Company names must be 3 to 100 characters long and may include letters and spaces.");
 	    }
 	    return true;
 	}
@@ -127,7 +127,7 @@ public class CourseValidator {
 	public static boolean validateCompanyCategory(String companycategory) throws InvalidCourseException {	
 		String regex = "^[A-Za-z\\s]{3,100}$";
 	    if (!Pattern.matches(regex, companycategory)) {
-	        throw new InvalidCourseException("Course company category is Invalid");
+	    	 throw new InvalidCourseException("Invalid course company category. Company categories must be 3 to 100 characters long and may include letters and spaces.");
 	    }
 	    return true;
 	}
@@ -135,7 +135,7 @@ public class CourseValidator {
 	public static boolean validateTopSkils(String topskills) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,150}$";
 	    if (!Pattern.matches(regex, topskills)) {
-	        throw new InvalidCourseException("Course topskills is Invalid");
+	    	 throw new InvalidCourseException("Invalid course top skills. Top skills must be 3 to 150 characters long and may include letters and spaces.");
 	    }
 	    return true;
 	}

@@ -13,10 +13,10 @@ class TestDeleteCourseFeature {
 
 	@Test
 	void TestDeleteCourseSuccess() {
-		Course course = new Course(1,"stock courses");
+		int courseID = 4;
 		CourseService courseService = new CourseService();
 		try {
-			assertTrue(courseService.deleteCourse(course, isDeleted));
+			assertTrue(courseService.deleteCourse(courseID, isDeleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			fail();
@@ -25,10 +25,10 @@ class TestDeleteCourseFeature {
 
 	@Test
 	void TestDeleteCourseFail() {
-		Course course = new Course(1,"stock cours");
+		int courseID = 1;
 		CourseService courseService = new CourseService();
 		try {
-			assertFalse(courseService.deleteCourse(course, isDeleted));
+			assertFalse(courseService.deleteCourse(courseID, isDeleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}

@@ -14,7 +14,7 @@ class TestDelete {
 
 	@Test
 	void TestDeleteSuccess() {
-		String userEmail = "lakshmi12@gmail.com";
+		String userEmail = "ajmal@gmail.com";
 		UserService userService = new UserService();
 		try {
 			assertTrue(userService.deleteUser(userEmail, isDeleted));
@@ -26,7 +26,7 @@ class TestDelete {
 
 	@Test
 	void TestDeleteFail() {
-		String userEmail = "lakshmi120@gmail.com";
+		String userEmail = "aji@gmail.com";
 		UserService userService = new UserService();
 		try {
 			assertFalse(userService.deleteUser(userEmail, isDeleted));

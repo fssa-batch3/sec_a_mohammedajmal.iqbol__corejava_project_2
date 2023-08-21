@@ -23,7 +23,7 @@ class TestValidateUserMobileNumber {
 		try {
 			UserValidator.validateMobileNumber("abc1234567");
 		} catch (InvalidUserException e) {
-			assertEquals("Given mobileNumber is not valid",e.getMessage());
+			assertEquals("Invalid mobile number. Please provide a valid phone number, including the country code and area code if applicable.",e.getMessage());
 		}
 	}
 

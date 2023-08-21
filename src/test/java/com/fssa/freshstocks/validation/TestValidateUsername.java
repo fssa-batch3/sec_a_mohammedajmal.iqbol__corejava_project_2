@@ -23,7 +23,7 @@ class TestValidateUsername {
 		try {
 			UserValidator.validateName("Us");
 		} catch (InvalidUserException e) {
-			assertEquals("user name is not valid",e.getMessage());
+			assertEquals("Invalid user name. User names must be 3 to 30 characters long and may include letters, numbers, and underscores.",e.getMessage());
 		}
 	}
 }

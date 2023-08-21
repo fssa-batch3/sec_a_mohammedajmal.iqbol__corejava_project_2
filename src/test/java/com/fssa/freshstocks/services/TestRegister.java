@@ -12,11 +12,12 @@ import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestRegister {
 
+	final long nanotime = System.nanoTime();
 
 	@Test
 	void testRegistrationSuccess() {
 		UserService userService = new UserService();
-		User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com",
+		User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "user" + nanotime + "@gmail.com",
 				"Lakshmi@123",1);
 		try {
 			assertTrue(userService.registerUser(user1));
@@ -30,7 +31,7 @@ class TestRegister {
 	void testInvalidPassword() {
 
 		UserService userService = new UserService();
-		User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com", "Lakshmi123",1);
+		User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "user" + nanotime + "@gmail.com", "Lakshmi123",1);
 		try {
 			assertFalse(userService.registerUser(user1));
 		} catch (ServiceException e) {

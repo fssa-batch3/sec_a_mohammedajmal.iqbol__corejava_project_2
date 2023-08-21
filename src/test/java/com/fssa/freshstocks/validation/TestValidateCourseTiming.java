@@ -24,7 +24,7 @@ class TestValidateCourseTiming {
 		try {
 			CourseValidator.validateTiming("12.50hrs");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course timing is Invalid",e.getMessage());
+			assertEquals("Invalid course timing. Please provide a valid timing format (e.g., 10hrs).",e.getMessage());
 		}
 	}
 }

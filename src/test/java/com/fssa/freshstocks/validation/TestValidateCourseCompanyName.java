@@ -23,7 +23,7 @@ class TestValidateCourseCompanyName {
 		try {
 			CourseValidator.validateCompanyName("freshworks_STS_Academy");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course company name is Invalid",e.getMessage());
+			assertEquals("Invalid course company name. Company names must be 3 to 100 characters long and may include letters and spaces.",e.getMessage());
 		}
 	}
 }

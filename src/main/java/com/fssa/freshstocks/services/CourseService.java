@@ -28,10 +28,10 @@ public class CourseService {
 	}
 
 	// get course details from course name
-	public List<Course> listCourse(Course course) throws ServiceException {
+	public List<Course> listCourse(int userID) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-			return courseDAO.readCourse(course);
+			return courseDAO.readCourse(userID);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -56,19 +56,14 @@ public class CourseService {
 	}
 
 	// delete course
-	public boolean deleteCourse(Course course, int isDeleted) throws ServiceException {
+	public boolean deleteCourse(int courseID, int isDeleted) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-			if (courseDAO.sameNameExist(course)) {
-				boolean success = courseDAO.deleteCourse(course.getCourseID(), isDeleted);
+				boolean success = courseDAO.deleteCourse(courseID, isDeleted);
 				if (success) {
-					System.out.println("Course with courseID: " + course.getCourseID() + " Successfully Deleted!");
+					System.out.println("Course with courseID: " + courseID + " Successfully Deleted!");
 				}
 				return success;
-			} else {
-				System.out.println("Course Name Doesn't Exist!");
-				return false;
-			}
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

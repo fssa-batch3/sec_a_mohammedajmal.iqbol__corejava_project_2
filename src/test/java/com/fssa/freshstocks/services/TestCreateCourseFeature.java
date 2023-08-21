@@ -12,10 +12,11 @@ import com.fssa.freshstocks.services.exception.*;
 
 class TestCreateCourseFeature {
 
+	final long nanotime = System.nanoTime();
 	@Test
 	void testCreateCourseSuccess() {
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("SMCC High Courses",
+		Course course1 = new Course("Course" + nanotime,
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
 				"10hrs", "English", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
@@ -32,7 +33,7 @@ class TestCreateCourseFeature {
 	void testCreateCourseInvalid() {
 
 		CourseService courseService = new CourseService();
-		Course course1 = new Course("Stock Course",
+		Course course1 = new Course("chart patterns course",
 				"encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
 				"10hrs", "English", "5000", "2000",
 				"the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",

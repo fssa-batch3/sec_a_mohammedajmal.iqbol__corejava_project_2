@@ -14,7 +14,6 @@ public class CommentDAO {
 
 	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
-	
 	/**
 	 * Creates a new comment in the database.
 	 *

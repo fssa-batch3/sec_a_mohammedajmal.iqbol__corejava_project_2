@@ -26,7 +26,7 @@ class TestValidateCommentCourseId {
 		try {
 			CommentValidator.validateCourseId("123a");
 		} catch (InvalidCommentException e) {
-			assertEquals("Course commentID is Invalid",e.getMessage());
+			assertEquals("Invalid course ID. Course IDs must be positive integers.",e.getMessage());
 		}
 	}
 }

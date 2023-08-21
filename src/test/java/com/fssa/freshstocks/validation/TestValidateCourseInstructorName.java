@@ -26,7 +26,7 @@ class TestValidateCourseInstructorName {
 		try {
 			CourseValidator.validateInsutructorName("Mohammed_Ajmal");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course instructor name is Invalid",e.getMessage());
+			assertEquals("Invalid course instructor name. Instructor names must be 3 to 50 characters long and may include letters and spaces.",e.getMessage());
 		}
 	}
 }

@@ -23,7 +23,7 @@ class TestValidateUserDateOfBirth {
 		try {
 			UserValidator.validateDateOfBirth("2004-26-12");
 		} catch (InvalidUserException e) {
-			assertEquals("Given DateOfBirth is not valid",e.getMessage());
+			assertEquals("Invalid date of birth. Please provide a valid date in the format YYYY-MM-DD.",e.getMessage());
 		}
 	}
 
@@ -32,7 +32,7 @@ class TestValidateUserDateOfBirth {
 		try {
 			UserValidator.validateDateOfBirth("26-12-2004");
 		} catch (InvalidUserException e) {
-			assertEquals("Given DateOfBirth is not valid",e.getMessage());
+			assertEquals("Invalid date of birth. Please provide a valid date in the format YYYY-MM-DD.",e.getMessage());
 		}
 	}
 }

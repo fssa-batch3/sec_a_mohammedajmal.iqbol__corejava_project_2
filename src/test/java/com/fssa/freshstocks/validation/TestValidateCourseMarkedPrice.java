@@ -26,7 +26,7 @@ class TestValidateCourseMarkedPrice {
 		try {
 			CourseValidator.validateMarkedPrice("Rs.1000");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course marked price is Invalid",e.getMessage());
+			assertEquals("Invalid course marked price. Please provide a valid price (e.g., 100 or 99.99).",e.getMessage());
 		}
 	}
 }

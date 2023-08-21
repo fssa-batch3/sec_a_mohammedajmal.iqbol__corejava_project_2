@@ -11,7 +11,7 @@ class TestLogin {
 
 	@Test
 	void TestValidUser() {
-		User user1 = new User("hacker4@gmail.com", "Kotie@123");
+		User user1 = new User("ajmal@gmail.com", "Lakshmi@123");
 		UserService userService = new UserService();
 		try {
 			assertTrue(userService.loginUser(user1));

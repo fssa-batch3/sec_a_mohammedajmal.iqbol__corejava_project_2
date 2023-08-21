@@ -23,7 +23,7 @@ class TestValidateUserEmail {
 		try {
 			UserValidator.validateEmail("ajmalgmail.com");
 		} catch (InvalidUserException e) {
-			assertEquals("Invalid User Email",e.getMessage());
+			assertEquals("Invalid email address. Please provide a valid email address.",e.getMessage());
 		}
 	}
 
@@ -32,7 +32,7 @@ class TestValidateUserEmail {
 		try {
 			UserValidator.validateEmail("ajmal@gmailcom");
 		} catch (InvalidUserException e) {
-			assertEquals("Invalid User Email",e.getMessage());
+			assertEquals("Invalid email address. Please provide a valid email address.",e.getMessage());
 		}
 	}
 }

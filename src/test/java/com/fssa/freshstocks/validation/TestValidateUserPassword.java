@@ -22,7 +22,7 @@ class TestValidateUserPassword {
         try {
 			assertEquals(expectedResult, UserValidator.validatePassword(password));
 		} catch (InvalidUserException e) {
-			assertEquals("Invalid password",e.getMessage());
+			assertEquals("Invalid password. Passwords must meet specific complexity requirements.",e.getMessage());
 		}
     }
 }

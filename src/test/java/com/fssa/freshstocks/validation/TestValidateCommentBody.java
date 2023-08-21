@@ -27,7 +27,7 @@ class TestValidateCommentBody {
 	        try {
 				CommentValidator.validateComment(comment);
 			} catch (InvalidCommentException e) {
-				assertEquals("Course comment is not valid",e.getMessage());
+				assertEquals("Invalid comment. Please provide a non-empty comment for the course.",e.getMessage());
 			}
 	}
 }

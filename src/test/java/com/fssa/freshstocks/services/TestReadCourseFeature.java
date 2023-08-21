@@ -13,15 +13,15 @@ class TestReadCourseFeature {
 
 	@Test
 	void testGetAllCoursesSuccess() {
-		Course course1 = new Course(4);
+		int userID = 4;
 		CourseService courseService = new CourseService();
 		List<Course> cleanedEntries = null;
 		try {
-			cleanedEntries = courseService.listCourse(course1);
+			cleanedEntries = courseService.listCourse(userID);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		if(cleanedEntries.isEmpty()) {
+		if(cleanedEntries.isEmpty() || cleanedEntries == null) {
 			System.out.println("Courses Doesn't Exist!");
 		}
 		assertTrue(cleanedEntries.size() > 0);
@@ -29,15 +29,15 @@ class TestReadCourseFeature {
 
 	@Test
 	void testGetAllCoursesInvalid() {
-		Course course1 = new Course(1);
+		int userID = 1;
 		CourseService courseService = new CourseService();
 		List<Course> cleanedEntries = null;
 		try {
-			cleanedEntries = courseService.listCourse(course1);
+			cleanedEntries = courseService.listCourse(userID);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		if(cleanedEntries.isEmpty()) {
+		if(cleanedEntries.isEmpty()  || cleanedEntries == null) {
 			System.out.println("Courses Doesn't Exist!");
 		}
 		assertFalse(!cleanedEntries.isEmpty());

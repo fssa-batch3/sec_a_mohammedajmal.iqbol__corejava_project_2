@@ -21,7 +21,7 @@ class TestValidCourseName {
 		try {
 			CourseValidator.validateName("candles5_course");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course Name is Invalid",e.getMessage());
+			assertEquals("Invalid course name. Course names must be 3 to 30 characters long and may include letters, numbers, and spaces.",e.getMessage());
 		}
 	}
 }

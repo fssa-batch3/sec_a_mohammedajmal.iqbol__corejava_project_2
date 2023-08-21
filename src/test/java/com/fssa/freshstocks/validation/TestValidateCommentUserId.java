@@ -26,7 +26,7 @@ class TestValidateCommentUserId {
 		try {
 			CommentValidator.validateUserId("123a");
 		} catch (InvalidCommentException e) {
-			assertEquals("Course comment userID is Invalid",e.getMessage());
+			assertEquals("Invalid user ID. User IDs must be positive integers.",e.getMessage());
 		}
 	}
 }

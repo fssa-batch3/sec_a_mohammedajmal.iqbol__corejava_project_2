@@ -16,32 +16,31 @@ public class CommentValidator {
 	                      validateComment(comment.getComment()) &&
 	                      !comment.getComment().trim().isEmpty();
 
-	    if (isValid) {
-	        return true;
-	    } else {
-	        throw new InvalidCommentException("Comment details not valid");
+	    if (!isValid) {
+	    	throw new InvalidCommentException("Invalid comment details. Please ensure that your comment adheres to the required format.");
 	    }
+	    return true;
 	}
 	
 	public static boolean validateUserId(String userId) throws InvalidCommentException {
 		String regex = "^[1-9]\\d*$";
-	    if (!Pattern.matches(regex, userId) && userId.isEmpty()) {
-	        throw new InvalidCommentException("user ID is not valid");
+	    if (!Pattern.matches(regex, userId)) {
+	    	throw new InvalidCommentException("Invalid user ID. User IDs must be positive integers.");
 	    }
 	    return true;
 	}
 
 	public static boolean validateCourseId(String courseId) throws InvalidCommentException {
 		String regex = "^[1-9]\\d*$";
-	    if (!Pattern.matches(regex, courseId) && courseId.isEmpty()) {
-	        throw new InvalidCommentException("course ID is not valid");
+	    if (!Pattern.matches(regex, courseId)) {
+	       throw new InvalidCommentException("Invalid course ID. Course IDs must be positive integers.");
 	    }
 	    return true;
 	}
 
 	public static boolean validateComment(String commentbody) throws InvalidCommentException {
 		if (commentbody.trim().isEmpty()) {
-	        throw new InvalidCommentException("Course comment is not valid");
+			throw new InvalidCommentException("Invalid comment. Please provide a non-empty comment for the course.");
 	    }
 		return true;
 	}

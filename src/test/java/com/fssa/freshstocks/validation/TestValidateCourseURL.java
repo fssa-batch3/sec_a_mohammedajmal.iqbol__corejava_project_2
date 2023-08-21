@@ -23,7 +23,7 @@ class TestValidateCourseURL {
 		try {
 			CourseValidator.validateURL("example.com");
 		} catch (InvalidCourseException e) {
-			assertEquals("Course Image is Invalid",e.getMessage());
+			assertEquals("Invalid course image URL. Please provide a valid HTTP or HTTPS URL.",e.getMessage());
 		}
 	}	
 		

@@ -8,6 +8,7 @@ import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestCreateCommentFeature {
+	
 
 	@Test
 	void testCreateCommentSuccess() {
@@ -25,7 +26,7 @@ class TestCreateCommentFeature {
 	void testCreateCommentInvalid() {
 
 		CommentService commentService = new CommentService();
-		Comment comment1 = new Comment(21, 11, "");
+		Comment comment1 = new Comment(-1, -1, "");
 
 		assertThrows(ServiceException.class, () -> {
 			commentService.registerComment(comment1);
