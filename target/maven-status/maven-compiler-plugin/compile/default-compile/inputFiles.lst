@@ -5,11 +5,14 @@ C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_proj
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\App.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\validation\CourseValidator.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\dao\CommentDAO.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\validation\exception\InvalidCourseException.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\services\CourseService.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\validation\UserValidator.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\dao\UserDAO.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\model\User.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\validation\exception\InvalidCommentException.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\model\Comment.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\utils\ConnectionUtil.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\validation\CommentValidator.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\services\exception\ServiceException.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\main\java\com\fssa\freshstocks\services\CommentService.java

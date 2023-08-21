@@ -1,7 +1,6 @@
 package com.fssa.freshstocks.services;
 
 import java.util.List;
-
 import com.fssa.freshstocks.dao.CommentDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;

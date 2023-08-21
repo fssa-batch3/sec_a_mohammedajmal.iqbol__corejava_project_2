@@ -15,6 +15,7 @@ public class Course {
 	private String companyCategory;
 	private String topSkills;
 	private int userID;
+	private String username;
 	
 
 	public Course(String name, String coverImage, String timing, String language, String markedPrice,
@@ -39,6 +40,26 @@ public class Course {
 			String description, String instructorName, String companyName, String companyCategory, String topSkills
 			,int userID) {
 		super();
+		this.coverImage = coverImage;
+		this.timing = timing;
+		this.language = language;
+		this.markedPrice = markedPrice;
+		this.sellingPrice = sellingPrice;
+		this.description = description;
+		this.instructorName = instructorName;
+		this.companyName = companyName;
+		this.companyCategory = companyCategory;
+		this.topSkills = topSkills;
+		this.userID = userID;
+	}
+	
+	public Course(String username, int courseID, String name, String coverImage, String timing, String language, String markedPrice,
+			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
+			String topSkills,int userID) {
+		super();
+		this.username = username;
+		this.courseID = courseID;
+		this.name = name;
 		this.coverImage = coverImage;
 		this.timing = timing;
 		this.language = language;
@@ -172,10 +193,9 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "[courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage + ", timing=" + timing
+		return "[ userName=" + username + ", courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage + ", timing=" + timing
 				+ ", language=" + language + ", markedPrice=" + markedPrice + ", sellingPrice=" + sellingPrice
 				+ ", description=" + description + ", instructorName=" + instructorName + ", companyName=" + companyName
 				+ ", companyCategory=" + companyCategory + ", topSkills=" + topSkills + "]";
 	}
-
 }

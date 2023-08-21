@@ -56,17 +56,16 @@ public class CommentDAO {
 		List<Comment> comments = new ArrayList<>();
 
 		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement("SELECT * FROM Comment WHERE courseID =?");) {
+				PreparedStatement pst = connection.prepareStatement("SELECT f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.userID = f.userID JOIN course c ON co.courseID = c.courseID WHERE co.courseID = ?");) {
 
 			pst.setInt(1, courseID);
 			ResultSet resultSet = pst.executeQuery();
 
 			while (resultSet.next()) {
-				int commentId = resultSet.getInt("commentID");
-				int courseId = resultSet.getInt("courseID");
-				int userId = resultSet.getInt("userID");
+				String username = resultSet.getString("username");
+				String courseName = resultSet.getString("coursename");
 				String commentBody = resultSet.getString("comment");
-				Comment comment1 = new Comment(commentId, courseId, userId, commentBody);
+				Comment comment1 = new Comment(username, courseName, commentBody);
 				comments.add(comment1);
 			}
 		} catch (SQLException e) {

@@ -1,10 +1,8 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 class TestValidateUserPassword {

@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestDeleteCourseFeature {
+	
+	public static final int isDeleted = 1;
 
 	@Test
 	void TestDeleteCourseSuccess() {
 		Course course = new Course(1,"stock courses");
-		int isDeleted = 1;
 		CourseService courseService = new CourseService();
 		try {
 			assertTrue(courseService.deleteCourse(course, isDeleted));
@@ -25,7 +26,6 @@ class TestDeleteCourseFeature {
 	@Test
 	void TestDeleteCourseFail() {
 		Course course = new Course(1,"stock cours");
-		int isDeleted = 1;
 		CourseService courseService = new CourseService();
 		try {
 			assertFalse(courseService.deleteCourse(course, isDeleted));

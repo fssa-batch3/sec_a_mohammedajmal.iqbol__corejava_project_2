@@ -11,7 +11,7 @@ class TestCreateCommentFeature {
 
 	public static void main(String[] args) {
 
-		Comment comment1 = new Comment(4, 4, "This course is really good and well-structured.");
+		Comment comment1 = new Comment(8, 5, "best course.");
 		CommentService commentService = new CommentService();
 
 		try {

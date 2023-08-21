@@ -73,5 +73,4 @@ public class CourseService {
 			throw new ServiceException(e);
 		}
 	}
-
 }

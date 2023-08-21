@@ -9,11 +9,12 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestDeleteCommentFeature {
+	
+	public static final int isDeleted = 1;
 
 	@Test
 	void TestDeleteCommentSuccess() {
-		int commentId = 7;
-		int isDeleted = 1;
+		int commentId = 5;
 		CommentService commentService = new CommentService();
 		try {
 			assertTrue(commentService.deleteComment(commentId, isDeleted));
@@ -25,8 +26,7 @@ class TestDeleteCommentFeature {
 
 	@Test
 	void TestDeleteCommentFail() {
-		int commentId = 2;
-		int isDeleted = 1;
+		int commentId = 1;
 		CommentService commentService = new CommentService();
 		try {
 			assertFalse(commentService.deleteComment(commentId, isDeleted));

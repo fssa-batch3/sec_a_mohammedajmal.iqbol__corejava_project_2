@@ -14,7 +14,7 @@ class TestRegister {
 
 	public static void main(String[] args) {
 
-		User user1 = new User("Lakshmii_123", "Female", "9500320194", "2004-12-26", "lakshmi13@gmail.com",
+		User user1 = new User("Ajmal_123", "Female", "9500320194", "2004-12-26", "ajmal@gmail.com",
 				"Lakshmi@123",1);
 		UserService userService = new UserService();
 

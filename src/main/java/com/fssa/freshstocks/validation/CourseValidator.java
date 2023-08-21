@@ -67,7 +67,7 @@ public class CourseValidator {
 	}
 
 	public static boolean validateLanguage(String name) throws InvalidCourseException {
-		String regex = "^[A-Za-z\\\\s]{3,30}$";
+		String regex = "^[A-Za-z\\s]{3,30}$";
 	    if (!Pattern.matches(regex, name)) {
 	        throw new InvalidCourseException("Course language is Invalid");
 	    }

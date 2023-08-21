@@ -6,12 +6,26 @@ public class Comment {
 	private int commentId;
 	private int userId;
 	private String commentBody;
+	
+	private String username;
+	private String coursename;
 
 	public Comment(int courseId, int userId, String comment) {
 		super();
 		this.courseId = courseId;
 		this.userId = userId;
 		this.commentBody = comment;
+	}
+	
+	public Comment(String username , String coursename, String commentBody) {
+		this.username = username;
+		this.coursename = coursename;
+		this.commentBody = commentBody;
+	}
+
+	@Override
+	public String toString() {
+		return "[username=" + username + ", coursename=" + coursename + ", commentBody=" + commentBody + "]";
 	}
 
 	public Comment(int commentId, int courseId, int userId, String comment) {
@@ -30,12 +44,6 @@ public class Comment {
 	public Comment(int courseId) {
 		super();
 		this.courseId = courseId;
-	}
-
-	@Override
-	public String toString() {
-		return "[courseId=" + courseId + ", commentId=" + commentId + ", userId=" + userId + ", comment=" + commentBody
-				+ "]" + "\n";
 	}
 
 	public int getCourseId() {

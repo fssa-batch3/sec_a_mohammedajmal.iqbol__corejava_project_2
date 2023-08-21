@@ -13,7 +13,7 @@ class TestReadCourseFeature {
 
 	public static void main(String[] args) {
 
-		Course course1 = new Course(4);
+		Course course1 = new Course(5);
 		CourseService courseService = new CourseService();
 		List<Course> cleanedEntries = null;
 		try {

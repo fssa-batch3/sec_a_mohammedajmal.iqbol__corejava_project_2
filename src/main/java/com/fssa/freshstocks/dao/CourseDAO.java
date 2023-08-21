@@ -23,9 +23,9 @@ public class CourseDAO {
 		try {
 			// Get Connection
 			connection = ConnectionUtil.getConnection();
-
+		
 			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,description,instructor_name,company_name,company_category,top_skills,userID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,description,instructor_name,company_name,company_category,top_skills,userID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			pst = connection.prepareStatement(insertQuery);
 			pst.setInt(1, course.getCourseID());
 			pst.setString(2, course.getName().toLowerCase().trim());
@@ -92,11 +92,12 @@ public class CourseDAO {
 	public List<Course> readCourse(Course course) throws DAOException {
 	    List<Course> list1 = new ArrayList<>();
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE userID = ?")) {
+	         PreparedStatement pst = connection.prepareStatement("SELECT c.*, f.username FROM course c INNER JOIN freshstocks f ON c.userID = f.userID WHERE c.userID = ?")) {
 	        pst.setInt(1, course.getUserID());
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            
 	            while (resultSet.next()) {
+	            String username = resultSet.getString("username");
 				String name = resultSet.getString("name");
 				String coverImage = resultSet.getString("cover_image");
 				String timing = resultSet.getString("timing");
@@ -109,8 +110,9 @@ public class CourseDAO {
 				String companyCategory = resultSet.getString("company_category");
 				String topSkills = resultSet.getString("top_skills");
 				int userID = resultSet.getInt("userID");
+				int courseID = resultSet.getInt("courseID");
                 
-				Course course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
+				Course course1 = new Course(username,courseID,name, coverImage,timing,language,markedPrice,sellingPrice,
 						description, instructorName, companyName, companyCategory,topSkills,userID);
 				list1.add(course1);
 
@@ -132,7 +134,7 @@ public class CourseDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? userID=? WHERE courseID = ?;";
+			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? userID=? WHERE courseID = ?";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());
@@ -179,7 +181,7 @@ public class CourseDAO {
 
 			String isDelete = Integer.toString(isDeleted);
 
-			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE courseID = ?;";
+			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE courseID = ?";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
 			pst.setInt(2, courseID);

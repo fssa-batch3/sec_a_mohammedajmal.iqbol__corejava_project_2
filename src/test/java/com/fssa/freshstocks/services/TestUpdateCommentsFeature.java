@@ -14,7 +14,7 @@ class TestUpdateCommentsFeature {
 
 	public static void main(String[] args) throws InvalidCommentException {
 
-		int commentId = 3;
+		int commentId = 5;
 		Comment comment = new Comment("this is test update comments");
 		CommentService commentService = new CommentService();
 		try {
@@ -29,7 +29,7 @@ class TestUpdateCommentsFeature {
 
 	@Test
 	void testUpdateCommentSuccess() {
-		int commentId = 3;
+		int commentId = 5;
 		Comment comment = new Comment("this is test update comments");
 		CommentService commentService = new CommentService();
 		try {

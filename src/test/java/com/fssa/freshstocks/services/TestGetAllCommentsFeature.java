@@ -16,7 +16,7 @@ class TestGetAllCommentsFeature {
 	public static void main(String[] args) {
 
 		CommentDAO commentDAO = new CommentDAO();
-		int courseID = 1;
+		int courseID = 8;
 
 		List<Comment> cleanedEntries = null;
 		try {
@@ -36,7 +36,7 @@ class TestGetAllCommentsFeature {
 	@Test
 	void testGetAllCommentSuccess() {
 		CommentDAO commentDAO = new CommentDAO();
-		int courseID = 1;
+		int courseID = 4;
 		List<Comment> cleanedEntries = null;
 		try {
 			cleanedEntries = commentDAO.getAllComments(courseID);

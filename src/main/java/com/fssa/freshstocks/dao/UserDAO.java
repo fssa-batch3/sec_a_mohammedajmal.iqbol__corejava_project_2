@@ -109,7 +109,7 @@ public class UserDAO {
 			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO freshstocks (userID,username,gender,mobile_number,date_of_birth,email,password,is_seller) VALUES (?,?,?,?,?,?,?,?);";
+			String insertQuery = "INSERT INTO freshstocks (userID,username,gender,mobile_number,date_of_birth,email,password,is_seller) VALUES (?,?,?,?,?,?,?,?)";
 			pst = connection.prepareStatement(insertQuery);
 			pst.setInt(1, user.getUserID());
 			pst.setString(2, user.getUsername());
@@ -150,7 +150,7 @@ public class UserDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String updateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?;";
+			String updateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, user.getGender());
 			pst.setString(2, user.getmobileNumber());
@@ -189,7 +189,7 @@ public class UserDAO {
 
 			String isDelete = Integer.toString(isDeleted);
 
-			String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = ?;";
+			String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = ?";
 			pst = connection.prepareStatement(deleteQuery);
 			pst.setString(1, isDelete);
 			pst.setString(2, userEmail);

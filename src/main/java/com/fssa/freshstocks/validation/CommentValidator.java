@@ -3,7 +3,6 @@ package com.fssa.freshstocks.validation;
 import java.util.regex.Pattern;
 import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
-import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
 public class CommentValidator {
 

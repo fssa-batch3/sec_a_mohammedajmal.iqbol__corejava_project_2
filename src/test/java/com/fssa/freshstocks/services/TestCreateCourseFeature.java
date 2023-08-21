@@ -1,5 +1,4 @@
 package com.fssa.freshstocks.services;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,7 +29,6 @@ class TestCreateCourseFeature {
 			e.printStackTrace();
 			fail();
 		}
-
 	}
 
 	@Test

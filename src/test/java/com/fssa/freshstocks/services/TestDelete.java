@@ -9,13 +9,14 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestDelete {
+	
+	public static final int isDeleted = 1;
 
 	public static void main(String[] args) {
 
 		String userEmail = "lakshmi12@gmail.com";
 
 		// if (isDeleted = 1) then we have to consider that user is deleted
-		final int isDeleted = 1;
 		UserService userService = new UserService();
 
 		try {
@@ -31,7 +32,6 @@ class TestDelete {
 	@Test
 	void TestDeleteSuccess() {
 		String userEmail = "lakshmi12@gmail.com";
-		int isDeleted = 1;
 		UserService userService = new UserService();
 		try {
 			assertTrue(userService.deleteUser(userEmail, isDeleted));
@@ -44,10 +44,9 @@ class TestDelete {
 	@Test
 	void TestDeleteFail() {
 		String userEmail = "lakshmi120@gmail.com";
-		int is_deleted = 1;
 		UserService userService = new UserService();
 		try {
-			assertFalse(userService.deleteUser(userEmail, is_deleted));
+			assertFalse(userService.deleteUser(userEmail, isDeleted));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
