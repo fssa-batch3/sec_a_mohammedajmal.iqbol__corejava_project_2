@@ -9,21 +9,6 @@ import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestCreateCommentFeature {
 
-	public static void main(String[] args) {
-
-		Comment comment1 = new Comment(8, 5, "best course.");
-		CommentService commentService = new CommentService();
-
-		try {
-			if (!commentService.registerComment(comment1)) {
-				System.out.println("Create Comment not successful! Error : Comment Validation Failed");
-			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
 	@Test
 	void testCreateCommentSuccess() {
 		CommentService commentService = new CommentService();

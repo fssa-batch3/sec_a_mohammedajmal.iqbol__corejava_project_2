@@ -12,21 +12,6 @@ import com.fssa.freshstocks.model.Comment;
 
 class TestUpdateCommentsFeature {
 
-	public static void main(String[] args) throws InvalidCommentException {
-
-		int commentId = 5;
-		Comment comment = new Comment("this is test update comments");
-		CommentService commentService = new CommentService();
-		try {
-			if(!commentService.updateComment(comment, commentId)) {
-				System.out.println("CommentID Doesn't Exist");
-			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
 	@Test
 	void testUpdateCommentSuccess() {
 		int commentId = 5;

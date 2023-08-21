@@ -9,19 +9,6 @@ import com.fssa.freshstocks.model.*;
 
 class TestLogin {
 
-	public static void main(String[] args) {
-
-		User user1 = new User("hacker4@gmail.com", "Kotie@123");
-		UserService userService = new UserService();
-
-		try {
-			userService.loginUser(user1);
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
 	@Test
 	void TestValidUser() {
 		User user1 = new User("hacker4@gmail.com", "Kotie@123");

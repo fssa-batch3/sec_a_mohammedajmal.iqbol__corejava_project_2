@@ -11,22 +11,6 @@ import com.fssa.freshstocks.services.exception.*;
 
 class TestReadCourseFeature {
 
-	public static void main(String[] args) {
-
-		Course course1 = new Course(5);
-		CourseService courseService = new CourseService();
-		List<Course> cleanedEntries = null;
-		try {
-			cleanedEntries = courseService.listCourse(course1);
-			for(Course course2 : cleanedEntries) {
-				System.out.println(course2);
-			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-
 	@Test
 	void testGetAllCoursesSuccess() {
 		Course course1 = new Course(4);

@@ -12,21 +12,6 @@ import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestRegister {
 
-	public static void main(String[] args) {
-
-		User user1 = new User("Ajmal_123", "Female", "9500320194", "2004-12-26", "ajmal@gmail.com",
-				"Lakshmi@123",1);
-		UserService userService = new UserService();
-
-		try {
-			if (!userService.registerUser(user1)) {
-				System.out.println("Registration not successful! Error : Validation Failed Or User Already Exist");
-			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
 
 	@Test
 	void testRegistrationSuccess() {
