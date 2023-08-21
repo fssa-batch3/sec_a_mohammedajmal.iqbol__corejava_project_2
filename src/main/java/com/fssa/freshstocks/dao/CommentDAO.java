@@ -11,16 +11,30 @@ import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.utils.*;
 
 public class CommentDAO {
-	
+
 	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
+	
+	/**
+	 * Creates a new comment in the database.
+	 *
+	 * This method adds a new comment to the database by inserting the provided
+	 * Comment object's information into the 'Comment' table. The provided Comment
+	 * object should contain the course ID, user ID, and comment content. The
+	 * comment content is normalized by converting it to lower-case and trimming
+	 * leading/trailing spaces.
+	 *
+	 * @param comment The Comment object representing the comment to be created.
+	 * @return {@code true} if the comment creation was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error during the database operation.
+	 */
 	public boolean createComment(Comment comment) throws DAOException {
 		Connection connection = null;
 		PreparedStatement pst = null;
 		int rows = 0;
 
 		try {
-			// Get Connection
+			// Get Connection from ConnectionUtil file
 			connection = ConnectionUtil.getConnection();
 
 			// Prepare SQL Statement
@@ -34,7 +48,7 @@ public class CommentDAO {
 		} catch (SQLException e) {
 			throw new DAOException("Error while creating comment." + e);
 		} finally {
-
+			// Close resources
 			try {
 				if (pst != null) {
 					pst.close();
@@ -51,12 +65,20 @@ public class CommentDAO {
 		return (rows == 1);
 	}
 
-	// get courses by course name
+	
+	/**
+	 * Retrieves a list of comments for a specific course.
+	 *
+	 * @param courseID The ID of the course for which to retrieve comments.
+	 * @return A list of Comment objects representing the comments for the course.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public List<Comment> getAllComments(int courseID) throws DAOException {
 		List<Comment> comments = new ArrayList<>();
 
 		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement("SELECT f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.userID = f.userID JOIN course c ON co.courseID = c.courseID WHERE co.courseID = ?");) {
+				PreparedStatement pst = connection.prepareStatement(
+						"SELECT f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.userID = f.userID JOIN course c ON co.courseID = c.courseID WHERE co.courseID = ?");) {
 
 			pst.setInt(1, courseID);
 			ResultSet resultSet = pst.executeQuery();
@@ -75,7 +97,15 @@ public class CommentDAO {
 		return comments;
 	}
 
-	// update comment
+	
+	/**
+	 * Updates an existing comment in the database.
+	 *
+	 * @param comment   The Comment object containing the updated comment text.
+	 * @param commentId The ID of the comment to be updated.
+	 * @return {@code true} if the update was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean updateComment(Comment comment, int commentId) throws DAOException {
 
 		Connection connection = null;
@@ -88,7 +118,7 @@ public class CommentDAO {
 			String updateQuery = "UPDATE Comment SET comment=? WHERE commentID = ?;";
 			pst = connection.prepareStatement(updateQuery);
 			pst.setString(1, comment.getComment());
-		    pst.setInt(2, commentId);
+			pst.setInt(2, commentId);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -111,7 +141,15 @@ public class CommentDAO {
 		return (rows == 1);
 	}
 
-	// delete comment
+	
+	/**
+	 * Marks a comment as deleted or undeleted in the database.
+	 *
+	 * @param commentId The ID of the comment to be marked.
+	 * @param isDeleted The value indicating whether the comment should be marked as deleted (1) or not deleted (0).
+	 * @return {@code true} if the marking was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean deleteComment(int commentId, int isDeleted) throws DAOException {
 
 		Connection connection = null;

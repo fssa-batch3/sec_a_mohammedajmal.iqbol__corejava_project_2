@@ -13,7 +13,14 @@ public class CourseDAO {
 
 	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
-	// add new course to DB - Register
+	
+	/**
+	 * Creates a new course in the database.
+	 *
+	 * @param course The Course object representing the course to be created.
+	 * @return {@code true} if the creation was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean createCourse(Course course) throws DAOException {
 
 		Connection connection = null;
@@ -61,7 +68,14 @@ public class CourseDAO {
 		return (rows == 1);
 	}
 
-	// Name Should Not Exist
+	
+	/**
+	 * Checks whether a course with the same name exists in the database.
+	 *
+	 * @param course The Course object representing the course to check against.
+	 * @return {@code true} if a course with the same name exists, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean sameNameExist(Course course) throws DAOException {
 	    boolean match = false;
 	    int count = 0;
@@ -88,7 +102,14 @@ public class CourseDAO {
 	    return match;
 	}
 
-	// get courses by course name
+	
+	/**
+	 * Retrieves a list of courses belonging to a specific user from the database.
+	 *
+	 * @param course The Course object representing the user and additional criteria for course retrieval.
+	 * @return A list of Course objects representing the courses associated with the user.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public List<Course> readCourse(Course course) throws DAOException {
 	    List<Course> list1 = new ArrayList<>();
 	    try (Connection connection = ConnectionUtil.getConnection();
@@ -124,7 +145,15 @@ public class CourseDAO {
 	        return list1;
 	    }
 
-	// update course
+	
+	/**
+	 * Updates an existing course's information in the database.
+	 *
+	 * @param course   The Course object containing the updated course information.
+	 * @param courseID The ID of the course to be updated.
+	 * @return {@code true} if the update was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean updateCourse(Course course, int courseID) throws DAOException {
 
 		Connection connection = null;
@@ -169,7 +198,15 @@ public class CourseDAO {
 		return (rows == 1);
 	}
 
-	// delete course
+	
+	/**
+	 * Marks a course as deleted or undeleted in the database.
+	 *
+	 * @param courseID  The ID of the course to be marked.
+	 * @param isDeleted The value indicating whether the course should be marked as deleted (1) or not deleted (0).
+	 * @return {@code true} if the marking was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean deleteCourse(int courseID, int isDeleted) throws DAOException {
 
 		Connection connection = null;

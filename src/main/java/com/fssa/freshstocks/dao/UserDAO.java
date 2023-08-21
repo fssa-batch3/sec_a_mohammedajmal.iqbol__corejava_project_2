@@ -22,7 +22,14 @@ public class UserDAO {
 	private static final String PREFIX_PASSWORD_STRING = "Password: ";
     public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
-//	Get user from DB - Login
+
+    /**
+     * Attempts to log in a user by verifying their email and password in the database.
+     *
+     * @param user The User object representing the user's login information.
+     * @return {@code true} if the login was successful, {@code false} otherwise.
+     * @throws DAOException If there's an error while interacting with the database.
+     */
 	public boolean login(User user) throws DAOException {
 
 		try (Connection connection = ConnectionUtil.getConnection();
@@ -48,7 +55,13 @@ public class UserDAO {
 		return match;
 	}
 
-	// Email Not Exist
+	/**
+	 * Checks whether a given email address already exists in the database.
+	 *
+	 * @param The user object contains email to check for existence.
+	 * @return {@code true} if the email address already exists, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean emailExist(User user) throws DAOException {
 	    boolean emailExists = false;
 
@@ -72,7 +85,14 @@ public class UserDAO {
 	    return emailExists;
 	}
 
-	// email already exist using email params
+	
+	/**
+	 * Checks whether a given email address already exists in the database.
+	 *
+	 * @param email The email address to check for existence.
+	 * @return {@code true} if the email address already exists, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean emailAlreadyExist(String email) throws DAOException {
 	    boolean emailAlreadyExist = false;
 
@@ -97,7 +117,13 @@ public class UserDAO {
 	}
 
 
-	// add new user to DB - Register
+	/**
+	 * Registers a new user in the database.
+	 *
+	 * @param user The User object representing the user to be registered.
+	 * @return {@code true} if the registration was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean register(User user) throws DAOException {
 
 		Connection connection = null;
@@ -140,7 +166,15 @@ public class UserDAO {
 		return (rows == 1);
 	}
 
-	// update user
+	
+	/**
+	 * Updates a user's information in the database.
+	 *
+	 * @param The User object containing the updated user information.
+	 * @param userEmail The email address of the user to be updated.
+	 * @return {@code true} if the update was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean update(User user, String userEmail) throws DAOException {
 
 		Connection connection = null;
@@ -177,7 +211,15 @@ public class UserDAO {
 		return (rows == 1);
 	}
 
-	// delete user
+	
+	/**
+	 * Marks a user as deleted or undeleted in the database.
+	 *
+	 * @param userEmail The email address of the user to be marked.
+	 * @param isDeleted The value indicating whether the user should be marked as deleted (1) or not deleted (0).
+	 * @return {@code true} if the marking was successful, {@code false} otherwise.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
 	public boolean delete(String userEmail, int isDeleted) throws DAOException {
 
 		Connection connection = null;

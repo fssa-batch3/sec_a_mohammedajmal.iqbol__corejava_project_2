@@ -39,6 +39,7 @@ UPDATE freshstocks SET is_deleted = 1 WHERE email = "freekyajmal@gmail.com";
 
 CREATE TABLE course (
     courseID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    userID INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     cover_image LONGTEXT NOT NULL,
     timing VARCHAR(20),
@@ -51,7 +52,8 @@ CREATE TABLE course (
     top_skills VARCHAR(255),
     is_deleted INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userID) REFERENCES freshstocks(userID)
 );
 
   <-- READ COURSE FROM COURSE TABLE BY COURSE NAME -->
