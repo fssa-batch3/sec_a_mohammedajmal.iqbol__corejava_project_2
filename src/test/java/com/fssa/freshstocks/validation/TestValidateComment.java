@@ -1,46 +1,64 @@
 package com.fssa.freshstocks.validation;
 
-import com.fssa.freshstocks.validation.exception.InvalidCommentException;
-
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
 import com.fssa.freshstocks.model.*;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.fssa.freshstocks.validation.exception.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+
+@TestMethodOrder(OrderAnnotation.class)
 class TestValidateComment {
 
-    @Test
-    void testValidComment() throws InvalidCommentException {
-    	 Comment comment = new Comment(1,1,"this is test comment");
-        assertTrue(CommentValidator.validateComment(comment));
+    private Comment validComment;
+    private Comment invalidCommentNull;
+    private Comment invalidCommentInvalidUserId;
+    private Comment invalidCommentInvalidCourseId;
+    private Comment invalidCommentInvalidComment;
+
+    @BeforeEach
+    void setup() {
+        validComment = new Comment(1, 1, "this is test comment");
+        invalidCommentNull = null;
+        invalidCommentInvalidUserId = new Comment(1, -1, "test comment");
+        invalidCommentInvalidCourseId = new Comment(-1, 1, "test comment");
+        invalidCommentInvalidComment = new Comment(1, 1, "");
     }
 
     @Test
+    @Order(1)
+    void testValidComment() throws InvalidCommentException {
+        assertTrue(CommentValidator.validateComment(validComment));
+    }
+
+    @Test
+    @Order(2)
     void testInvalidCommentWithNull() {
-        Comment comment = null;
         assertThrows(NullPointerException.class, () -> {
-            CommentValidator.validateComment(comment);
+            CommentValidator.validateComment(invalidCommentNull);
         });
     }
 
     @Test
+    @Order(3)
     void testInvalidCommentWithInvalidUserId() {
-    	Comment comment = new Comment(1,-1,"test comment"); // Invalid user ID
-        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(comment));
+        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(invalidCommentInvalidUserId));
     }
 
     @Test
+    @Order(4)
     void testInvalidCommentWithInvalidCourseId() {
-        Comment comment = new Comment(-1,1,"test comment"); // Invalid course ID
-        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(comment));
+        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(invalidCommentInvalidCourseId));
     }
 
     @Test
+    @Order(5)
     void testInvalidCommentWithInvalidComment() {
-        Comment comment = new Comment(1,1,""); // Invalid comment
-        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(comment));
+        assertThrows(InvalidCommentException.class, () -> CommentValidator.validateComment(invalidCommentInvalidComment));
     }
 }

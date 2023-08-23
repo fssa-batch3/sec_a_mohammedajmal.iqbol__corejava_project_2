@@ -5,34 +5,42 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestDeleteCommentFeature {
 	
-	public static final int isDeleted = 1;
 
-	@Test
-	void TestDeleteCommentSuccess() {
-		int commentId = 5;
-		CommentService commentService = new CommentService();
-		try {
-			assertTrue(commentService.deleteComment(commentId, isDeleted));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+    private CommentService commentService;
+    private final int isDeleted = 1;
 
-	@Test
-	void TestDeleteCommentFail() {
-		int commentId = 1;
-		CommentService commentService = new CommentService();
-		try {
-			assertFalse(commentService.deleteComment(commentId, isDeleted));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
+    @BeforeEach
+    void setup() {
+        commentService = new CommentService();
+    }
 
+    @Test
+    @Order(1)
+    void testDeleteCommentSuccess() {
+        int commentId = 5;
+        try {
+            assertTrue(commentService.deleteComment(commentId, isDeleted));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    @Order(2)
+    void testDeleteCommentFail() {
+        int commentId = 1;
+        try {
+            assertFalse(commentService.deleteComment(commentId, isDeleted));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
 }

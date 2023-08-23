@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
@@ -12,42 +16,46 @@ import com.fssa.freshstocks.services.exception.ServiceException;
 
 class TestRegister {
 
-	final long nanotime = System.nanoTime();
+    private UserService userService;
+    private final long nanotime = System.nanoTime();
 
-	@Test
-	void testRegistrationSuccess() {
-		UserService userService = new UserService();
-		User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "user" + nanotime + "@gmail.com",
-				"Lakshmi@123",1);
-		try {
-			assertTrue(userService.registerUser(user1));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
+    @BeforeEach
+    void setup() {
+        userService = new UserService();
+    }
 
-	@Test
-	void testInvalidPassword() {
+    @Test
+    @Order(1)
+    void testRegistrationSuccess() {
+        User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "user" + nanotime + "@gmail.com",
+                "Lakshmi@123",1);
+        try {
+            assertTrue(userService.registerUser(user1));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
-		UserService userService = new UserService();
-		User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "user" + nanotime + "@gmail.com", "Lakshmi123",1);
-		try {
-			assertFalse(userService.registerUser(user1));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-	}
+    @Test
+    @Order(2)
+    void testInvalidPassword() {
+        User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "user" + nanotime + "@gmail.com",
+                "Lakshmi123",1);
+        try {
+            assertFalse(userService.registerUser(user1));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	void testUserNull() {
+    @Test
+    @Order(3)
+    void testUserNull() {
+        User user1 = null;
 
-		UserService userService = new UserService();
-		User user1 = null;
-
-		assertThrows(NullPointerException.class, () -> {
-			userService.registerUser(user1);
-		});
-	}
-
+        assertThrows(NullPointerException.class, () -> {
+            userService.registerUser(user1);
+        });
+    }
 }

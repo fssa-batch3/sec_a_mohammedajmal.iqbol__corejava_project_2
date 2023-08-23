@@ -6,7 +6,14 @@ import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
 public class CourseValidator {
 
-	// if three conditions valid then user valid
+	/**
+	 * Validates a Course object for various attributes including name, cover image URL, language, prices,
+	 * timing, instructor name, company details, and top skills. (Create Course Validation)
+	 *
+	 * @param course The Course object to be validated.
+	 * @return true if the course is valid, false otherwise.
+	 * @throws InvalidCourseException If the course is found to be invalid.
+	 */
 	public static boolean validateCourse(Course course) throws InvalidCourseException {
 	    boolean isValid = course != null &&
 	        validateName(course.getName()) &&
@@ -29,7 +36,13 @@ public class CourseValidator {
 	}
 
 
-	// if three conditions valid then user valid
+	/**
+	 * Validates a Course object for various attributes, intended for course updates.
+	 * (Update Course Validation)
+	 * @param course The Course object to be validated.
+	 * @return true if the updated course is valid, false otherwise.
+	 * @throws InvalidCourseException If the updated course is found to be invalid.
+	 */
 	public static boolean validateUpdatedCourse(Course course) throws InvalidCourseException {
 	    boolean isValid = course != null &&
 	        validateURL(course.getCoverImage()) &&
@@ -50,6 +63,13 @@ public class CourseValidator {
 	    return isValid;
 	}
 
+	/**
+	 * Validates a course name based on specific pattern criteria.
+	 *
+	 * @param name The course name to be validated.
+	 * @return true if the course name is valid, false otherwise.
+	 * @throws InvalidCourseException If the course name is found to be invalid.
+	 */
 	public static boolean validateName(String name) throws InvalidCourseException {
 		String regex = "^(?=.*[A-Za-z])[A-Za-z0-9\\s]{3,30}$";
 	    if (!Pattern.matches(regex, name)) {
@@ -58,14 +78,28 @@ public class CourseValidator {
 	    return true;
 	}
 
+	/**
+	 * Validates a Image URL based on specific pattern criteria.
+	 *
+	 * @param url The Image URL to be validated.
+	 * @return true if the Image URL is valid, false otherwise.
+	 * @throws InvalidCourseException If the Image URL is found to be invalid.
+	 */
 	public static boolean validateURL(String url) throws InvalidCourseException {
-		String regex = "^https?://\\S+$";
+		String regex = "^https://.*\\.(png|jpeg)$";
 	    if (!Pattern.matches(regex, url)) {
 	    	throw new InvalidCourseException("Invalid course image URL. Please provide a valid HTTP or HTTPS URL.");
 	    }
 	    return true;
 	}
 
+	/**
+	 * Validates a language name based on specific pattern criteria.
+	 *
+	 * @param name The language name to be validated.
+	 * @return true if the language name is valid, false otherwise.
+	 * @throws InvalidCourseException If the language name is found to be invalid.
+	 */
 	public static boolean validateLanguage(String name) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,30}$";
 	    if (!Pattern.matches(regex, name)) {
@@ -74,32 +108,60 @@ public class CourseValidator {
 	    return true;
 	}
 
-	public static boolean validateMarkedPrice(String markedprice) throws InvalidCourseException {
+	/**
+	 * Validates a marked price based on specific pattern criteria.
+	 *
+	 * @param markedPrice The marked price to be validated.
+	 * @return true if the marked price is valid, false otherwise.
+	 * @throws InvalidCourseException If the marked price is found to be invalid.
+	 */
+	public static boolean validateMarkedPrice(int markedprice) throws InvalidCourseException {
+		String mp = Integer.toString(markedprice);
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
-	    if (!Pattern.matches(pricePattern, markedprice)) {
+	    if (!Pattern.matches(pricePattern, mp)) {
 	    	throw new InvalidCourseException("Invalid course marked price. Please provide a valid price (e.g., 100 or 99.99).");
 	    }
 	    return true;
 	}
 
-	public static boolean validateSellingPrice(String sellingprice) throws InvalidCourseException {
+	/**
+	 * Validates a selling price based on specific pattern criteria.
+	 *
+	 * @param sellingPrice The selling price to be validated.
+	 * @return true if the selling price is valid, false otherwise.
+	 * @throws InvalidCourseException If the selling price is found to be invalid.
+	 */
+	public static boolean validateSellingPrice(int sellingprice) throws InvalidCourseException {
+		String sp = Integer.toString(sellingprice);
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
-	    if (!Pattern.matches(pricePattern, sellingprice)) {
+	    if (!Pattern.matches(pricePattern, sp)) {
 	    	throw new InvalidCourseException("Invalid course selling price. Please provide a valid price (e.g., 100 or 99.99).");
 	    }
 	    return true;
 	}
 
-	public static boolean validatePriceDifference(String markedPrice, String sellingPrice) {
+	/**
+	 * Validates the price difference between marked price and selling price.
+	 *
+	 * @param markedPrice The marked price of the course.
+	 * @param sellingPrice The selling price of the course.
+	 * @return true if the price difference is valid, false otherwise.
+	 */
+	public static boolean validatePriceDifference(int markedPrice, int sellingPrice) {
 	    try {
-	        int marked = Integer.parseInt(markedPrice);
-	        int selling = Integer.parseInt(sellingPrice);
-	        return marked > selling;
+	        return markedPrice > sellingPrice;
 	    } catch (NumberFormatException e) {
 	        return false;
 	    }
 	}
 
+	/**
+	 * Validates course timing based on specific pattern criteria.
+	 *
+	 * @param timing The course timing to be validated.
+	 * @return true if the timing is valid, false otherwise.
+	 * @throws InvalidCourseException If the timing is found to be invalid.
+	 */
 	public static boolean validateTiming(String timing) throws InvalidCourseException {
 		String courseTimingPattern = "^(\\d+)hrs$";
 	    if (!Pattern.matches(courseTimingPattern, timing)) {
@@ -108,6 +170,13 @@ public class CourseValidator {
 	    return true;
 	}
 
+	/**
+	 * Validates an instructor name based on specific pattern criteria.
+	 *
+	 * @param instructorName The instructor name to be validated.
+	 * @return true if the instructor name is valid, false otherwise.
+	 * @throws InvalidCourseException If the instructor name is found to be invalid.
+	 */
 	public static boolean validateInsutructorName(String instructorname) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,50}$";
 	    if (!Pattern.matches(regex, instructorname)) {
@@ -116,6 +185,13 @@ public class CourseValidator {
 	    return true;
 	}
 
+	/**
+	 * Validates a company name based on specific pattern criteria.
+	 *
+	 * @param companyName The company name to be validated.
+	 * @return true if the company name is valid, false otherwise.
+	 * @throws InvalidCourseException If the company name is found to be invalid.
+	 */
 	public static boolean validateCompanyName(String companyname) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,100}$";
 	    if (!Pattern.matches(regex, companyname)) {
@@ -124,6 +200,13 @@ public class CourseValidator {
 	    return true;
 	}
 
+	/**
+	 * Validates a company category based on specific pattern criteria.
+	 *
+	 * @param companycategory The company category to be validated.
+	 * @return true if the company category is valid, false otherwise.
+	 * @throws InvalidCourseException If the company category is found to be invalid.
+	 */
 	public static boolean validateCompanyCategory(String companycategory) throws InvalidCourseException {	
 		String regex = "^[A-Za-z\\s]{3,100}$";
 	    if (!Pattern.matches(regex, companycategory)) {
@@ -132,6 +215,13 @@ public class CourseValidator {
 	    return true;
 	}
 
+	/**
+	 * Validates top skills based on specific pattern criteria.
+	 *
+	 * @param topskills The top skills to be validated.
+	 * @return true if the top skills are valid, false otherwise.
+	 * @throws InvalidCourseException If the top skills are found to be invalid.
+	 */
 	public static boolean validateTopSkils(String topskills) throws InvalidCourseException {
 		String regex = "^[A-Za-z\\s]{3,150}$";
 	    if (!Pattern.matches(regex, topskills)) {

@@ -22,7 +22,7 @@ public class UserDAO {
 	private static final String PREFIX_PASSWORD_STRING = "Password: ";
     public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
-
+    
     /**
      * Attempts to log in a user by verifying their email and password in the database.
      *
@@ -30,30 +30,32 @@ public class UserDAO {
      * @return {@code true} if the login was successful, {@code false} otherwise.
      * @throws DAOException If there's an error while interacting with the database.
      */
-	public boolean login(User user) throws DAOException {
+    public boolean login(User user) throws DAOException {
+        boolean match = false;
 
-		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) 
-		{ 
-			pst.setString(1, user.getEmail());
-			try(ResultSet resultSet = pst.executeQuery()) {
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) {
 
-			while (resultSet.next()) {
-				String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
-				String password = resultSet.getString(PASSWORD_COLUMN_NAME);
+            pst.setString(1, user.getEmail());
 
-				System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
+            try (ResultSet resultSet = pst.executeQuery()) {
+                while (resultSet.next()) {
+                    String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
+                    String password = resultSet.getString(PASSWORD_COLUMN_NAME);
 
-				if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
-					match = true;
-				}
-			}
-			}
-		} catch (SQLException e) {
-	        throw new DAOException("Error checking email exist: " + e);
-	    }
-		return match;
-	}
+                    System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
+
+                    if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
+                        match = true;
+                        return true; // Return as soon as a match is found
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error checking email exist: " + e);
+        }
+        return match;
+    }
 
 	/**
 	 * Checks whether a given email address already exists in the database.
@@ -125,45 +127,28 @@ public class UserDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean register(User user) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "INSERT INTO freshstocks (userID, username, gender, mobile_number, date_of_birth, email, password, is_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
 
-		try {
-			// Get Connection
-			connection = ConnectionUtil.getConnection();
+	        pst.setInt(1, user.getUserID());
+	        pst.setString(2, user.getUsername());
+	        pst.setString(3, user.getGender());
+	        pst.setString(4, user.getmobileNumber());
+	        pst.setString(5, user.getdateOfBirth());
+	        pst.setString(6, user.getEmail());
+	        pst.setString(7, user.getPassword());
+	        pst.setInt(8, user.getIsSeller());
 
-			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO freshstocks (userID,username,gender,mobile_number,date_of_birth,email,password,is_seller) VALUES (?,?,?,?,?,?,?,?)";
-			pst = connection.prepareStatement(insertQuery);
-			pst.setInt(1, user.getUserID());
-			pst.setString(2, user.getUsername());
-			pst.setString(3, user.getGender());
-			pst.setString(4, user.getmobileNumber());
-			pst.setString(5, user.getdateOfBirth());
-			pst.setString(6, user.getEmail());
-			pst.setString(7, user.getPassword());
-			pst.setInt(8, user.getIsSeller());
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Error while creating user: " + e);
-		} finally {
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while creating user: " + e);
+	    }
 
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
 
 	
@@ -176,39 +161,24 @@ public class UserDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean update(User user, String userEmail) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?")) {
 
-		try {
-			connection = ConnectionUtil.getConnection();
+	        pst.setString(1, user.getGender());
+	        pst.setString(2, user.getmobileNumber());
+	        pst.setString(3, user.getdateOfBirth());
+	        pst.setString(4, userEmail);
 
-			String updateQuery = "UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?";
-			pst = connection.prepareStatement(updateQuery);
-			pst.setString(1, user.getGender());
-			pst.setString(2, user.getmobileNumber());
-			pst.setString(3, user.getdateOfBirth());
-			pst.setString(4, userEmail);
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while updating user: " + e);
+	    }
 
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Error while updaing user: " + e);
-		} finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
 
 	
@@ -221,39 +191,23 @@ public class UserDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean delete(String userEmail, int isDeleted) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "UPDATE freshstocks SET is_deleted = ? WHERE email = ?")) {
 
-		try {
-			connection = ConnectionUtil.getConnection();
+	        String isDelete = Integer.toString(isDeleted);
+	        pst.setString(1, isDelete);
+	        pst.setString(2, userEmail);
 
-			String isDelete = Integer.toString(isDeleted);
+	        // Execute query
+	        rows = pst.executeUpdate();
 
-			String deleteQuery = "UPDATE freshstocks SET is_deleted = ? WHERE email = ?";
-			pst = connection.prepareStatement(deleteQuery);
-			pst.setString(1, isDelete);
-			pst.setString(2, userEmail);
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while deleting user: " + e);
+	    }
 
-			// Execute query
-			rows = pst.executeUpdate();
-
-		} catch (SQLException e) {
-			throw new DAOException("Error while deleting user: " + e);
-		} finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
 }

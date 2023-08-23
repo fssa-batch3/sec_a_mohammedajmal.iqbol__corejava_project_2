@@ -2,50 +2,49 @@ package com.fssa.freshstocks.model;
 
 public class Comment {
 
-	private int courseId;
-	private int commentId;
-	private int userId;
-	private String commentBody;
-	
-	private String username;
-	private String coursename;
+    // Fields
+    private int commentId;
+    private int userId;
+    private int courseId;
+    private String commentBody;
+    private String username;
+    private String coursename;
 
-	public Comment(int courseId, int userId, String comment) {
-		super();
-		this.courseId = courseId;
-		this.userId = userId;
-		this.commentBody = comment;
-	}
-	
-	public Comment(String username , String coursename, String commentBody) {
-		this.username = username;
-		this.coursename = coursename;
-		this.commentBody = commentBody;
-	}
+    // Constructors
+    // Constructor for creating a comment with course ID, user ID, and comment body
+    public Comment(int courseId, int userId, String comment) {
+        this.courseId = courseId;
+        this.userId = userId;
+        this.commentBody = comment;
+    }
 
-	@Override
-	public String toString() {
-		return "[username=" + username + ", coursename=" + coursename + ", commentBody=" + commentBody + "]";
-	}
+    // Constructor for creating a comment with comment ID, username, coursename, and comment body
+    public Comment(int commentId, String username, String coursename, String commentBody) {
+        this.commentId = commentId;
+        this.username = username;
+        this.coursename = coursename;
+        this.commentBody = commentBody;
+    }
 
-	public Comment(int commentId, int courseId, int userId, String comment) {
-		super();
-		this.commentId = commentId;
-		this.courseId = courseId;
-		this.userId = userId;
-		this.commentBody = comment;
-	}
+    // Constructor for creating a comment with comment ID, course ID, user ID, and comment body
+    public Comment(int commentId, int courseId, int userId, String comment) {
+        this.commentId = commentId;
+        this.courseId = courseId;
+        this.userId = userId;
+        this.commentBody = comment;
+    }
 
-	public Comment(String comment) {
-		super();
-		this.commentBody = comment;
-	}
+    // Constructor for creating a comment with just the comment body
+    public Comment(String comment) {
+        this.commentBody = comment;
+    }
 
-	public Comment(int courseId) {
-		super();
-		this.courseId = courseId;
-	}
+    // Constructor for creating a comment with only the course ID
+    public Comment(int courseId) {
+        this.courseId = courseId;
+    }
 
+    // Getters and Setters
 	public int getCourseId() {
 		return courseId;
 	}
@@ -66,8 +65,11 @@ public class Comment {
 		return commentBody;
 	}
 
-	public void setComment(String comment) {
-		this.commentBody = comment;
+    // toString method to provide a string representation of the Comment object
+	@Override
+	public String toString() {
+		return "[commentId=" + commentId + ", username=" + username + ", coursename=" + coursename
+				+ ", commentBody=" + commentBody + "]";
 	}
 
 }

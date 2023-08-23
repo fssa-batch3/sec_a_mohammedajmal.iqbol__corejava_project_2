@@ -2,13 +2,14 @@ package com.fssa.freshstocks.model;
 
 public class Course {
 
+	//Fields
 	private int courseID;
 	private String name;
 	private String coverImage;
 	private String timing;
 	private String language;
-	private String markedPrice;
-	private String sellingPrice;
+	private int markedPrice;
+	private int sellingPrice;
 	private String description;
 	private String instructorName;
 	private String companyName;
@@ -17,9 +18,9 @@ public class Course {
 	private int userID;
 	private String username;
 	
-
-	public Course(String name, String coverImage, String timing, String language, String markedPrice,
-			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
+    // constructor to create course
+	public Course(String name, String coverImage, String timing, String language, int markedPrice,
+			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills,int userID) {
 		super();
 		this.name = name;
@@ -36,7 +37,8 @@ public class Course {
 		this.userID = userID;
 	}
 
-	public Course(String coverImage, String timing, String language, String markedPrice, String sellingPrice,
+	 // constructor to update course
+	public Course(String coverImage, String timing, String language, int markedPrice, int sellingPrice,
 			String description, String instructorName, String companyName, String companyCategory, String topSkills
 			,int userID) {
 		super();
@@ -53,8 +55,9 @@ public class Course {
 		this.userID = userID;
 	}
 	
-	public Course(String username, int courseID, String name, String coverImage, String timing, String language, String markedPrice,
-			String sellingPrice, String description, String instructorName, String companyName, String companyCategory,
+	 // constructor to read or list course
+	public Course(String username, int courseID, String name, String coverImage, String timing, String language, int markedPrice,
+			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills,int userID) {
 		super();
 		this.username = username;
@@ -73,26 +76,19 @@ public class Course {
 		this.userID = userID;
 	}
 	
+	//constructor to delete or update course
+	public Course(int userID) {
+		super();
+		this.userID = userID;
+	}
+	
+	//Getters And Setters
 	public int getUserID() {
 		return userID;
 	}
 
 	public void setUserID(int userID) {
 		this.userID = userID;
-	}
-
-	public Course(String name) {
-		this.name = name;
-	}
-	
-	public Course(int userID) {
-		super();
-		this.userID = userID;
-	}
-	
-	public Course(int courseID , String name) {
-		this.courseID = courseID;
-		this.name = name;
 	}
 
 	public String getName() {
@@ -127,19 +123,19 @@ public class Course {
 		this.language = language;
 	}
 
-	public String getMarkedPrice() {
+	public int getMarkedPrice() {
 		return markedPrice;
 	}
 
-	public void setMarkedPrice(String markedPrice) {
+	public void setMarkedPrice(int markedPrice) {
 		this.markedPrice = markedPrice;
 	}
 
-	public String getSellingPrice() {
+	public int getSellingPrice() {
 		return sellingPrice;
 	}
 
-	public void setSellingPrice(String sellingPrice) {
+	public void setSellingPrice(int sellingPrice) {
 		this.sellingPrice = sellingPrice;
 	}
 
@@ -191,6 +187,7 @@ public class Course {
 		this.courseID = courseID;
 	}
 
+	// toString Method
 	@Override
 	public String toString() {
 		return "[ userName=" + username + ", courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage + ", timing=" + timing

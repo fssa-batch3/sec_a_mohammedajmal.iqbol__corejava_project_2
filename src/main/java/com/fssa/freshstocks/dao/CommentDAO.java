@@ -28,42 +28,24 @@ public class CommentDAO {
 	 * @throws DAOException If there's an error during the database operation.
 	 */
 	public boolean createComment(Comment comment) throws DAOException {
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    int rows = 0;
 
-		try {
-			// Get Connection from ConnectionUtil file
-			connection = ConnectionUtil.getConnection();
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "INSERT INTO Comment (courseID, userID, comment) VALUES (?,?,?);")) {
 
-			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO Comment (courseID, userID, comment) VALUES (?,?,?);";
-			pst = connection.prepareStatement(insertQuery);
-			pst.setInt(1, comment.getCourseId());
-			pst.setInt(2, comment.getUserId());
-			pst.setString(3, comment.getComment().toLowerCase().trim());
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Error while creating comment." + e);
-		} finally {
-			// Close resources
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
+	        pst.setInt(1, comment.getCourseId());
+	        pst.setInt(2, comment.getUserId());
+	        pst.setString(3, comment.getComment().toLowerCase().trim());
 
-		// Return Successful or not
-		return (rows == 1);
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while creating comment." + e);
+	    }
+
+	    return (rows == 1);
 	}
-
+	
 	
 	/**
 	 * Retrieves a list of comments for a specific course.
@@ -77,16 +59,17 @@ public class CommentDAO {
 
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement(
-						"SELECT f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.userID = f.userID JOIN course c ON co.courseID = c.courseID WHERE co.courseID = ?");) {
+						"SELECT  co.commentID, f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.userID = f.userID JOIN course c ON co.courseID = c.courseID WHERE co.courseID = ?");) {
 
 			pst.setInt(1, courseID);
 			ResultSet resultSet = pst.executeQuery();
 
 			while (resultSet.next()) {
+				int commentId = resultSet.getInt("commentID");
 				String username = resultSet.getString("username");
 				String courseName = resultSet.getString("coursename");
 				String commentBody = resultSet.getString("comment");
-				Comment comment1 = new Comment(username, courseName, commentBody);
+				Comment comment1 = new Comment(commentId,username, courseName, commentBody);
 				comments.add(comment1);
 			}
 		} catch (SQLException e) {
@@ -106,39 +89,24 @@ public class CommentDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean updateComment(Comment comment, int commentId) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "UPDATE Comment SET comment=? WHERE commentID = ?")) {
 
-		try {
-			connection = ConnectionUtil.getConnection();
+	        pst.setString(1, comment.getComment());
+	        pst.setInt(2, commentId);
 
-			String updateQuery = "UPDATE Comment SET comment=? WHERE commentID = ?;";
-			pst = connection.prepareStatement(updateQuery);
-			pst.setString(1, comment.getComment());
-			pst.setInt(2, commentId);
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while updating comment." + e);
+	    }
 
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Error while updating comment." + e);
-		} finally {
-
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
+
 
 	
 	/**
@@ -150,41 +118,24 @@ public class CommentDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean deleteComment(int commentId, int isDeleted) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "UPDATE Comment SET is_deleted = ? WHERE commentID = ?")) {
 
-		try {
-			connection = ConnectionUtil.getConnection();
+	        String isDelete = Integer.toString(isDeleted);
 
-			String isDelete = Integer.toString(isDeleted);
+	        pst.setString(1, isDelete);
+	        pst.setInt(2, commentId);
 
-			String deleteQuery = "UPDATE Comment SET is_deleted = ? WHERE commentID = ?;";
-			pst = connection.prepareStatement(deleteQuery);
-			pst.setString(1, isDelete);
-			pst.setInt(2, commentId);
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while deleting comment." + e);
+	    }
 
-			// Execute query
-			rows = pst.executeUpdate();
-
-		} catch (SQLException e) {
-			throw new DAOException("Error while deleting comment." + e);
-		} finally {
-
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
 
 }

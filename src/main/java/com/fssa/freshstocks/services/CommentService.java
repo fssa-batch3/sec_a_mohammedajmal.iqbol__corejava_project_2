@@ -10,6 +10,13 @@ import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 
 public class CommentService {
 
+	/**
+	 * Registers a comment by creating it in the database.
+	 *
+	 * @param comment The Comment object to be registered.
+	 * @return true if the comment was successfully registered, false otherwise.
+	 * @throws ServiceException If an error occurs during the registration process.
+	 */
 	public boolean registerComment(Comment comment) throws ServiceException {
 		try {
 			CommentDAO commentDAO = new CommentDAO();
@@ -26,6 +33,13 @@ public class CommentService {
 		}
 	}
 
+	/**
+	 * Retrieves a list of comments for a given course ID.
+	 *
+	 * @param comment The Comment object containing the course ID.
+	 * @return A list of Comment objects associated with the given course ID.
+	 * @throws ServiceException If an error occurs while retrieving the comments.
+	 */
 	public List<Comment> listComment(Comment comment) throws ServiceException {
 	    String courseID = Integer.toString(comment.getCourseId());
 	    CommentDAO commentDAO = new CommentDAO();
@@ -36,8 +50,15 @@ public class CommentService {
 	        throw new ServiceException(e);
 	    }
 	}
-
-	// updated comment
+	
+	/**
+	 * Updates a comment with the given comment ID.
+	 *
+	 * @param comment   The updated Comment object.
+	 * @param commentId The ID of the comment to be updated.
+	 * @return true if the comment was successfully updated, false otherwise.
+	 * @throws ServiceException If an error occurs while updating the comment.
+	 */
 	public boolean updateComment(Comment comment, int commentId) throws ServiceException {
 	    try {
 	        if (!CommentValidator.validateComment(comment.getComment())) {
@@ -55,7 +76,15 @@ public class CommentService {
 	    }
 	}
 
-	// delete comment
+	/**
+	 * Deletes a comment with the given comment ID.
+	 *
+	 * @param commentId The ID of the comment to be deleted.
+	 * @param isDeleted An indicator of whether the comment should be marked as deleted.
+	 *                  (0 for not deleted, 1 for deleted)
+	 * @return true if the comment was successfully deleted, false otherwise.
+	 * @throws ServiceException If an error occurs while deleting the comment.
+	 */
 	public boolean deleteComment(int commentId, int isDeleted) throws ServiceException {
 		CommentDAO commentDAO = new CommentDAO();
 		try {

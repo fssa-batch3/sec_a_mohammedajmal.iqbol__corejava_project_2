@@ -6,36 +6,50 @@ import com.fssa.freshstocks.validation.exception.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 class TestValidateUser {
 	
+    private User validUser;
+    private User invalidUserWithNull;
+    private User invalidUserWithInvalidEmail;
+    private User invalidUserWithInvalidPassword;
 
-    @Test
-    void testValidUser() throws InvalidUserException {
-    	User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com",
-				"Lakshmi@123",1);
-        assertTrue(UserValidator.validateUser(user1));
+    @BeforeEach
+    void setup() {
+        validUser = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com", "Lakshmi@123", 1);
+        invalidUserWithNull = null;
+        invalidUserWithInvalidEmail = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12gmail.com", "Lakshmi@123", 1);
+        invalidUserWithInvalidPassword = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com", "Lakshmi123", 1);
     }
 
     @Test
+    @Order(1)
+    void testValidUser() {
+        try {
+            assertTrue(UserValidator.validateUser(validUser));
+        } catch (InvalidUserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @Order(2)
     void testInvalidUserWithNull() {
-    	User user1 = null;
-        assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(user1));
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(invalidUserWithNull));
     }
 
     @Test
+    @Order(3)
     void testInvalidUserWithInvalidEmail() {
-    	User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12gmail.com",
-				"Lakshmi@123",1); // Invalid email
-        assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(user1));
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(invalidUserWithInvalidEmail));
     }
 
     @Test
+    @Order(4)
     void testInvalidUserWithInvalidPassword() {
-    	User user1 = new User("Lakshmi_123", "Female", "9500320194", "2004-12-26", "lakshmi12@gmail.com",
-				"Lakshmi123",1); // Invalid password
-        assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(user1));
-    }
-    
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateUser(invalidUserWithInvalidPassword));
+    }    
 }

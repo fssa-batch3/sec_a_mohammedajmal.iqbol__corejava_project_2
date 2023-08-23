@@ -18,6 +18,7 @@ class TestValidateUserPassword {
             "Ajmal@1123, true",
             "Ajmal@12, true"
     })
+    
     void testPasswordValidation(String password, boolean expectedResult) {
         try {
 			assertEquals(expectedResult, UserValidator.validatePassword(password));

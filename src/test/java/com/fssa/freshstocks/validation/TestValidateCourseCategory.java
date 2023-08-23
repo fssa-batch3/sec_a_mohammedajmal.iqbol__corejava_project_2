@@ -2,7 +2,10 @@ package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
@@ -10,23 +13,46 @@ import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
 class TestValidateCourseCategory {
 
-	@Test
-	void testValidCompanyCategory() {
+    private String validCompanyCategory;
+    private String invalidCompanyCategory;
+    private String emptyCompanyCategory;
 
-			try {
-				assertTrue(CourseValidator.validateCompanyCategory("Trading and Finance"));
-			} catch (InvalidCourseException e) {
-				e.printStackTrace();
-			}
-	}
+    @BeforeEach
+    void setup() {
+        validCompanyCategory = "Trading and Finance";
+        invalidCompanyCategory = "&&&finance";
+        emptyCompanyCategory = " ";
+    }
 
-	@Test
-	void testInvalidCompanyCategory() {
+    @Test
+    @Order(1)
+    void testValidCompanyCategory() {
+        try {
+            assertTrue(CourseValidator.validateCompanyCategory(validCompanyCategory));
+        } catch (InvalidCourseException e) {
+            e.printStackTrace();
+        }
+    }
 
-		try {
-			CourseValidator.validateCompanyCategory("&&&finance");
-		} catch (InvalidCourseException e) {
-			assertEquals("Invalid course company category. Company categories must be 3 to 100 characters long and may include letters and spaces.",e.getMessage());
-		}
-	}
+    @Test
+    @Order(2)
+    void testInvalidCompanyCategory() {
+        try {
+            CourseValidator.validateCompanyCategory(invalidCompanyCategory);
+            fail("Expected InvalidCourseException was not thrown.");
+        } catch (InvalidCourseException e) {
+            assertEquals("Invalid course company category. Company categories must be 3 to 100 characters long and may include letters and spaces.", e.getMessage());
+        }
+    }
+
+    @Test
+    @Order(3)
+    void testEmptyCompanyCategory() {
+        try {
+            CourseValidator.validateCompanyCategory(emptyCompanyCategory);
+            fail("Expected InvalidCourseException was not thrown.");
+        } catch (InvalidCourseException e) {
+            assertEquals("Invalid course company category. Company categories must be 3 to 100 characters long and may include letters and spaces.", e.getMessage());
+        }
+    }
 }

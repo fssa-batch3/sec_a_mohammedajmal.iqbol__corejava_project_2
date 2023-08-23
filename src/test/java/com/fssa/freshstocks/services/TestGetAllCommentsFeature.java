@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.*;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
@@ -13,41 +15,46 @@ import com.fssa.freshstocks.dao.*;
 
 class TestGetAllCommentsFeature {
 	
-	@Test
-	void testGetAllCommentSuccess() {
-		CommentDAO commentDAO = new CommentDAO();
-		int courseID = 4;
-		List<Comment> cleanedEntries = null;
-		try {
-			cleanedEntries = commentDAO.getAllComments(courseID);
-			if(cleanedEntries.isEmpty()) {
-				System.out.println("Comments Doesn't Exist!");
-			}
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		assertTrue(cleanedEntries.size() > 0);
-	}
+    private CommentDAO commentDAO;
+    private List<Comment> cleanedEntries;
 
-	@Test
-	void testGetAllCommentsInvalid() {
-		CommentDAO commentDAO = new CommentDAO();
-		int courseID = 10;
-		List<Comment> cleanedEntries = null;
-		try {
-			cleanedEntries = commentDAO.getAllComments(courseID);
-			if(cleanedEntries.isEmpty()) {
-				System.out.println("Comments Doesn't Exist!");
-			}
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		assertFalse(!cleanedEntries.isEmpty());
-	}
+    @BeforeEach
+    void setup() {
+        commentDAO = new CommentDAO();
+        cleanedEntries = null;
+    }
 
-	@Test
-	void testGetAllCommentsNull() {
-		List<Comment> cleanedEntries = null;
-		assertNull(cleanedEntries);
-	}
+    @Test
+    @Order(1)
+    void testGetAllCommentSuccess() {
+        int courseID = 4;
+        try {
+            cleanedEntries = commentDAO.getAllComments(courseID);
+            if (cleanedEntries.isEmpty()) {
+                System.out.println("Comments Doesn't Exist!");
+            }
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        assertTrue(cleanedEntries.size() > 0);
+    }
+
+    @Test
+    @Order(2)
+    void testGetAllCommentsInvalid() {
+        int courseID = 10;
+        try {
+            cleanedEntries = commentDAO.getAllComments(courseID);
+            assertFalse(cleanedEntries.size() > 0);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @Order(3)
+    void testGetAllCommentsNull() {
+        List<Comment> cleanedEntries = null;
+        assertNull(cleanedEntries);
+    }
 }

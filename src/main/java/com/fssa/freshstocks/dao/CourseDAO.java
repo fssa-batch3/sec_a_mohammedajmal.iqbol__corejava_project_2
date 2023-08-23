@@ -22,50 +22,33 @@ public class CourseDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean createCourse(Course course) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "INSERT INTO course (courseID, name, cover_image, timing, language, marked_price, selling_price, description, instructor_name, company_name, company_category, top_skills, userID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
 
-		try {
-			// Get Connection
-			connection = ConnectionUtil.getConnection();
-		
-			// Prepare SQL Statement
-			String insertQuery = "INSERT INTO course (courseID,name,cover_image,timing,language,marked_price,selling_price,description,instructor_name,company_name,company_category,top_skills,userID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			pst = connection.prepareStatement(insertQuery);
-			pst.setInt(1, course.getCourseID());
-			pst.setString(2, course.getName().toLowerCase().trim());
-			pst.setString(3, course.getCoverImage());
-			pst.setString(4, course.getTiming());
-			pst.setString(5, course.getLanguage());
-			pst.setString(6, course.getMarkedPrice());
-			pst.setString(7, course.getSellingPrice());
-			pst.setString(8, course.getDescription());
-			pst.setString(9, course.getInstructorName());
-			pst.setString(10, course.getCompanyName());
-			pst.setString(11, course.getCompanyCategory());
-			pst.setString(12, course.getTopSkills());
-			pst.setInt(13, course.getUserID());
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Error while creating courses." + e);
-		} finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
+	        pst.setInt(1, course.getCourseID());
+	        pst.setString(2, course.getName().toLowerCase().trim());
+	        pst.setString(3, course.getCoverImage());
+	        pst.setString(4, course.getTiming());
+	        pst.setString(5, course.getLanguage());
+	        pst.setInt(6, course.getMarkedPrice());
+	        pst.setInt(7, course.getSellingPrice());
+	        pst.setString(8, course.getDescription());
+	        pst.setString(9, course.getInstructorName());
+	        pst.setString(10, course.getCompanyName());
+	        pst.setString(11, course.getCompanyCategory());
+	        pst.setString(12, course.getTopSkills());
+	        pst.setInt(13, course.getUserID());
 
-		// Return Successful or not
-		return (rows == 1);
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while creating courses." + e);
+	    }
+
+	    return (rows == 1);
 	}
 
 	
@@ -78,23 +61,22 @@ public class CourseDAO {
 	 */
 	public boolean sameNameExist(Course course) throws DAOException {
 	    boolean match = false;
-	    int count = 0;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE courseID = ?")) {
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE courseID = ?");
+	         ResultSet resultSet = pst.executeQuery()) {
+
 	        pst.setInt(1, course.getCourseID());
-	        try (ResultSet resultSet = pst.executeQuery()) {
-	            while (resultSet.next()) {
-	                String name1 = resultSet.getString("name");
-	                System.out.println("Name: " + name1);
-	                if (course.getName().toLowerCase().trim().equals(name1)) {
-	                    count++;
-	                }
+
+	        while (resultSet.next()) {
+	            String name1 = resultSet.getString("name");
+	            System.out.println("Name: " + name1);
+	            if (course.getName().toLowerCase().trim().equals(name1)) {
+	                match = true;
+	                break;
 	            }
 	        }
-	        if (count > 0) {
-	            match = true;
-	        }
+
 	    } catch (SQLException e) {
 	        throw new DAOException("Error: " + e);
 	    }
@@ -123,8 +105,8 @@ public class CourseDAO {
 				String coverImage = resultSet.getString("cover_image");
 				String timing = resultSet.getString("timing");
 				String language = resultSet.getString("language");
-				String markedPrice = resultSet.getString("marked_price");
-				String sellingPrice = resultSet.getString("selling_price");
+				int markedPrice = resultSet.getInt("marked_price");
+				int sellingPrice = resultSet.getInt("selling_price");
 				String description = resultSet.getString("description");
 				String instructorName = resultSet.getString("instructor_name");
 				String companyName = resultSet.getString("company_name");
@@ -155,47 +137,32 @@ public class CourseDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean updateCourse(Course course, int courseID) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=?, userID=? WHERE courseID = ?")) {
 
-		try {
-			connection = ConnectionUtil.getConnection();
+	        pst.setString(1, course.getCoverImage());
+	        pst.setString(2, course.getTiming());
+	        pst.setString(3, course.getLanguage());
+	        pst.setInt(4, course.getMarkedPrice());
+	        pst.setInt(5, course.getSellingPrice());
+	        pst.setString(6, course.getDescription());
+	        pst.setString(7, course.getInstructorName());
+	        pst.setString(8, course.getCompanyName());
+	        pst.setString(9, course.getCompanyCategory());
+	        pst.setString(10, course.getTopSkills());
+	        pst.setInt(11, course.getUserID());
+	        pst.setInt(12, courseID);
 
-			String updateQuery = "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? ,userID=? WHERE courseID = ?";
-			pst = connection.prepareStatement(updateQuery);
-			pst.setString(1, course.getCoverImage());
-			pst.setString(2, course.getTiming());
-			pst.setString(3, course.getLanguage());
-			pst.setString(4, course.getMarkedPrice());
-			pst.setString(5, course.getSellingPrice());
-			pst.setString(6, course.getDescription());
-			pst.setString(7, course.getInstructorName());
-			pst.setString(8, course.getCompanyName());
-			pst.setString(9, course.getCompanyCategory());
-			pst.setString(10, course.getTopSkills());
-			pst.setInt(11, course.getUserID());
-			pst.setInt(12, courseID);
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while updating course: " + e);
+	    }
 
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException("Error while updating course: " + e);
-		} finally {
-			try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
 
 	
@@ -208,40 +175,25 @@ public class CourseDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean deleteCourse(int courseID, int isDeleted) throws DAOException {
+	    int rows = 0;
 
-		Connection connection = null;
-		PreparedStatement pst = null;
-		int rows = 0;
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement(
+	                 "UPDATE course SET is_deleted = ? WHERE courseID = ?")) {
 
-		try {
-			connection = ConnectionUtil.getConnection();
+	        String isDelete = Integer.toString(isDeleted);
 
-			String isDelete = Integer.toString(isDeleted);
+	        pst.setString(1, isDelete);
+	        pst.setInt(2, courseID);
 
-			String deleteQuery = "UPDATE course SET is_deleted = ? WHERE courseID = ?";
-			pst = connection.prepareStatement(deleteQuery);
-			pst.setString(1, isDelete);
-			pst.setInt(2, courseID);
+	        // Execute query
+	        rows = pst.executeUpdate();
 
-			// Execute query
-			rows = pst.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DAOException("Error while deleting course: " + e);
+	    }
 
-		} catch (SQLException e) {
-			throw new DAOException("Error while deleting course: " + e);
-		} finally {
-
-		try {
-				if (pst != null) {
-					pst.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println(CLOSE_RESOURCE_ERROR + e.getMessage());
-			}
-		}
-		// Return Successful or not
-		return (rows == 1);
+	    return (rows == 1);
 	}
+
 }

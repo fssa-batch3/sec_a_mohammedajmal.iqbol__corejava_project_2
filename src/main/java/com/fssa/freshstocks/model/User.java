@@ -2,6 +2,7 @@ package com.fssa.freshstocks.model;
 
 public class User {
 
+	//Fields
 	private int userId;
 	private String username;
 	private String gender;
@@ -45,11 +46,7 @@ public class User {
 		this.password = password;
 	}
 
-	public String toString() {
-		return "UserID: " + userId + "username: " + username + "gender: " + gender + "mobile_number: " + mobileNumber
-				+ "date_of_birth: " + dateOfBirth + "Email: " + email + " Password: " + password;
-	}
-
+	// Getters And Setters
 	public int getUserID() {
 		return userId;
 	}
@@ -112,5 +109,12 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	//toString method
+	@Override
+	public String toString() {
+		return "UserID: " + userId + "username: " + username + "gender: " + gender + "mobile_number: " + mobileNumber
+				+ "date_of_birth: " + dateOfBirth + "Email: " + email + " Password: " + password;
 	}
 }
