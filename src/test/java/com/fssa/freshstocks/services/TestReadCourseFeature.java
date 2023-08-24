@@ -13,8 +13,7 @@ import com.fssa.freshstocks.services.exception.*;
 
 class TestReadCourseFeature {
 
-    private CourseService courseService;
-    private int userID = 4; 
+    private CourseService courseService; 
 
     @BeforeEach
     void setup() {
@@ -24,6 +23,7 @@ class TestReadCourseFeature {
     @Test
     @Order(1)
     void testGetAllCoursesSuccess() {
+    	int userID = 4;
         List<Course> cleanedEntries = null;
         try {
             cleanedEntries = courseService.listCourse(userID);
@@ -46,10 +46,7 @@ class TestReadCourseFeature {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        if (cleanedEntries == null || cleanedEntries.isEmpty()) {
-            System.out.println("Courses Don't Exist!");
-        }
-        assertFalse(cleanedEntries == null || cleanedEntries.isEmpty());
+        assertFalse(cleanedEntries != null && cleanedEntries.size() > 0);
     }
 
     @Test

@@ -97,6 +97,7 @@ public class UserDAO {
 	                System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId + UserModuleConstants.PREFIX_PASSWORD_STRING + password);
 	                if (email.equals(emailId)) {
 	                	emailAlreadyExist = true;
+	                	break;
 	                }
 	            }
 	        }

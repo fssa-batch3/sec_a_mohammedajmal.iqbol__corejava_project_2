@@ -26,11 +26,11 @@ class TestCreateCourseFeature {
     @Test
     @Order(1)
     void testCreateCourseSuccess() {
-        Course course1 = new Course("Course" + nanotime,
-                "https://example.com/image1.png",
-                "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+    	Course course1 = new Course("Course" + nanotime,
+    	        "https://example.com/image1.png",
+    	        "10hrs", "English", 5000, 2000,
+    	        "the course gives you the fair idea about how to start trading and become a day trader", "Ajmalll",
+    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
         try {
             assertTrue(courseService.registerCourse(course1));
         } catch (ServiceException e) {
@@ -45,7 +45,7 @@ class TestCreateCourseFeature {
         Course course1 = new Course("chart patterns course",
                 "example.com/image1.png",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
+                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmall",
                 "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 1);
         try {
             assertFalse(courseService.registerCourse(course1));

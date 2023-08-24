@@ -24,7 +24,7 @@ class TestDeleteCommentFeature {
     @Test
     @Order(1)
     void testDeleteCommentSuccess() {
-        int commentId = 5;
+        int commentId = 21;
         try {
             assertTrue(commentService.deleteComment(commentId, isDeleted));
         } catch (ServiceException e) {

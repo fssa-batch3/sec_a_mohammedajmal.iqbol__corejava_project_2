@@ -62,14 +62,14 @@ public class CourseDAO {
 	    boolean match = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE courseID = ?");
-	         ResultSet resultSet = pst.executeQuery()) {
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE name = ?")) {
 
-	        pst.setInt(1, course.getCourseID());
+	        pst.setString(1, course.getName());
+
+	        ResultSet resultSet = pst.executeQuery();
 
 	        while (resultSet.next()) {
-	            String name1 = resultSet.getString("name");
-	            System.out.println("Name: " + name1);
+	            String name1 = resultSet.getString("name").toLowerCase().trim();
 	            if (course.getName().toLowerCase().trim().equals(name1)) {
 	                match = true;
 	                break;
