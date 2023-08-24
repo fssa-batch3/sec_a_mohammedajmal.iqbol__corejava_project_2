@@ -1,27 +1,16 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import com.fssa.freshstocks.constants.*;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.utils.ConnectionUtil;
 
-
 public class UserDAO {
-
-
-	boolean match = false;
-	
-	private static final String USER_SELECT_QUERY = "SELECT * FROM freshstocks WHERE email = ?";
-	private static final String EMAIL_COLUMN_NAME = "email";
-	private static final String PASSWORD_COLUMN_NAME = "password";
-	private static final String PREFIX_EMAIL_STRING = "Email: ";
-	private static final String PREFIX_PASSWORD_STRING = "Password: ";
-    public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
-
     
     /**
      * Attempts to log in a user by verifying their email and password in the database.
@@ -34,16 +23,16 @@ public class UserDAO {
         boolean match = false;
 
         try (Connection connection = ConnectionUtil.getConnection();
-             PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) {
+             PreparedStatement pst = connection.prepareStatement(UserModuleConstants.USER_SELECT_QUERY)) {
 
             pst.setString(1, user.getEmail());
 
             try (ResultSet resultSet = pst.executeQuery()) {
                 while (resultSet.next()) {
-                    String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
-                    String password = resultSet.getString(PASSWORD_COLUMN_NAME);
+                    String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
+                    String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
 
-                    System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
+                    System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId + UserModuleConstants.PREFIX_PASSWORD_STRING + password);
 
                     if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
                         match = true;
@@ -52,7 +41,7 @@ public class UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException("Error checking email exist: " + e);
+            throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
         }
         return match;
     }
@@ -68,20 +57,20 @@ public class UserDAO {
 	    boolean emailExists = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) {
+	         PreparedStatement pst = connection.prepareStatement(UserModuleConstants.USER_SELECT_QUERY)) {
 	        pst.setString(1, user.getEmail());
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
-	                String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
-	                String password = resultSet.getString(PASSWORD_COLUMN_NAME);
-	                System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
+	                String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
+	                String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
+	                System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId + UserModuleConstants.PREFIX_PASSWORD_STRING + password);
 	                if (user.getEmail().equals(emailId)) {
 	                	emailExists = true;
 	                }
 	            }
 	        }
 	    } catch (SQLException e) {
-	        throw new DAOException("Error checking email exist: " + e);
+	        throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 	    }
 
 	    return emailExists;
@@ -99,20 +88,20 @@ public class UserDAO {
 	    boolean emailAlreadyExist = false;
 
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement(USER_SELECT_QUERY)) {
+	         PreparedStatement pst = connection.prepareStatement(UserModuleConstants.USER_SELECT_QUERY)) {
 	        pst.setString(1, email);
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            while (resultSet.next()) {
-	                String emailId = resultSet.getString(EMAIL_COLUMN_NAME);
-	                String password = resultSet.getString(PASSWORD_COLUMN_NAME);
-	                System.out.println(PREFIX_EMAIL_STRING + emailId + PREFIX_PASSWORD_STRING + password);
+	                String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
+	                String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
+	                System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId + UserModuleConstants.PREFIX_PASSWORD_STRING + password);
 	                if (email.equals(emailId)) {
 	                	emailAlreadyExist = true;
 	                }
 	            }
 	        }
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while checking email exist: " + e);
+	        throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 	    }
 
 	    return emailAlreadyExist;
@@ -145,7 +134,7 @@ public class UserDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while creating user: " + e);
+	        throw new DAOException(UserModuleConstants.REGISTER_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
@@ -175,7 +164,7 @@ public class UserDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while updating user: " + e);
+	        throw new DAOException(UserModuleConstants.UPDATE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
@@ -205,7 +194,7 @@ public class UserDAO {
 	        rows = pst.executeUpdate();
 
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while deleting user: " + e);
+	        throw new DAOException(UserModuleConstants.DELETE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);

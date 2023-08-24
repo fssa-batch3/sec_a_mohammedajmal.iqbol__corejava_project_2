@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
+import com.fssa.freshstocks.constants.CommentModuleConstants;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +12,6 @@ import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.utils.*;
 
 public class CommentDAO {
-
-	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
 	/**
 	 * Creates a new comment in the database.
@@ -40,7 +39,7 @@ public class CommentDAO {
 
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while creating comment." + e);
+	        throw new DAOException(CommentModuleConstants.CREATE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
@@ -73,7 +72,7 @@ public class CommentDAO {
 				comments.add(comment1);
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Error: " + e);
+			throw new DAOException(CommentModuleConstants.READ_ERROR_MESSAGE + e);
 		}
 
 		return comments;
@@ -101,7 +100,7 @@ public class CommentDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while updating comment." + e);
+	        throw new DAOException(CommentModuleConstants.UPDATE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
@@ -132,7 +131,7 @@ public class CommentDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while deleting comment." + e);
+	        throw new DAOException(CommentModuleConstants.DELETE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);

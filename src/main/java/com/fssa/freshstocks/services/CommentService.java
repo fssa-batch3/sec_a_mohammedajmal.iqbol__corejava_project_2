@@ -1,6 +1,8 @@
 package com.fssa.freshstocks.services;
 
 import java.util.List;
+
+import com.fssa.freshstocks.constants.CommentModuleConstants;
 import com.fssa.freshstocks.dao.CommentDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
@@ -94,7 +96,7 @@ public class CommentService {
 			}
 			return success;
 		} catch (DAOException e) {
-			throw new ServiceException("Error while deleting comment. " + e);
+			throw new ServiceException(CommentModuleConstants.DELETE_ERROR_MESSAGE + e);
 		}
 	}
 }

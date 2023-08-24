@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.dao;
 
 import java.util.*;
+import com.fssa.freshstocks.constants.CourseModuleConstants;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +11,6 @@ import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.utils.ConnectionUtil;
 
 public class CourseDAO {
-
-	public static final String CLOSE_RESOURCE_ERROR = "Error while closing resources: ";
 
 	
 	/**
@@ -45,7 +44,7 @@ public class CourseDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while creating courses." + e);
+	        throw new DAOException(CourseModuleConstants.CREATE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
@@ -78,7 +77,7 @@ public class CourseDAO {
 	        }
 
 	    } catch (SQLException e) {
-	        throw new DAOException("Error: " + e);
+	        throw new DAOException(CourseModuleConstants.SAME_NAME_EXIST_ERROR + e);
 	    }
 
 	    return match;
@@ -122,7 +121,7 @@ public class CourseDAO {
 			 }
 	       }
 	        } catch (SQLException e) {
-	            throw new DAOException("Error while reading course: " + e);
+	            throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
 	        }
 	        return list1;
 	    }
@@ -159,7 +158,7 @@ public class CourseDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while updating course: " + e);
+	        throw new DAOException(CourseModuleConstants.UPDATE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
@@ -190,7 +189,7 @@ public class CourseDAO {
 	        rows = pst.executeUpdate();
 
 	    } catch (SQLException e) {
-	        throw new DAOException("Error while deleting course: " + e);
+	        throw new DAOException(CourseModuleConstants.DELETE_ERROR_MESSAGE + e);
 	    }
 
 	    return (rows == 1);
