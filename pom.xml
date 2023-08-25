@@ -33,13 +33,6 @@
 	</build>
 
 	<dependencies>
-		<!--
-		<https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv> -->
-		<dependency>
-			<groupId>io.github.cdimascio</groupId>
-			<artifactId>java-dotenv</artifactId>
-			<version>5.2.2</version>
-		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
