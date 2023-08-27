@@ -31,7 +31,7 @@ public class CommentDAO {
 
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement pst = connection.prepareStatement(
-	                 "INSERT INTO Comment (courseID, userID, comment) VALUES (?,?,?);")) {
+	                 "INSERT INTO Comment (course_id, user_id, comment) VALUES (?,?,?);")) {
 
 	        pst.setInt(1, comment.getCourseId());
 	        pst.setInt(2, comment.getUserId());
@@ -58,13 +58,13 @@ public class CommentDAO {
 
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement(
-						"SELECT  co.commentID, f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.userID = f.userID JOIN course c ON co.courseID = c.courseID WHERE co.courseID = ?");) {
+						"SELECT  co.comment_id, f.username AS username, c.name AS coursename, co.comment AS comment FROM Comment co JOIN freshstocks f ON co.user_id = f.user_id JOIN course c ON co.course_id = c.course_id WHERE co.course_id = ?");) {
 
 			pst.setInt(1, courseID);
 			ResultSet resultSet = pst.executeQuery();
 
 			while (resultSet.next()) {
-				int commentId = resultSet.getInt("commentID");
+				int commentId = resultSet.getInt("comment_id");
 				String username = resultSet.getString("username");
 				String courseName = resultSet.getString("coursename");
 				String commentBody = resultSet.getString("comment");
@@ -92,7 +92,7 @@ public class CommentDAO {
 
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement pst = connection.prepareStatement(
-	                 "UPDATE Comment SET comment=? WHERE commentID = ?")) {
+	                 "UPDATE Comment SET comment=? WHERE comment_id = ?")) {
 
 	        pst.setString(1, comment.getComment());
 	        pst.setInt(2, commentId);
@@ -121,7 +121,7 @@ public class CommentDAO {
 
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement pst = connection.prepareStatement(
-	                 "UPDATE Comment SET is_deleted = ? WHERE commentID = ?")) {
+	                 "UPDATE Comment SET is_deleted = ? WHERE comment_id = ?")) {
 
 	        String isDelete = Integer.toString(isDeleted);
 

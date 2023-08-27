@@ -121,7 +121,7 @@ public class UserDAO {
 
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement pst = connection.prepareStatement(
-	                 "INSERT INTO freshstocks (userID, username, gender, mobile_number, date_of_birth, email, password, is_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+	                 "INSERT INTO freshstocks (user_id, username, gender, mobile_number, date_of_birth, email, password, is_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
 
 	        pst.setInt(1, user.getUserId());
 	        pst.setString(2, user.getUsername());
