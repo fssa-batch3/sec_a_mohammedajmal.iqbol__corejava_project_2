@@ -26,7 +26,7 @@ class TestUpdateCourseFeature {
                 "https://example.com/image1.png",
                 "20hrs", "Tamil", 5000, 2000,
                 "the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis",4);
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
         int courseID = 4;
         try {
             assertTrue(courseService.updateCourse(course1, courseID));
@@ -44,7 +44,7 @@ class TestUpdateCourseFeature {
                 "example.com/image1.png",
                 "20hrs", "Tamil", 5000, 2000,
                 "the course gives you the fair idea about how to start trading and become a day trader", "Gowtham",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis",1);
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis");
         int courseID = -1;
         try {
             assertFalse(courseService.updateCourse(course1, courseID));

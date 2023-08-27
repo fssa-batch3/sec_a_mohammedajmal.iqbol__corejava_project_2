@@ -94,7 +94,7 @@ public class CourseDAO {
 	public List<Course> readCourse(int userID) throws DAOException {
 	    List<Course> list1 = new ArrayList<>();
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT c.*, f.username FROM course c INNER JOIN freshstocks f ON c.userID = f.userID WHERE c.userID = ?")) {
+	         PreparedStatement pst = connection.prepareStatement("SELECT c.*, f.username FROM course c INNER JOIN freshstocks f ON c.userID = f.userID WHERE c.userID = ? AND c.is_deleted = 0")) {
 	        pst.setInt(1, userID);
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            
@@ -140,7 +140,7 @@ public class CourseDAO {
 
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement pst = connection.prepareStatement(
-	                 "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=?, userID=? WHERE courseID = ?")) {
+	                 "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE courseID = ?")) {
 
 	        pst.setString(1, course.getCoverImage());
 	        pst.setString(2, course.getTiming());
@@ -152,8 +152,7 @@ public class CourseDAO {
 	        pst.setString(8, course.getCompanyName());
 	        pst.setString(9, course.getCompanyCategory());
 	        pst.setString(10, course.getTopSkills());
-	        pst.setInt(11, course.getUserID());
-	        pst.setInt(12, courseID);
+	        pst.setInt(11, courseID);
 
 	        // Execute query
 	        rows = pst.executeUpdate();

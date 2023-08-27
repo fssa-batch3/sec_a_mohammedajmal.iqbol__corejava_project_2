@@ -86,7 +86,7 @@ public class CourseValidator {
 	 * @throws InvalidCourseException If the Image URL is found to be invalid.
 	 */
 	public static boolean validateURL(String url) throws InvalidCourseException {
-		String regex = "^https://.*\\.(png|jpeg)$";
+		String regex = "^https://.*\\.(png|jpeg|jpg)$";
 	    if (!Pattern.matches(regex, url)) {
 	    	throw new InvalidCourseException("Invalid course image URL. Please provide a valid HTTP or HTTPS URL.");
 	    }

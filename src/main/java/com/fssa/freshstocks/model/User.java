@@ -8,9 +8,12 @@ public class User {
 	private String gender;
 	private String mobileNumber;
 	private String dateOfBirth;
+	private String createdAt;
+	private String modifiedAt;
 	String email;
 	String password;
 	int isSeller;
+	int isDeleted;
 
 	// register
 	public User(String username, String gender, String mobileNumber, String dateOfBirth, String email,
@@ -46,10 +49,83 @@ public class User {
 		this.password = password;
 	}
 
-	// Getters And Setters
-	public int getUserID() {
+	public User(int userID,String username, String gender, String mobileNumber, String dateOfBirth, String email,
+			int isSeller,String createdAt,String modifiedAt,int isDeleted) {
+		super();
+		this.userId = userID;
+		this.username = username;
+		this.gender = gender;
+		this.mobileNumber = mobileNumber;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		this.isSeller = isSeller;
+		this.createdAt = createdAt;
+		this.modifiedAt = modifiedAt;
+		this.isDeleted = isDeleted;
+	}
+	
+	public int getUserId() {
 		return userId;
 	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public User(String username, String gender, String mobileNumber, String dateOfBirth, String email,
+			int isSeller,String createdAt,String modifiedAt) {
+		super();
+		this.username = username;
+		this.gender = gender;
+		this.mobileNumber = mobileNumber;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		this.isSeller = isSeller;
+		this.createdAt = createdAt;
+		this.modifiedAt = modifiedAt;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getModifiedAt() {
+		return modifiedAt;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setModifiedAt(String modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
+
+	// Getters And Setters
 	
 	public int getIsSeller() {
 		return isSeller;

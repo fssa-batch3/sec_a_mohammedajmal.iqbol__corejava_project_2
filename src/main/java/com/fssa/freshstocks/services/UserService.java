@@ -65,7 +65,7 @@ public class UserService {
 	public boolean updateUser(User user, String userEmail) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		try {
-			if (userDAO.emailAlreadyExist(userEmail)) {
+			if (userDAO.emailAlreadyExist(userEmail) && UserValidator.validateUpdateUser(user)) {
 				boolean success = userDAO.update(user, userEmail);
 				if (success) {
 					System.out.println("User Details Successfully Updated!");
@@ -75,7 +75,7 @@ public class UserService {
 				System.out.println("User Email Doesn't Exist!");
 				return false;
 			}
-		} catch (DAOException e) {
+		} catch (DAOException | InvalidUserException e) {
 			throw new ServiceException(e);
 		}
 	}

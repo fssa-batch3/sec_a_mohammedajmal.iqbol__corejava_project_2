@@ -123,7 +123,7 @@ public class UserDAO {
 	         PreparedStatement pst = connection.prepareStatement(
 	                 "INSERT INTO freshstocks (userID, username, gender, mobile_number, date_of_birth, email, password, is_seller) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
 
-	        pst.setInt(1, user.getUserID());
+	        pst.setInt(1, user.getUserId());
 	        pst.setString(2, user.getUsername());
 	        pst.setString(3, user.getGender());
 	        pst.setString(4, user.getmobileNumber());

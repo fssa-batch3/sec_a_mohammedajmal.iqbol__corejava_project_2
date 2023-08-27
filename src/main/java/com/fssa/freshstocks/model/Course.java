@@ -17,8 +17,17 @@ public class Course {
 	private String topSkills;
 	private int userID;
 	private String username;
+	private String createdAt;
 	
-    // constructor to create course
+    public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	// constructor to create course
 	public Course(String name, String coverImage, String timing, String language, int markedPrice,
 			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills,int userID) {
@@ -37,11 +46,12 @@ public class Course {
 		this.userID = userID;
 	}
 
-	 // constructor to update course
-	public Course(String coverImage, String timing, String language, int markedPrice, int sellingPrice,
-			String description, String instructorName, String companyName, String companyCategory, String topSkills
-			,int userID) {
+	// constructor to display course
+	public Course(String name, String coverImage, String timing, String language, int markedPrice,
+			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
+			String topSkills,int userID,String createdAt) {
 		super();
+		this.name = name;
 		this.coverImage = coverImage;
 		this.timing = timing;
 		this.language = language;
@@ -53,6 +63,37 @@ public class Course {
 		this.companyCategory = companyCategory;
 		this.topSkills = topSkills;
 		this.userID = userID;
+		this.createdAt = createdAt;
+	}
+	
+	// constructor to show update course
+	public Course(int courseId,String name, String coverImage, String timing, String language, int markedPrice,
+			int sellingPrice, String description) {
+		super();
+		this.courseID = courseId;
+		this.name = name;
+		this.coverImage = coverImage;
+		this.timing = timing;
+		this.language = language;
+		this.markedPrice = markedPrice;
+		this.sellingPrice = sellingPrice;
+		this.description = description;
+	}
+
+	 // constructor to update course
+	public Course(String coverImage, String timing, String language, int markedPrice, int sellingPrice,
+			String description, String instructorName, String companyName, String companyCategory, String topSkills) {
+		super();
+		this.coverImage = coverImage;
+		this.timing = timing;
+		this.language = language;
+		this.markedPrice = markedPrice;
+		this.sellingPrice = sellingPrice;
+		this.description = description;
+		this.instructorName = instructorName;
+		this.companyName = companyName;
+		this.companyCategory = companyCategory;
+		this.topSkills = topSkills;
 	}
 	
 	 // constructor to read or list course

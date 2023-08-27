@@ -23,6 +23,13 @@ public class UserValidator {
 	    }
 	    return true;
 	}
+	
+	public static boolean validateUpdateUser(User user) throws InvalidUserException {
+	    if (user == null || !validateGender(user.getGender()) || !validateMobileNumber(user.getMobileNumber()) || !validateDateOfBirth(user.getDateOfBirth())) {
+	    	throw new InvalidUserException("Invalid Updating user details. Please ensure that all user information is valid.");
+	    }
+	    return true;
+	}
 
 	/**
 	 * Validates a username based on specific pattern criteria.
