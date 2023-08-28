@@ -1,0 +1,10 @@
+com.fssa.freshstocks
+com.fssa.freshstocks.constants
+com.fssa.freshstocks.dao
+com.fssa.freshstocks.dao.exception
+com.fssa.freshstocks.model
+com.fssa.freshstocks.services
+com.fssa.freshstocks.services.exception
+com.fssa.freshstocks.utils
+com.fssa.freshstocks.validation
+com.fssa.freshstocks.validation.exception

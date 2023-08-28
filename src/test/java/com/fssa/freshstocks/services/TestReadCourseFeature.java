@@ -33,6 +33,7 @@ class TestReadCourseFeature {
         if (cleanedEntries == null || cleanedEntries.isEmpty()) {
             System.out.println("Courses Don't Exist!");
         }
+        // TODO add a check to check is all courses are same as the user ID.
         assertTrue(cleanedEntries != null && cleanedEntries.size() > 0);
     }
 

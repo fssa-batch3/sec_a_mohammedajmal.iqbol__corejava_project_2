@@ -27,7 +27,23 @@ public class Course {
 		this.createdAt = createdAt;
 	}
 	
-	// constructor to create course
+    // Constructor to create a course
+    /**
+     * Creates a new Course object with course creation information.
+     *
+     * @param name            The name of the course.
+     * @param coverImage      The cover image of the course.
+     * @param timing          The timing of the course.
+     * @param language        The language of the course.
+     * @param markedPrice     The marked price of the course.
+     * @param sellingPrice    The selling price of the course.
+     * @param description     The description of the course.
+     * @param instructorName  The name of the instructor.
+     * @param companyName     The name of the company.
+     * @param companyCategory The category of the company.
+     * @param topSkills       The top skills taught in the course.
+     * @param userID          The ID of the user associated with the course.
+     */
 	public Course(String name, String coverImage, String timing, String language, int markedPrice,
 			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills,int userID) {
@@ -46,7 +62,24 @@ public class Course {
 		this.userID = userID;
 	}
 
-	// constructor to display course
+    // Constructor to display course information
+    /**
+     * Creates a new Course object with displayed course information.
+     *
+     * @param name            The name of the course.
+     * @param coverImage      The cover image of the course.
+     * @param timing          The timing of the course.
+     * @param language        The language of the course.
+     * @param markedPrice     The marked price of the course.
+     * @param sellingPrice    The selling price of the course.
+     * @param description     The description of the course.
+     * @param instructorName  The name of the instructor.
+     * @param companyName     The name of the company.
+     * @param companyCategory The category of the company.
+     * @param topSkills       The top skills taught in the course.
+     * @param userID          The ID of the user associated with the course.
+     * @param createdAt       The creation timestamp of the course.
+     */
 	public Course(String name, String coverImage, String timing, String language, int markedPrice,
 			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills,int userID,String createdAt) {
@@ -66,7 +99,19 @@ public class Course {
 		this.createdAt = createdAt;
 	}
 	
-	// constructor to show update course
+    // Constructor to show updated course information
+    /**
+     * Creates a new Course object with updated course information.
+     *
+     * @param courseId        The ID of the course.
+     * @param name            The updated name of the course.
+     * @param coverImage      The updated cover image of the course.
+     * @param timing          The updated timing of the course.
+     * @param language        The updated language of the course.
+     * @param markedPrice     The updated marked price of the course.
+     * @param sellingPrice    The updated selling price of the course.
+     * @param description     The updated description of the course.
+     */
 	public Course(int courseId,String name, String coverImage, String timing, String language, int markedPrice,
 			int sellingPrice, String description) {
 		super();
@@ -80,7 +125,21 @@ public class Course {
 		this.description = description;
 	}
 
-	 // constructor to update course
+    // Constructor to update course information
+    /**
+     * Creates a new Course object with updated course information.
+     *
+     * @param coverImage      The updated cover image of the course.
+     * @param timing          The updated timing of the course.
+     * @param language        The updated language of the course.
+     * @param markedPrice     The updated marked price of the course.
+     * @param sellingPrice    The updated selling price of the course.
+     * @param description     The updated description of the course.
+     * @param instructorName  The updated name of the instructor.
+     * @param companyName     The updated name of the company.
+     * @param companyCategory The updated category of the company.
+     * @param topSkills       The updated top skills taught in the course.
+     */
 	public Course(String coverImage, String timing, String language, int markedPrice, int sellingPrice,
 			String description, String instructorName, String companyName, String companyCategory, String topSkills) {
 		super();
@@ -96,7 +155,25 @@ public class Course {
 		this.topSkills = topSkills;
 	}
 	
-	 // constructor to read or list course
+    // Constructor to read or list course information
+    /**
+     * Creates a new Course object with course information for reading or listing.
+     *
+     * @param username        The username of the course creator.
+     * @param courseID        The ID of the course.
+     * @param name            The name of the course.
+     * @param coverImage      The cover image of the course.
+     * @param timing          The timing of the course.
+     * @param language        The language of the course.
+     * @param markedPrice     The marked price of the course.
+     * @param sellingPrice    The selling price of the course.
+     * @param description     The description of the course.
+     * @param instructorName  The name of the instructor.
+     * @param companyName     The name of the company.
+     * @param companyCategory The category of the company.
+     * @param topSkills       The top skills taught in the course.
+     * @param userID          The ID of the user associated with the course.
+     */
 	public Course(String username, int courseID, String name, String coverImage, String timing, String language, int markedPrice,
 			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
 			String topSkills,int userID) {
@@ -117,7 +194,12 @@ public class Course {
 		this.userID = userID;
 	}
 	
-	//constructor to delete or update course
+    // Constructor to delete or update course
+    /**
+     * Creates a new Course object for deleting or updating a course.
+     *
+     * @param userID The ID of the user associated with the course.
+     */
 	public Course(int userID) {
 		super();
 		this.userID = userID;
@@ -228,7 +310,12 @@ public class Course {
 		this.courseID = courseID;
 	}
 
-	// toString Method
+    // toString Method
+    /**
+     * Returns a string representation of the Course object.
+     *
+     * @return A formatted string containing course information.
+     */
 	@Override
 	public String toString() {
 		return "[ userName=" + username + ", courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage + ", timing=" + timing

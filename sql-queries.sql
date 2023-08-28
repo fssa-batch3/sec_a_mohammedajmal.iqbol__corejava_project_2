@@ -5,7 +5,7 @@ SHOW tables;
   <-- CREATE USER -->
 
 CREATE TABLE freshstocks (
-    userID INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     gender VARCHAR(10),
     mobile_number VARCHAR(20),
@@ -38,7 +38,7 @@ UPDATE freshstocks SET is_deleted = 1 WHERE email = "freekyajmal@gmail.com";
         <-- CREATE COURSE -->
 
 CREATE TABLE course (
-    courseID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    course_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     userID INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     cover_image LONGTEXT NOT NULL,
@@ -64,18 +64,18 @@ CREATE TABLE course (
    <-- UPDATE COURSE BY COURSE NAME -->
    
 UPDATE course SET cover_image="https://example.com", timing="40hrs", language="English", marked_price="5000", selling_price="1500", 
-instructor_name="Ajmal", company_name="freshstocks", company_category="Finance and banking", top_skills="smart money concepts" WHERE name = "forex course";
+instructor_name="Ajmal", company_name="freshstocks", company_category="Finance and banking", top_skills="smart money concepts" WHERE course_id = 5;
    
    <-- DELETE COURSE BY COURSE NAME -->
       
-UPDATE course SET is_deleted = 1 WHERE name = "forex course";
+UPDATE course SET is_deleted = 1 WHERE course_id = 5;
       
    <-- CREATE COMMENTS -->
    
    
    CREATE TABLE Comment (
-    commentID INT PRIMARY KEY AUTO_INCREMENT,
-    courseID INT NOT NULL,
+    comment_id INT PRIMARY KEY AUTO_INCREMENT,
+    course_id INT NOT NULL,
     userID INT NOT NULL,
     comment TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
