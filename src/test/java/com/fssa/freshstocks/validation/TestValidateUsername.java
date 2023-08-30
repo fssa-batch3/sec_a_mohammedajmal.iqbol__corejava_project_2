@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 class TestValidateUsername {

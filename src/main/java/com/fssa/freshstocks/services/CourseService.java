@@ -49,6 +49,23 @@ public class CourseService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	
+	
+	/**
+	 * Retrieves a list of all courses from the database.
+	 *
+	 * @return A list of full Course objects.
+	 * @throws ServiceException If an error occurs while retrieving the course list.
+	 */
+	public List<Course> getAllCourses() throws ServiceException {
+		CourseDAO courseDAO = new CourseDAO();
+		try {
+			return courseDAO.getAllCourse();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
 
 	/**
 	 * Updates an existing course with the given course ID.

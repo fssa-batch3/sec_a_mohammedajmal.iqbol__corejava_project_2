@@ -17,7 +17,13 @@ CREATE TABLE freshstocks (
     modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-  <-- READ USER BY USER BY USER EMAIL -->
+ <-- CREATE USER BY USER DETAILS  -->
+ 
+INSERT INTO freshstocks (username, gender, mobile_number, date_of_birth, email, password)
+VALUES ('JohnDoe', 'Male', '1234567890', '1995-10-15', 'johndoe@example.com', 'password123');
+
+
+  <-- READ USER BY USER EMAIL -->
 
 SELECT * FROM freshstocks WHERE email = "freekyajmal@gmail.com";
  
@@ -39,7 +45,7 @@ UPDATE freshstocks SET is_deleted = 1 WHERE email = "freekyajmal@gmail.com";
 
 CREATE TABLE course (
     course_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    userID INT NOT NULL,
+    user_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     cover_image LONGTEXT NOT NULL,
     timing VARCHAR(20),
@@ -53,12 +59,19 @@ CREATE TABLE course (
     is_deleted INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (userID) REFERENCES freshstocks(userID)
+    FOREIGN KEY (user_id) REFERENCES freshstocks(user_id)
 );
 
-  <-- READ COURSE FROM COURSE TABLE BY COURSE NAME -->
 
- SELECT * FROM course WHERE name = "forex course";
+ <-- CREATE COURSE BY COURSE DETAILS  -->
+
+INSERT INTO course (user_id,name, cover_image, timing, language, marked_price, selling_price, instructor_name, company_name, company_category, top_skills)
+VALUES (4,'Stock Analysis & Fundamentals', 'https://example.png', '15hrs', 'English', 1990, 999, 'John Smith', 'TechCo', 'Technology', 'trading , technical analysis');
+
+
+  <-- READ COURSE FROM COURSE TABLE BY USER ID -->
+
+ SELECT * FROM course WHERE user_id = 5;
  
  
    <-- UPDATE COURSE BY COURSE NAME -->
@@ -76,15 +89,21 @@ UPDATE course SET is_deleted = 1 WHERE course_id = 5;
    CREATE TABLE Comment (
     comment_id INT PRIMARY KEY AUTO_INCREMENT,
     course_id INT NOT NULL,
-    userID INT NOT NULL,
+    user_id INT NOT NULL,
     comment TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_deleted INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (courseID) REFERENCES course(courseID),
-    FOREIGN KEY (userID) REFERENCES freshstocks(userID)
+    FOREIGN KEY (course_id) REFERENCES course(course_id),
+    FOREIGN KEY (user_id) REFERENCES freshstocks(user_id)
 );
 
+
+ <-- CREATE COMMENT BY COMMENT DETAILS  -->
+
+INSERT INTO Comment (course_id, user_id, comment)
+VALUES (1, 2, 'This course is fantastic! The content is well-organized and the instructor is very knowledgeable.');
+      
 
       <-- READ ALL COMMENTS BY SEPERATE COURSE ID -->
       
@@ -93,8 +112,8 @@ UPDATE course SET is_deleted = 1 WHERE course_id = 5;
 
       <-- UPDATE COMMENTS BY COMMENT ID -->
        
-       UPDATE Comment SET comment=? WHERE commentID = ?;
+       UPDATE Comment SET comment=? WHERE comment_id = ?;
        
        <-- DELETE COMMENTS BY COMMENT ID -->
        
-       UPDATE Comment SET is_deleted = ? WHERE commentID = ?;
+       UPDATE Comment SET is_deleted = ? WHERE comment_id = ?;

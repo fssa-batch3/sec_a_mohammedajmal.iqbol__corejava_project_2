@@ -125,6 +125,47 @@ public class CourseDAO {
 	        }
 	        return list1;
 	    }
+	
+	
+	
+	/**
+	 * Retrieves full list of courses from the database.
+	 *
+	 * @param course The Course object representing the user and additional criteria for course retrieval.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
+	public List<Course> getAllCourse() throws DAOException {
+	    List<Course> list1 = new ArrayList<>();
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course")) {
+	        try (ResultSet resultSet = pst.executeQuery()) {
+	            
+	            while (resultSet.next()) {
+				String name = resultSet.getString("name");
+				String coverImage = resultSet.getString("cover_image");
+				String timing = resultSet.getString("timing");
+				String language = resultSet.getString("language");
+				int markedPrice = resultSet.getInt("marked_price");
+				int sellingPrice = resultSet.getInt("selling_price");
+				String description = resultSet.getString("description");
+				String instructorName = resultSet.getString("instructor_name");
+				String companyName = resultSet.getString("company_name");
+				String companyCategory = resultSet.getString("company_category");
+				String topSkills = resultSet.getString("top_skills");
+				int userID1 = resultSet.getInt("user_id");
+				int courseID = resultSet.getInt("course_id");
+                
+				Course course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
+						description, instructorName, companyName, companyCategory,topSkills,userID1);
+				list1.add(course1);
+
+			 }
+	       }
+	        } catch (SQLException e) {
+	            throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
+	        }
+	        return list1;
+	    }
 
 	
 	/**

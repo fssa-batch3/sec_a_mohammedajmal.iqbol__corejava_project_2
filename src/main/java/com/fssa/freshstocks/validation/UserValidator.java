@@ -1,7 +1,8 @@
 package com.fssa.freshstocks.validation;
 
-import java.util.regex.Pattern;
 import com.fssa.freshstocks.model.User;
+import java.util.regex.Pattern;
+
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class UserValidator {
