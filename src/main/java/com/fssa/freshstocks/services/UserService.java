@@ -1,7 +1,11 @@
 package com.fssa.freshstocks.services;
 
+import java.util.List;
+
+import com.fssa.freshstocks.dao.CourseDAO;
 import com.fssa.freshstocks.dao.UserDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
+import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.UserValidator;
@@ -102,6 +106,16 @@ public class UserService {
 				System.out.println("User Email Doesn't Exist!");
 				return false;
 			}
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+	
+	
+	public String getUserProfilesFromUserID(int userID) throws ServiceException {
+		UserDAO userDAO = new UserDAO();
+		try {
+			return userDAO.getUserProfileFromUserID(userID);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

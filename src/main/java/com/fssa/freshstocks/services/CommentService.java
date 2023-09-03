@@ -42,13 +42,23 @@ public class CommentService {
 	 * @return A list of Comment objects associated with the given course ID.
 	 * @throws ServiceException If an error occurs while retrieving the comments.
 	 */
-	public List<Comment> listComment(Comment comment) throws ServiceException {
-	    String courseID = Integer.toString(comment.getCourseId());
+	public List<Comment> listComment(int courseId) throws ServiceException {
+	    String courseID = Integer.toString(courseId);
 	    CommentDAO commentDAO = new CommentDAO();
 	    try {
 	        CommentValidator.validateCourseId(courseID);
-	        return commentDAO.getAllComments(comment.getCourseId());
+	        return commentDAO.getAllComments(courseId);
 	    } catch (DAOException | InvalidCommentException e) {
+	        throw new ServiceException(e);
+	    }
+	}
+	
+	
+	public Comment getCommentByCommentID(int commentId) throws ServiceException {
+	    CommentDAO commentDAO = new CommentDAO();
+	    try {
+	        return commentDAO.getCommentByID(commentId);
+	    } catch (DAOException e) {
 	        throw new ServiceException(e);
 	    }
 	}

@@ -20,9 +20,15 @@ public class ConnectionUtil {
         final String dbUser;
         final String dbPassword;
         
-      dbUrl = System.getenv("DB_URL");
-      dbUser = System.getenv("DB_USER");
-      dbPassword = System.getenv("DB_PASSWORD");
+        //cloudDB Credentials
+//      dbUrl = System.getenv("DB_URL");
+//      dbUser = System.getenv("DB_USER");
+//      dbPassword = System.getenv("DB_PASSWORD");
+      
+      //localhost Credentials
+      dbUrl = "jdbc:mysql://localhost:3306/freshstocks_trading";
+      dbUser = "root";
+      dbPassword = "root";
 
         try {
         	Class.forName("com.mysql.cj.jdbc.Driver");

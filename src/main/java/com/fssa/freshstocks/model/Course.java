@@ -194,6 +194,43 @@ public class Course {
 		this.userID = userID;
 	}
 	
+	
+    /**
+     * Creates a new Course object with course creation information.
+     *
+     * @param name            The name of the course.
+     * @param coverImage      The cover image of the course.
+     * @param timing          The timing of the course.
+     * @param language        The language of the course.
+     * @param markedPrice     The marked price of the course.
+     * @param sellingPrice    The selling price of the course.
+     * @param description     The description of the course.
+     * @param instructorName  The name of the instructor.
+     * @param companyName     The name of the company.
+     * @param companyCategory The category of the company.
+     * @param topSkills       The top skills taught in the course.
+     * @param userID          The ID of the user associated with the course.
+     * @param courseID          The ID of the course.
+     */
+	public Course(String name, String coverImage, String timing, String language, int markedPrice,
+			int sellingPrice, String description, String instructorName, String companyName, String companyCategory,
+			String topSkills,int userID,int courseID) {
+		super();
+		this.name = name;
+		this.coverImage = coverImage;
+		this.timing = timing;
+		this.language = language;
+		this.markedPrice = markedPrice;
+		this.sellingPrice = sellingPrice;
+		this.description = description;
+		this.instructorName = instructorName;
+		this.companyName = companyName;
+		this.companyCategory = companyCategory;
+		this.topSkills = topSkills;
+		this.userID = userID;
+		this.courseID = courseID;
+	}
+	
     // Constructor to delete or update course
     /**
      * Creates a new Course object for deleting or updating a course.

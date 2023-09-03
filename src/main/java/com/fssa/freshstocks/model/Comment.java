@@ -9,6 +9,8 @@ public class Comment {
     private String commentBody;
     private String username;
     private String coursename;
+    private String userProfile;
+    private String createdTime;
 
     // Constructors
     
@@ -35,15 +37,38 @@ public class Comment {
      * @param commentBody The content of the comment.
      */
 
-    public Comment(int commentId, String username, String coursename, String commentBody) {
+    public Comment(int commentId, int userId, String username,String userProfile, String coursename, String commentBody, String createdTime) {
         this.commentId = commentId;
+        this.userId= userId;
         this.username = username;
         this.coursename = coursename;
         this.commentBody = commentBody;
+        this.userProfile = userProfile;
+        this.createdTime = createdTime;
     }
 
    
-    /**
+    public int getCommentId() {
+		return commentId;
+	}
+
+
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
+	}
+
+
+	public String getCreatedTime() {
+		return createdTime;
+	}
+
+
+	public void setCreatedTime(String createdTime) {
+		this.createdTime = createdTime;
+	}
+
+
+	/**
      * Constructor for creating a comment with comment ID, course ID, user ID, and comment body.
      *
      * @param commentId   The ID of the comment.
@@ -60,7 +85,22 @@ public class Comment {
     }
 
    
-    /**
+    public String getUserProfile() {
+		return userProfile;
+	}
+
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+	
+    public Comment(int commentID, String commentBody) {
+        this.commentId = commentId;
+        this.commentBody = commentBody;
+    }
+
+
+	/**
      * Constructor for creating a comment with just the comment body.
      *
      * @param comment The content of the comment.

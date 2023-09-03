@@ -137,7 +137,7 @@ public class CourseDAO {
 	public List<Course> getAllCourse() throws DAOException {
 	    List<Course> list1 = new ArrayList<>();
 	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course")) {
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE is_deleted = 0")) {
 	        try (ResultSet resultSet = pst.executeQuery()) {
 	            
 	            while (resultSet.next()) {
@@ -156,7 +156,7 @@ public class CourseDAO {
 				int courseID = resultSet.getInt("course_id");
                 
 				Course course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
-						description, instructorName, companyName, companyCategory,topSkills,userID1);
+						description, instructorName, companyName, companyCategory,topSkills,userID1,courseID);
 				list1.add(course1);
 
 			 }
@@ -166,6 +166,127 @@ public class CourseDAO {
 	        }
 	        return list1;
 	    }
+	
+	
+	/**
+	 * Retrieves list of courses which is free of cost from the database.
+	 *
+	 * @param course The Course object representing the user and additional criteria for course retrieval.
+	 * @throws DAOException If there's an error while interacting with the database.
+	 */
+	public List<Course> getFreeCourse() throws DAOException {
+	    List<Course> list1 = new ArrayList<>();
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE selling_price=0 AND is_deleted = 0")) {
+	        try (ResultSet resultSet = pst.executeQuery()) {
+	            
+	            while (resultSet.next()) {
+				String name = resultSet.getString("name");
+				String coverImage = resultSet.getString("cover_image");
+				String timing = resultSet.getString("timing");
+				String language = resultSet.getString("language");
+				int markedPrice = resultSet.getInt("marked_price");
+				int sellingPrice = resultSet.getInt("selling_price");
+				String description = resultSet.getString("description");
+				String instructorName = resultSet.getString("instructor_name");
+				String companyName = resultSet.getString("company_name");
+				String companyCategory = resultSet.getString("company_category");
+				String topSkills = resultSet.getString("top_skills");
+				int userID1 = resultSet.getInt("user_id");
+				int courseID = resultSet.getInt("course_id");
+                
+				Course course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
+						description, instructorName, companyName, companyCategory,topSkills,userID1,courseID);
+				list1.add(course1);
+
+			 }
+	       }
+	        } catch (SQLException e) {
+	            throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
+	        }
+	        return list1;
+	    }
+			
+			
+			/**
+			 * Retrieves list of courses which is last created 5 courses from the database.
+			 *
+			 * @param course The Course object representing the user and additional criteria for course retrieval.
+			 * @throws DAOException If there's an error while interacting with the database.
+			 */
+			public List<Course> getLatestCourse() throws DAOException {
+			    List<Course> list1 = new ArrayList<>();
+			    try (Connection connection = ConnectionUtil.getConnection();
+			         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE created_at <= CURDATE() ORDER BY created_at DESC LIMIT 5")) {
+			        try (ResultSet resultSet = pst.executeQuery()) {
+			            
+			            while (resultSet.next()) {
+						String name = resultSet.getString("name");
+						String coverImage = resultSet.getString("cover_image");
+						String timing = resultSet.getString("timing");
+						String language = resultSet.getString("language");
+						int markedPrice = resultSet.getInt("marked_price");
+						int sellingPrice = resultSet.getInt("selling_price");
+						String description = resultSet.getString("description");
+						String instructorName = resultSet.getString("instructor_name");
+						String companyName = resultSet.getString("company_name");
+						String companyCategory = resultSet.getString("company_category");
+						String topSkills = resultSet.getString("top_skills");
+						int userID1 = resultSet.getInt("user_id");
+						int courseID = resultSet.getInt("course_id");
+		                
+						Course course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
+								description, instructorName, companyName, companyCategory,topSkills,userID1);
+						list1.add(course1);
+
+					 }
+			       }
+			        } catch (SQLException e) {
+			            throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
+			        }
+			        return list1;
+			    }
+			
+			
+			/**
+			 * Retrieves a list of courses belonging to a specific course from the database.
+			 *
+			 * @param course The Course object representing the user and additional criteria for course retrieval.
+			 * @return A list of Course objects representing the courses.
+			 * @throws DAOException If there's an error while interacting with the database.
+			 */
+			public Course getCourseFromCourseId(int courseID) throws DAOException {
+			    Course course1 = null;
+			    try (Connection connection = ConnectionUtil.getConnection();
+			         PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE course_id = ? AND is_deleted = 0")) {
+			        pst.setInt(1, courseID);
+			        try (ResultSet resultSet = pst.executeQuery()) {
+			            
+			            while (resultSet.next()) {
+						String name = resultSet.getString("name");
+						String coverImage = resultSet.getString("cover_image");
+						String timing = resultSet.getString("timing");
+						String language = resultSet.getString("language");
+						int markedPrice = resultSet.getInt("marked_price");
+						int sellingPrice = resultSet.getInt("selling_price");
+						String description = resultSet.getString("description");
+						String instructorName = resultSet.getString("instructor_name");
+						String companyName = resultSet.getString("company_name");
+						String companyCategory = resultSet.getString("company_category");
+						String topSkills = resultSet.getString("top_skills");
+						int userID1 = resultSet.getInt("user_id");
+						int courseID1 = resultSet.getInt("course_id");
+		                
+						course1 = new Course(name, coverImage,timing,language,markedPrice,sellingPrice,
+								description, instructorName, companyName, companyCategory,topSkills,userID1,courseID1);
+
+					 }
+			       }
+			        } catch (SQLException e) {
+			            throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
+			        }
+			        return course1;
+			    }
 
 	
 	/**
