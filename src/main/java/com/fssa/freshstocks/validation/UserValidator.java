@@ -6,10 +6,6 @@ import java.util.regex.Pattern;
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
 
 public class UserValidator {
-	
-	public UserValidator() {
-		//private constructor
-	}
 
 	/**
 	 * Validates a User object for its username, email, and password.

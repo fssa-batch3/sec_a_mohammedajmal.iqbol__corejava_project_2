@@ -40,7 +40,7 @@ class TestReadCourseFeature {
     @Test
     @Order(2)
     void testGetAllCoursesInvalid() {
-        int userID = 1;
+        int userID = 0;
         List<Course> cleanedEntries = null;
         try {
             cleanedEntries = courseService.listCourse(userID);

@@ -24,7 +24,7 @@ class TestDeleteCommentFeature {
     @Test
     @Order(1)
     void testDeleteCommentSuccess() {
-        int commentId = 21;
+        int commentId = 1;
         try {
             assertTrue(commentService.deleteComment(commentId, isDeleted));
         } catch (ServiceException e) {
@@ -36,7 +36,7 @@ class TestDeleteCommentFeature {
     @Test
     @Order(2)
     void testDeleteCommentFail() {
-        int commentId = 1;
+        int commentId = 0;
         try {
             assertFalse(commentService.deleteComment(commentId, isDeleted));
         } catch (ServiceException e) {
