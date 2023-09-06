@@ -4,7 +4,6 @@ import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.validation.exception.*;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -29,7 +28,7 @@ class TestValidateUser {
     @Order(1)
     void testValidUser() {
         try {
-            assertTrue(UserValidator.validateUser(validUser));
+            UserValidator.validateUser(validUser);
         } catch (InvalidUserException e) {
             e.printStackTrace();
         }

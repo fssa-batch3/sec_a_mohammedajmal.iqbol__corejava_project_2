@@ -27,7 +27,7 @@ class TestValidateCourseURL {
     @Order(1)
     void testValidURL() {
         try {
-            assertTrue(CourseValidator.validateURL(validURL));
+            CourseValidator.validateURL(validURL);
         } catch (InvalidCourseException e) {
             e.printStackTrace();
             fail();
@@ -44,7 +44,7 @@ class TestValidateCourseURL {
             assertEquals("Invalid course image URL. Please provide a valid HTTP or HTTPS URL.", e.getMessage());
         }
     }
-    
+
     @Test
     @Order(3)
     void testEmptyURL() {

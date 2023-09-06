@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
-
 class TestValidateCourseTopSkills {
 
     private String validTopSkills;
@@ -28,7 +27,7 @@ class TestValidateCourseTopSkills {
     @Order(1)
     void testValidTopSkills() {
         try {
-            assertTrue(CourseValidator.validateTopSkils(validTopSkills));
+            CourseValidator.validateTopSkils(validTopSkills);
         } catch (InvalidCourseException e) {
             e.printStackTrace();
         }
@@ -44,7 +43,7 @@ class TestValidateCourseTopSkills {
             assertEquals("Invalid course top skills. Top skills must be 3 to 150 characters long and may include letters and spaces.", e.getMessage());
         }
     }
-    
+
     @Test
     @Order(3)
     void testEmptyTopSkills() {

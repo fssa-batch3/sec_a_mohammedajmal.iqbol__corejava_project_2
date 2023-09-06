@@ -1,13 +1,11 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
 import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 
 class TestValidateCommentUserId {
@@ -25,9 +23,10 @@ class TestValidateCommentUserId {
     @Order(1)
     void testValidCommentUserID() {
         try {
-            assertTrue(CommentValidator.validateUserId(validUserId));
+            CommentValidator.validateUserId(validUserId);
+            // If no exception is thrown, it's a valid user ID
         } catch (InvalidCommentException e) {
-            System.out.println(e.getMessage());
+            fail("Unexpected exception: " + e.getMessage());
         }
     }
 

@@ -21,9 +21,10 @@ class TestValidateUserPassword {
     
     void testPasswordValidation(String password, boolean expectedResult) {
         try {
-			assertEquals(expectedResult, UserValidator.validatePassword(password));
-		} catch (InvalidUserException e) {
-			assertEquals("Invalid password. Passwords must meet specific complexity requirements.",e.getMessage());
-		}
+            UserValidator.validatePassword(password);
+            assertEquals(expectedResult, true);
+        } catch (InvalidUserException e) {
+            assertEquals("Invalid password. Passwords must meet specific complexity requirements.", e.getMessage());
+        }
     }
 }

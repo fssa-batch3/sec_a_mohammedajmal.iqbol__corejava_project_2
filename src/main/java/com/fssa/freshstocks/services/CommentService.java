@@ -22,14 +22,8 @@ public class CommentService {
 	public boolean registerComment(Comment comment) throws ServiceException {
 		try {
 			CommentDAO commentDAO = new CommentDAO();
-	        if (!CommentValidator.validateComment(comment)) {
-	            return false;
-	        }
-	        boolean success = commentDAO.createComment(comment);
-	        if (success) {
-	            System.out.println("Comment for the Course ID: " + comment.getCourseId() + " Successfully Added!");
-	        }
-	        return success;
+			CommentValidator.validateComment(comment);
+			return commentDAO.createComment(comment);
 		} catch (DAOException | InvalidCommentException e) {
 			throw new ServiceException(e);
 		}
@@ -43,26 +37,25 @@ public class CommentService {
 	 * @throws ServiceException If an error occurs while retrieving the comments.
 	 */
 	public List<Comment> listComment(int courseId) throws ServiceException {
-	    String courseID = Integer.toString(courseId);
-	    CommentDAO commentDAO = new CommentDAO();
-	    try {
-	        CommentValidator.validateCourseId(courseID);
-	        return commentDAO.getAllComments(courseId);
-	    } catch (DAOException | InvalidCommentException e) {
-	        throw new ServiceException(e);
-	    }
+		String courseID = Integer.toString(courseId);
+		CommentDAO commentDAO = new CommentDAO();
+		try {
+			CommentValidator.validateCourseId(courseID);
+			return commentDAO.getAllComments(courseId);
+		} catch (DAOException | InvalidCommentException e) {
+			throw new ServiceException(e);
+		}
 	}
-	
-	
+
 	public Comment getCommentByCommentID(int commentId) throws ServiceException {
-	    CommentDAO commentDAO = new CommentDAO();
-	    try {
-	        return commentDAO.getCommentByID(commentId);
-	    } catch (DAOException e) {
-	        throw new ServiceException(e);
-	    }
+		CommentDAO commentDAO = new CommentDAO();
+		try {
+			return commentDAO.getCommentByID(commentId);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 	}
-	
+
 	/**
 	 * Updates a comment with the given comment ID.
 	 *
@@ -72,39 +65,28 @@ public class CommentService {
 	 * @throws ServiceException If an error occurs while updating the comment.
 	 */
 	public boolean updateComment(Comment comment, int commentId) throws ServiceException {
-	    try {
-	        if (!CommentValidator.validateComment(comment.getComment())) {
-	            return false;
-	        }
-	        CommentDAO commentDAO = new CommentDAO();
-	        boolean success = commentDAO.updateComment(comment, commentId);
-	        if (success) {
-	            System.out.println("CommentID of Comment: " + commentId + " Successfully Updated!");
-	        }
-	        return success;
-
-	    } catch (DAOException | InvalidCommentException e) {
-	        throw new ServiceException(e);
-	    }
+		try {
+			CommentValidator.validateComment(comment.getComment());
+			CommentDAO commentDAO = new CommentDAO();
+			return commentDAO.updateComment(comment, commentId);
+		} catch (DAOException | InvalidCommentException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	/**
 	 * Deletes a comment with the given comment ID.
 	 *
 	 * @param commentId The ID of the comment to be deleted.
-	 * @param isDeleted An indicator of whether the comment should be marked as deleted.
-	 *                  (0 for not deleted, 1 for deleted)
+	 * @param isDeleted An indicator of whether the comment should be marked as
+	 *                  deleted. (0 for not deleted, 1 for deleted)
 	 * @return true if the comment was successfully deleted, false otherwise.
 	 * @throws ServiceException If an error occurs while deleting the comment.
 	 */
 	public boolean deleteComment(int commentId, int isDeleted) throws ServiceException {
 		CommentDAO commentDAO = new CommentDAO();
 		try {
-			boolean success = commentDAO.deleteComment(commentId, isDeleted);
-			if (success) {
-				System.out.println("Comment of CommentID: " + commentId + " Successfully Deleted!");
-			}
-			return success;
+			return commentDAO.deleteComment(commentId, isDeleted);
 		} catch (DAOException e) {
 			throw new ServiceException(CommentModuleConstants.DELETE_ERROR_MESSAGE + e);
 		}

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
-
 class TestValidateCourseCategory {
 
     private String validCompanyCategory;
@@ -28,7 +27,8 @@ class TestValidateCourseCategory {
     @Order(1)
     void testValidCompanyCategory() {
         try {
-            assertTrue(CourseValidator.validateCompanyCategory(validCompanyCategory));
+            CourseValidator.validateCompanyCategory(validCompanyCategory);
+            // If no exception is thrown, it's a valid company category
         } catch (InvalidCourseException e) {
             e.printStackTrace();
         }

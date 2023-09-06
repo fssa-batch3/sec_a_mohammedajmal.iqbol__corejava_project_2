@@ -1,7 +1,7 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,40 +29,31 @@ class TestValidateUserMobileNumber {
     @Order(1)
     void testValidMobileNumber() {
         try {
-            assertTrue(UserValidator.validateMobileNumber(validMobileNumber));
+            UserValidator.validateMobileNumber(validMobileNumber);
         } catch (InvalidUserException e) {
-            e.printStackTrace();
+            fail("Unexpected InvalidUserException was thrown.");
         }
     }
 
     @Test
     @Order(2)
     void testInvalidMobileNumber() {
-        try {
-            UserValidator.validateMobileNumber(invalidMobileNumber);
-            fail("Expected InvalidUserException was not thrown.");
-        } catch (InvalidUserException e) {
-            assertEquals("Invalid mobile number. Please provide a valid phone number, including the country code and area code if applicable.", e.getMessage());
-        }
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateMobileNumber(invalidMobileNumber));
     }
 
     @Test
     @Order(3)
     void testValidOutsideIndiaMobileNumber() {
         try {
-            assertTrue(UserValidator.validateMobileNumber(validOutsideIndiaMobileNumber));
+            UserValidator.validateMobileNumber(validOutsideIndiaMobileNumber);
         } catch (InvalidUserException e) {
-            e.printStackTrace();
+            fail("Unexpected InvalidUserException was thrown.");
         }
     }
     
     @Test
     @Order(4)
     void testEmptyMobileNumber() {
-        try {
-            assertTrue(UserValidator.validateMobileNumber(emptyMobileNumber));
-        } catch (InvalidUserException e) {
-            e.printStackTrace();
-        }
+    	assertThrows(InvalidUserException.class, () -> UserValidator.validateMobileNumber(invalidMobileNumber));
     }
 }

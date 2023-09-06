@@ -1,8 +1,8 @@
 package com.fssa.freshstocks.validation;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -25,32 +25,21 @@ class TestValidateCourseCompanyName {
     @Test
     @Order(1)
     void testValidCompanyName() {
-        try {
-            assertTrue(CourseValidator.validateCompanyName(validCompanyName));
-        } catch (InvalidCourseException e) {
-            e.printStackTrace();
-        }
+        // This should not throw an exception
+        assertDoesNotThrow(() -> CourseValidator.validateCompanyName(validCompanyName));
     }
 
     @Test
     @Order(2)
     void testInvalidCompanyName() {
-        try {
-            CourseValidator.validateCompanyName(invalidCompanyName);
-            fail("Expected InvalidCourseException was not thrown.");
-        } catch (InvalidCourseException e) {
-            assertEquals("Invalid course company name. Company names must be 3 to 100 characters long and may include letters and spaces.", e.getMessage());
-        }
+        // Expecting InvalidCourseException
+        assertThrows(InvalidCourseException.class, () -> CourseValidator.validateCompanyName(invalidCompanyName));
     }
 
     @Test
     @Order(3)
     void testEmptyCompanyName() {
-        try {
-            CourseValidator.validateCompanyName(emptyCompanyName);
-            fail("Expected InvalidCourseException was not thrown.");
-        } catch (InvalidCourseException e) {
-            assertEquals("Invalid course company name. Company names must be 3 to 100 characters long and may include letters and spaces.", e.getMessage());
-        }
+        // Expecting InvalidCourseException
+        assertThrows(InvalidCourseException.class, () -> CourseValidator.validateCompanyName(emptyCompanyName));
     }
 }

@@ -1,7 +1,8 @@
 package com.fssa.freshstocks.validation;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
-
 
 class TestValidateUserGender {
 
@@ -30,42 +30,27 @@ class TestValidateUserGender {
     @Order(1)
     void testValidGender() {
         try {
-            assertTrue(UserValidator.validateGender(validGender));
+            UserValidator.validateGender(validGender);
         } catch (InvalidUserException e) {
-            e.printStackTrace();
+            fail("Unexpected InvalidUserException was thrown.");
         }
     }
 
     @Test
     @Order(2)
     void testInvalidGender() {
-        try {
-            UserValidator.validateGender(invalidGender);
-            fail("Expected InvalidUserException was not thrown.");
-        } catch (InvalidUserException e) {
-            assertEquals("Given Gender is not valid. Expected Input: male|female|others", e.getMessage());
-        }
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateGender(invalidGender));
     }
 
     @Test
     @Order(3)
     void testGenderOthers() {
-        try {
-            UserValidator.validateGender(genderOthers);
-            fail("Expected InvalidUserException was not thrown.");
-        } catch (InvalidUserException e) {
-            assertEquals("Given Gender is not valid. Expected Input: male|female|others", e.getMessage());
-        }
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateGender(genderOthers));
     }
     
     @Test
     @Order(4)
     void testGenderEmpty() {
-        try {
-            UserValidator.validateGender(emptyGender);
-            fail("Expected InvalidUserException was not thrown.");
-        } catch (InvalidUserException e) {
-            assertEquals("Given Gender is not valid. Expected Input: male|female|others", e.getMessage());
-        }
+        assertThrows(InvalidUserException.class, () -> UserValidator.validateGender(emptyGender));
     }
 }

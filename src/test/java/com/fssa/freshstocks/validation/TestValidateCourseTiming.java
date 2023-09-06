@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
-
 class TestValidateCourseTiming {
 
     private String validTiming;
@@ -28,7 +27,7 @@ class TestValidateCourseTiming {
     @Order(1)
     void testValidTiming() {
         try {
-            assertTrue(CourseValidator.validateTiming(validTiming));
+            CourseValidator.validateTiming(validTiming);
         } catch (InvalidCourseException e) {
             e.printStackTrace();
         }
@@ -44,7 +43,7 @@ class TestValidateCourseTiming {
             assertEquals("Invalid course timing. Please provide a valid timing format (e.g., 10hrs).", e.getMessage());
         }
     }
-    
+
     @Test
     @Order(3)
     void testEmptyTiming() {

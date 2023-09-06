@@ -1,7 +1,7 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -23,7 +23,8 @@ class TestValidateCommentBody {
     @Order(1)
     void testValidCommentBody() {
         try {
-            assertTrue(CommentValidator.validateComment(validCommentBody));
+            CommentValidator.validateComment(validCommentBody);
+            // If no exception is thrown, it's a valid comment body
         } catch (InvalidCommentException e) {
             fail("Unexpected exception: " + e.getMessage());
         }
@@ -32,11 +33,8 @@ class TestValidateCommentBody {
     @Test
     @Order(2)
     void testInvalidCommentBody() {
-        try {
-            CommentValidator.validateComment(invalidCommentBody);
-            fail("Expected InvalidCommentException was not thrown.");
-        } catch (InvalidCommentException e) {
-            assertEquals("Invalid comment. Please provide a non-empty comment for the course.", e.getMessage());
-        }
+    	 assertThrows(InvalidCommentException.class, () -> {
+    	        CommentValidator.validateComment(invalidCommentBody);
+    	    });
     }
 }

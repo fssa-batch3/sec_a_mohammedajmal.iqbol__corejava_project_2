@@ -9,6 +9,7 @@ import com.fssa.freshstocks.constants.*;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.utils.ConnectionUtil;
+import com.fssa.freshstocks.utils.exception.DatabaseException;
 
 public class UserDAO {
 
@@ -33,16 +34,12 @@ public class UserDAO {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
 					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
 
-					System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId
-							+ UserModuleConstants.PREFIX_PASSWORD_STRING + password);
-
 					if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
 						match = true;
-						return true; // Return as soon as a match is found
 					}
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 		}
 		return match;
@@ -66,14 +63,12 @@ public class UserDAO {
 				while (resultSet.next()) {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
 					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
-					System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId
-							+ UserModuleConstants.PREFIX_PASSWORD_STRING + password);
 					if (user.getEmail().equals(emailId)) {
 						emailExists = true;
 					}
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 		}
 
@@ -98,15 +93,13 @@ public class UserDAO {
 				while (resultSet.next()) {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
 					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
-					System.out.println(UserModuleConstants.PREFIX_EMAIL_STRING + emailId
-							+ UserModuleConstants.PREFIX_PASSWORD_STRING + password);
 					if (email.equals(emailId)) {
 						emailAlreadyExist = true;
 						break;
 					}
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 		}
 
@@ -131,15 +124,15 @@ public class UserDAO {
 			pst.setInt(1, user.getUserId());
 			pst.setString(2, user.getUsername());
 			pst.setString(3, user.getGender());
-			pst.setString(4, user.getmobileNumber());
-			pst.setString(5, user.getdateOfBirth());
+			pst.setString(4, user.getMobileNumber());
+			pst.setString(5, user.getDateOfBirth());
 			pst.setString(6, user.getEmail());
 			pst.setString(7, user.getPassword());
 			pst.setInt(8, user.getIsSeller());
 			pst.setString(9, "https://ui-avatars.com/api/?name=" + user.getUsername() + "&background=random");
 
 			rows = pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.REGISTER_ERROR_MESSAGE + e);
 		}
 
@@ -162,13 +155,13 @@ public class UserDAO {
 						"UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?")) {
 
 			pst.setString(1, user.getGender());
-			pst.setString(2, user.getmobileNumber());
-			pst.setString(3, user.getdateOfBirth());
+			pst.setString(2, user.getMobileNumber());
+			pst.setString(3, user.getDateOfBirth());
 			pst.setString(4, userEmail);
 
 			// Execute query
 			rows = pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.UPDATE_ERROR_MESSAGE + e);
 		}
 
@@ -198,7 +191,7 @@ public class UserDAO {
 			// Execute query
 			rows = pst.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.DELETE_ERROR_MESSAGE + e);
 		}
 
@@ -226,7 +219,7 @@ public class UserDAO {
 					userProfile = resultSet.getString("avatar_url");
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 		}
 

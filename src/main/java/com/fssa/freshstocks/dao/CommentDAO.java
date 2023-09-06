@@ -1,4 +1,5 @@
 package com.fssa.freshstocks.dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import com.fssa.freshstocks.constants.CommentModuleConstants;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Comment;
 import com.fssa.freshstocks.utils.ConnectionUtil;
+import com.fssa.freshstocks.utils.exception.DatabaseException;
 
 public class CommentDAO {
 
@@ -39,7 +41,7 @@ public class CommentDAO {
 			pst.setString(3, comment.getComment().toLowerCase().trim());
 
 			rows = pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(CommentModuleConstants.CREATE_ERROR_MESSAGE + e);
 		}
 
@@ -54,87 +56,88 @@ public class CommentDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public List<Comment> getAllComments(int courseID) throws DAOException {
-	    List<Comment> comments = new ArrayList<>();
+		List<Comment> comments = new ArrayList<>();
 
-	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement(
-	                 "SELECT co.comment_id, co.user_id, f.username AS username, f.avatar_url AS userProfile, c.name AS courseName, co.comment AS comment, co.created_at AS createdTime "
-	                         + "FROM Comment co " + "JOIN freshstocks f ON co.user_id = f.user_id "
-	                         + "JOIN course c ON co.course_id = c.course_id " + "WHERE co.course_id = ? AND co.is_deleted = 0");) {
-	        pst.setInt(1, courseID);
-	        ResultSet resultSet = pst.executeQuery();
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement pst = connection.prepareStatement(
+						"SELECT co.comment_id, co.user_id, f.username AS username, f.avatar_url AS userProfile, c.name AS courseName, co.comment AS comment, co.created_at AS createdTime "
+								+ "FROM Comment co " + "JOIN freshstocks f ON co.user_id = f.user_id "
+								+ "JOIN course c ON co.course_id = c.course_id "
+								+ "WHERE co.course_id = ? AND co.is_deleted = 0");) {
+			pst.setInt(1, courseID);
+			ResultSet resultSet = pst.executeQuery();
 
-	        while (resultSet.next()) {
-	            int commentId = resultSet.getInt("comment_id");
-	            int userId = resultSet.getInt("user_id"); // Retrieve user ID
-	            String username = resultSet.getString("username");
-	            String userProfile = resultSet.getString("userProfile");
-	            String courseName = resultSet.getString("courseName");
-	            String commentBody = resultSet.getString("comment");
-	            String createdTime =  formatTimeDifference(resultSet.getTimestamp("createdTime"));
+			while (resultSet.next()) {
+				int commentId = resultSet.getInt("comment_id");
+				int userId = resultSet.getInt("user_id"); // Retrieve user ID
+				String username = resultSet.getString("username");
+				String userProfile = resultSet.getString("userProfile");
+				String courseName = resultSet.getString("courseName");
+				String commentBody = resultSet.getString("comment");
+				String createdTime = formatTimeDifference(resultSet.getTimestamp("createdTime"));
 
-	            Comment comment1 = new Comment(commentId, userId, username, userProfile, courseName, commentBody, createdTime);
-	            comments.add(comment1);
-	        }
-	    } catch (SQLException e) {
-	        throw new DAOException(CommentModuleConstants.READ_ERROR_MESSAGE + e);
-	    }
+				Comment comment1 = new Comment(commentId, userId, username, userProfile, courseName, commentBody,
+						createdTime);
+				comments.add(comment1);
+			}
+		} catch (SQLException | DatabaseException e) {
+			throw new DAOException(CommentModuleConstants.READ_ERROR_MESSAGE + e);
+		}
 
-	    return comments;
+		return comments;
 	}
-	
-	
+
 	public Comment getCommentByID(int commentID) throws DAOException {
-		 Comment comment1 = null;
-	    try (Connection connection = ConnectionUtil.getConnection();
-	         PreparedStatement pst = connection.prepareStatement(
-	                 "SELECT * FROM Comment WHERE comment_id = ? AND is_deleted = 0");) {
-	        pst.setInt(1, commentID);
-	        ResultSet resultSet = pst.executeQuery();
+		Comment comment1 = null;
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement pst = connection
+						.prepareStatement("SELECT * FROM Comment WHERE comment_id = ? AND is_deleted = 0");) {
+			pst.setInt(1, commentID);
+			ResultSet resultSet = pst.executeQuery();
 
-	        while (resultSet.next()) {
-	            int commentId = resultSet.getInt("comment_id");
-	            String commentBody = resultSet.getString("comment");
+			while (resultSet.next()) {
+				int commentId = resultSet.getInt("comment_id");
+				String commentBody = resultSet.getString("comment");
 
-	            comment1 = new Comment(commentId,commentBody);
-	        }
-	    } catch (SQLException e) {
-	        throw new DAOException(CommentModuleConstants.READ_ERROR_MESSAGE + e);
-	    }
+				comment1 = new Comment(commentId, commentBody);
+			}
+		} catch (SQLException | DatabaseException e) {
+			throw new DAOException(CommentModuleConstants.READ_ERROR_MESSAGE + e);
+		}
 
-	    return comment1;
+		return comment1;
 	}
 
-	
 	/**
 	 * Retrieves a formatted time string message from created_at.
 	 *
-	 * @param timestamp The time of the course is created for which to retrieve time.
+	 * @param timestamp The time of the course is created for which to retrieve
+	 *                  time.
 	 * @return returns a formatted time string message from created_at.
 	 */
-    private String formatTimeDifference(Timestamp timestamp) {
-        // Calculate the time difference
-        long currentTimeMillis = System.currentTimeMillis();
-        long createdTimeMillis = timestamp.getTime();
-        long timeDifferenceMillis = currentTimeMillis - createdTimeMillis;
+	private String formatTimeDifference(Timestamp timestamp) {
+		// Calculate the time difference
+		long currentTimeMillis = System.currentTimeMillis();
+		long createdTimeMillis = timestamp.getTime();
+		long timeDifferenceMillis = currentTimeMillis - createdTimeMillis;
 
-        // Convert time difference to IST (UTC+05:30)
-        long istTimeDifferenceMillis = timeDifferenceMillis - (5 * 60 * 60 * 1000) - (30 * 60 * 1000);
+		// Convert time difference to IST (UTC+05:30)
+		long istTimeDifferenceMillis = timeDifferenceMillis - (5 * 60 * 60 * 1000) - (30 * 60 * 1000);
 
-        long minutes = istTimeDifferenceMillis / (60 * 1000);
-        long hours = minutes / 60;
-        long days = hours / 24;
+		long minutes = istTimeDifferenceMillis / (60 * 1000);
+		long hours = minutes / 60;
+		long days = hours / 24;
 
-        if (days > 0) {
-            return days + (days == 1 ? " day ago" : " days ago");
-        } else if (hours > 0) {
-            return hours + (hours == 1 ? " hour ago" : " hours ago");
-        } else if (minutes > 0) {
-            return minutes + (minutes == 1 ? " minute ago" : " minutes ago");
-        } else {
-            return "Just now";
-        }
-    }
+		if (days > 0) {
+			return days + (days == 1 ? " day ago" : " days ago");
+		} else if (hours > 0) {
+			return hours + (hours == 1 ? " hour ago" : " hours ago");
+		} else if (minutes > 0) {
+			return minutes + (minutes == 1 ? " minute ago" : " minutes ago");
+		} else {
+			return "Just now";
+		}
+	}
 
 	/**
 	 * Updates an existing comment in the database.
@@ -156,7 +159,7 @@ public class CommentDAO {
 
 			// Execute query
 			rows = pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(CommentModuleConstants.UPDATE_ERROR_MESSAGE + e);
 		}
 
@@ -186,7 +189,7 @@ public class CommentDAO {
 
 			// Execute query
 			rows = pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(CommentModuleConstants.DELETE_ERROR_MESSAGE + e);
 		}
 

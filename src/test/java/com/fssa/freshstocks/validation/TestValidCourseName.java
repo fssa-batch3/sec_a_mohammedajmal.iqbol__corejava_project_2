@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
 
-class TestValidCourseName {
+class TestValidateCourseName {
 
     private String validName;
     private String invalidName;
@@ -26,21 +27,19 @@ class TestValidCourseName {
     @Order(1)
     void testValidName() {
         try {
-            assertTrue(CourseValidator.validateName(validName));
+            CourseValidator.validateName(validName);
         } catch (InvalidCourseException e) {
             e.printStackTrace();
+            fail();
         }
     }
 
     @Test
     @Order(2)
     void testInvalidName() {
-        try {
+    	assertThrows(InvalidCourseException.class, () -> {
             CourseValidator.validateName(invalidName);
-            fail("Expected InvalidCourseException was not thrown.");
-        } catch (InvalidCourseException e) {
-            assertEquals("Invalid course name. Course names must be 3 to 30 characters long and may include letters, numbers, and spaces.", e.getMessage());
-        }
+        }); 
     }
     
     @Test

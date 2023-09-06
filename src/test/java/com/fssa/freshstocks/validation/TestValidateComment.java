@@ -1,16 +1,16 @@
 package com.fssa.freshstocks.validation;
 
-import com.fssa.freshstocks.model.*;
-
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.fssa.freshstocks.validation.exception.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import com.fssa.freshstocks.model.Comment;
+import com.fssa.freshstocks.validation.exception.InvalidCommentException;
 
 @TestMethodOrder(OrderAnnotation.class)
 class TestValidateComment {
@@ -32,8 +32,8 @@ class TestValidateComment {
 
     @Test
     @Order(1)
-    void testValidComment() throws InvalidCommentException {
-        assertTrue(CommentValidator.validateComment(validComment));
+    void testValidComment() {
+    	assertDoesNotThrow(() -> CommentValidator.validateComment(validComment));
     }
 
     @Test

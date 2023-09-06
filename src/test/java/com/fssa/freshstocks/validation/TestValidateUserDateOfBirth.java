@@ -29,9 +29,10 @@ class TestValidateUserDateOfBirth {
     @Order(1)
     void testValidDateOfBirth() {
         try {
-            assertTrue(UserValidator.validateDateOfBirth(validDateOfBirth));
+            UserValidator.validateDateOfBirth(validDateOfBirth);
         } catch (InvalidUserException e) {
             e.printStackTrace();
+            fail();
         }
     }
 

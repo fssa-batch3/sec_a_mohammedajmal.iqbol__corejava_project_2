@@ -15,20 +15,15 @@ public class CourseService {
 	 *
 	 * @param course The Course object containing the course details.
 	 * @return true if the course was successfully registered, false otherwise.
-	 * @throws ServiceException If an error occurs during the course registration process.
+	 * @throws ServiceException If an error occurs during the course registration
+	 *                          process.
 	 */
 	public boolean registerCourse(Course course) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-			if (CourseValidator.validateCourse(course) && !courseDAO.sameNameExist(course)) {
-				boolean success = courseDAO.createCourse(course);
-				if (success) {
-					System.out.println(course.getName() + " Successfully Registered!");
-				}
-				return success;
-			} else {
-				return false;
-			}
+			CourseValidator.validateCourse(course);
+			courseDAO.sameNameExist(course);
+			return courseDAO.createCourse(course);
 		} catch (DAOException | InvalidCourseException e) {
 			throw new ServiceException(e);
 		}
@@ -49,9 +44,7 @@ public class CourseService {
 			throw new ServiceException(e);
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Retrieves a list of all courses from the database.
 	 *
@@ -66,9 +59,7 @@ public class CourseService {
 			throw new ServiceException(e);
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Retrieves a list of courses which is free of cost from the database.
 	 *
@@ -83,9 +74,10 @@ public class CourseService {
 			throw new ServiceException(e);
 		}
 	}
-	
+
 	/**
-	 * Retrieves a list of courses which is created latest 5 courses from the database.
+	 * Retrieves a list of courses which is created latest 5 courses from the
+	 * database.
 	 *
 	 * @return A list of full Course objects.
 	 * @throws ServiceException If an error occurs while retrieving the course list.
@@ -98,8 +90,7 @@ public class CourseService {
 			throw new ServiceException(e);
 		}
 	}
-	
-	
+
 	/**
 	 * Retrieves a course which using courseID from the database.
 	 *
@@ -126,15 +117,8 @@ public class CourseService {
 	public boolean updateCourse(Course course, int courseID) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-			if (CourseValidator.validateUpdatedCourse(course)) {
-				boolean success = courseDAO.updateCourse(course, courseID);
-				if (success) {
-					System.out.println("Course with CourseID: " + courseID + " Successfully Updated!");
-				}
-				return success;
-			} else {
-				return false;
-			}
+			CourseValidator.validateUpdatedCourse(course);
+			return courseDAO.updateCourse(course, courseID);
 		} catch (DAOException | InvalidCourseException e) {
 			throw new ServiceException(e);
 		}
@@ -143,20 +127,16 @@ public class CourseService {
 	/**
 	 * Deletes a course with the given course ID.
 	 *
-	 * @param courseID The ID of the course to be deleted.
-	 * @param isDeleted An indicator of whether the course should be marked as deleted.
-	 *                  (0 for not deleted, 1 for deleted)
+	 * @param courseID  The ID of the course to be deleted.
+	 * @param isDeleted An indicator of whether the course should be marked as
+	 *                  deleted. (0 for not deleted, 1 for deleted)
 	 * @return true if the course was successfully deleted, false otherwise.
 	 * @throws ServiceException If an error occurs while deleting the course.
 	 */
 	public boolean deleteCourse(int courseID, int isDeleted) throws ServiceException {
 		CourseDAO courseDAO = new CourseDAO();
 		try {
-				boolean success = courseDAO.deleteCourse(courseID, isDeleted);
-				if (success) {
-					System.out.println("Course with courseID: " + courseID + " Successfully Deleted!");
-				}
-				return success;
+			return courseDAO.deleteCourse(courseID, isDeleted);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

@@ -3,6 +3,7 @@ package com.fssa.freshstocks.validation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -28,9 +29,10 @@ class TestValidateUserEmail {
     @Order(1)
     void testValidEmail() {
         try {
-            assertTrue(UserValidator.validateEmail(validEmail));
+            UserValidator.validateEmail(validEmail);
         } catch (InvalidUserException e) {
             e.printStackTrace();
+            fail();
         }
     }
 
