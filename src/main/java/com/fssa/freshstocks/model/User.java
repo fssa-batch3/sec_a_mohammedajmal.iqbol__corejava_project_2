@@ -128,16 +128,8 @@ public class User {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
 	public int getIsDeleted() {
 		return isDeleted;
-	}
-
-	public void setIsDeleted(int isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public User(String username, String gender, String mobileNumber, String dateOfBirth, String email, int isSeller,
@@ -157,10 +149,6 @@ public class User {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
-
 	public String getModifiedAt() {
 		return modifiedAt;
 	}
@@ -169,20 +157,8 @@ public class User {
 		return mobileNumber;
 	}
 
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
-
 	public String getDateOfBirth() {
 		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public void setModifiedAt(String modifiedAt) {
-		this.modifiedAt = modifiedAt;
 	}
 
 	// Getters And Setters
@@ -191,51 +167,21 @@ public class User {
 		return isSeller;
 	}
 
-	public void setIsSeller(int isSeller) {
-		this.isSeller = isSeller;
-	}
-
 	public String getUsername() {
 		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getGender() {
 		return gender;
 	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
+	
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
-	// toString method
-	/**
-	 * Returns a string representation of the User object.
-	 *
-	 * @return A formatted string containing user information.
-	 */
-	@Override
-	public String toString() {
-		return "UserID: " + userId + "username: " + username + "gender: " + gender + "mobile_number: " + mobileNumber
-				+ "date_of_birth: " + dateOfBirth + "Email: " + email + " Password: " + password;
-	}
 }

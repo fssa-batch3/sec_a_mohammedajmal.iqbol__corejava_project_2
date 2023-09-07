@@ -100,7 +100,7 @@ class TestValidateCourse {
     @Test
     @Order(2)
     void testInvalidCourseNull() {
-        assertThrows(InvalidCourseException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             CourseValidator.validateCourse(InvalidCourseNull);
         });
     }

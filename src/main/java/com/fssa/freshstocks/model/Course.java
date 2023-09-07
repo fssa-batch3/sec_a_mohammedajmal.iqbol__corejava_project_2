@@ -246,118 +246,52 @@ public class Course {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getCoverImage() {
 		return coverImage;
 	}
 
-	public void setCoverImage(String coverImage) {
-		this.coverImage = coverImage;
-	}
-
 	public String getTiming() {
 		return timing;
-	}
-
-	public void setTiming(String timing) {
-		this.timing = timing;
 	}
 
 	public String getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
 	public int getMarkedPrice() {
 		return markedPrice;
-	}
-
-	public void setMarkedPrice(int markedPrice) {
-		this.markedPrice = markedPrice;
 	}
 
 	public int getSellingPrice() {
 		return sellingPrice;
 	}
 
-	public void setSellingPrice(int sellingPrice) {
-		this.sellingPrice = sellingPrice;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getInstructorName() {
 		return instructorName;
 	}
 
-	public void setInstructorName(String instructorName) {
-		this.instructorName = instructorName;
-	}
-
 	public String getCompanyName() {
 		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
 	}
 
 	public String getCompanyCategory() {
 		return companyCategory;
 	}
 
-	public void setCompanyCategory(String companyCategory) {
-		this.companyCategory = companyCategory;
-	}
-
 	public String getTopSkills() {
 		return topSkills;
-	}
-
-	public void setTopSkills(String topSkills) {
-		this.topSkills = topSkills;
 	}
 
 	public int getCourseID() {
 		return courseID;
 	}
 
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
-	}
-
-	// toString Method
-	/**
-	 * Returns a string representation of the Course object.
-	 *
-	 * @return A formatted string containing course information.
-	 */
-	@Override
-	public String toString() {
-		return "[ userName=" + username + ", courseID=" + courseID + ", name=" + name + ", coverImage=" + coverImage
-				+ ", timing=" + timing + ", language=" + language + ", markedPrice=" + markedPrice + ", sellingPrice="
-				+ sellingPrice + ", description=" + description + ", instructorName=" + instructorName
-				+ ", companyName=" + companyName + ", companyCategory=" + companyCategory + ", topSkills=" + topSkills
-				+ "]";
-	}
 }

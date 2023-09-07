@@ -19,7 +19,7 @@ public class CourseValidator {
 		try {
 			if(!validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())) {
 				throw new InvalidCourseException(
-						"Invalid course details. Please ensure that all course information is valid.");
+						"Invalid course details.Please ensure that all course information is valid.");
 			}
 			validateCourseNotNull(course);
 			validateName(course.getName());
@@ -51,7 +51,7 @@ public class CourseValidator {
 		try {
 			if(!validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())) {
 				throw new InvalidCourseException(
-						"Invalid course details. Please ensure that all course information is valid.");
+						"Invalid course details.  Please ensure that all course information is valid.");
 			}
 			validateCourseNotNull(course);
 			validateURL(course.getCoverImage());
@@ -66,10 +66,10 @@ public class CourseValidator {
 			validateTopSkils(course.getTopSkills());
 		} catch (InvalidCourseException e) {
 			throw new InvalidCourseException(
-					"Invalid Updating course details. Please ensure that all course information is valid.");
+					"Invalid Updating course details .Please ensure that all course information is valid.");
 		}
 	}
-
+	
 	/**
 	 * Validates a course name based on specific pattern criteria.
 	 *

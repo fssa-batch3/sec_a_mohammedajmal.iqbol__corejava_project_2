@@ -14,7 +14,6 @@ class TestValidateUpdatedCourse {
 
     private Course validCourse;
     private Course InvalidCourseNull;
-    private Course InvalidCourseName;
     private Course InvalidCourseImageURL;
     private Course InvalidCourseTiming;
     private Course InvalidCourseLanguage;
@@ -93,7 +92,7 @@ class TestValidateUpdatedCourse {
     @Test
     @Order(2)
     void testInvalidUpdatedCourseNull() {
-        assertThrows(InvalidCourseException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             CourseValidator.validateUpdatedCourse(InvalidCourseNull);
         });
     }

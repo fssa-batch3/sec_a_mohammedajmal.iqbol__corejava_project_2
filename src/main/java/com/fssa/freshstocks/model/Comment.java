@@ -52,16 +52,8 @@ public class Comment {
 		return commentId;
 	}
 
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
-
 	public String getCreatedTime() {
 		return createdTime;
-	}
-
-	public void setCreatedTime(String createdTime) {
-		this.createdTime = createdTime;
 	}
 
 	/**
@@ -83,10 +75,6 @@ public class Comment {
 
 	public String getUserProfile() {
 		return userProfile;
-	}
-
-	public void setUserProfile(String userProfile) {
-		this.userProfile = userProfile;
 	}
 
 	public Comment(int commentID, String commentBody) {
@@ -117,27 +105,13 @@ public class Comment {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
-
 	public int getUserId() {
 		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public String getComment() {
 		return commentBody;
 	}
 
-	// toString method to provide a string representation of the Comment object
-	@Override
-	public String toString() {
-		return "[commentId=" + commentId + ", username=" + username + ", coursename=" + coursename + ", commentBody="
-				+ commentBody + "]";
-	}
 
 }

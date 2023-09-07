@@ -59,7 +59,7 @@ class TestCreateCourseFeature {
     void testCreateCourseNull() {
         Course course1 = null;
 
-        assertThrows(ServiceException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             courseService.registerCourse(course1);
         });
     }

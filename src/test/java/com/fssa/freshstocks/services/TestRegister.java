@@ -58,4 +58,17 @@ class TestRegister {
             userService.registerUser(user1);
         });
     }
+    
+    @Test
+    @Order(4)
+    void testRegistrationFailEmailExist() {
+        User user1 = new User("User_" + nanotime, "Male", "9500320194", "2004-12-26", "freekyajmal65@gmail.com",
+                "Ajmal@123",1);
+        try {
+            assertFalse(userService.registerUser(user1));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }
