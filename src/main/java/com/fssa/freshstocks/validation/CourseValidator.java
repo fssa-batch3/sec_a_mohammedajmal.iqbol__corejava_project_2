@@ -17,6 +17,10 @@ public class CourseValidator {
 	 */
 	public static void validateCourse(Course course) throws InvalidCourseException {
 		try {
+			if(!validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())) {
+				throw new InvalidCourseException(
+						"Invalid course details. Please ensure that all course information is valid.");
+			}
 			validateCourseNotNull(course);
 			validateName(course.getName());
 			validateURL(course.getCoverImage());
@@ -45,6 +49,10 @@ public class CourseValidator {
 	 */
 	public static void validateUpdatedCourse(Course course) throws InvalidCourseException {
 		try {
+			if(!validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())) {
+				throw new InvalidCourseException(
+						"Invalid course details. Please ensure that all course information is valid.");
+			}
 			validateCourseNotNull(course);
 			validateURL(course.getCoverImage());
 			validateLanguage(course.getLanguage());

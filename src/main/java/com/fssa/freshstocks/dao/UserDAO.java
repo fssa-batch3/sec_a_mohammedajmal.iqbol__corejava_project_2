@@ -62,7 +62,6 @@ public class UserDAO {
 			try (ResultSet resultSet = pst.executeQuery()) {
 				while (resultSet.next()) {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
-					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
 					if (user.getEmail().equals(emailId)) {
 						emailExists = true;
 					}
@@ -92,7 +91,6 @@ public class UserDAO {
 			try (ResultSet resultSet = pst.executeQuery()) {
 				while (resultSet.next()) {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
-					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
 					if (email.equals(emailId)) {
 						emailAlreadyExist = true;
 						break;

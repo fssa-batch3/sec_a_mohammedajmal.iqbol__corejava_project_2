@@ -22,8 +22,11 @@ public class UserService {
 		User user1 = new User(user.getEmail(), user.getPassword());
 		try {
 			UserValidator.validateUser(user);
-			userDAO.emailExist(user1);
-			return userDAO.register(user);
+	        if (userDAO.emailExist(user1)) {
+	            return false; // Email already exists
+	        } else {
+	            return userDAO.register(user);
+	        }
 		} catch (DAOException | InvalidUserException e) {
 			throw new ServiceException(e);
 		}
