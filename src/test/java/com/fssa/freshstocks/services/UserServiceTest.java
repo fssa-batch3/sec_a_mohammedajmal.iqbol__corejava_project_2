@@ -16,52 +16,33 @@ import com.fssa.freshstocks.services.exception.ServiceException;
 
     @BeforeEach
      void setUp() {
-        // Initialize the service
         userService = new UserService();
     }
 
     @Test
-     void testDeleteUserWithEmailDoesNotExist() throws ServiceException {
-        // Arrange
+     void testDeleteUserWithEmailDoesNotExist() throws ServiceException {    
         String userEmail = "ajmal@freshworks.com";
         int isDeleted = 1;
-
-        // Act
         boolean result = userService.deleteUser(userEmail, isDeleted);
-
-        // Assert
         assertFalse(result);
     }
 
     @Test
      void testGetUserProfilesFromUserID() throws ServiceException {
-        // Arrange
         int userID = 19;
-
-        // Act
         String userProfile = userService.getUserProfilesFromUserID(userID);
-
-        // Assert
         assertNotNull(userProfile);
-        // Add more specific assertions based on your expectations
     }
     
     @Test
     void testGetUserProfilesFromInvalidUserID() throws ServiceException {
-       // Arrange
        int userID = 219;
-
-       // Act
        String userProfile = userService.getUserProfilesFromUserID(userID);
-
-       // Assert
        assertNull(userProfile);
-       // Add more specific assertions based on your expectations
    }
     
     @Test
     void testDetailedConstructor() {
-        // Arrange
         int userID = 1;
         String username = "JohnDoe";
         String gender = "Male";
@@ -72,32 +53,22 @@ import com.fssa.freshstocks.services.exception.ServiceException;
         String createdAt = "2023-09-07";
         String modifiedAt = "2023-09-07";
         int isDeleted = 0;
-
-        // Act
         User user = new User(userID, username, gender, mobileNumber, dateOfBirth, email, isSeller, createdAt, modifiedAt, isDeleted);
-
-        // Assert
         assertNotNull(user);
     }
     
     @Test
     void testDemoPracticeConstructor() {
-        // Arrange
         int id = 1;
         String name = "John";
         String emailId = "john@example.com";
         String password = "password123";
-
-        // Act
         User user = new User(id, name, emailId, password);
-
-        // Assert
         assertNotNull(user);
     }
     
     @Test
     void testLimitedConstructor() {
-        // Arrange
         String username = "Alice";
         String gender = "Female";
         String mobileNumber = "987-654-3210";
@@ -106,11 +77,7 @@ import com.fssa.freshstocks.services.exception.ServiceException;
         int isSeller = 0;
         String createdAt = "2023-09-07";
         String modifiedAt = "2023-09-07";
-
-        // Act
         User user = new User(username, gender, mobileNumber, dateOfBirth, email, isSeller, createdAt, modifiedAt);
-
-        // Assert
         assertNotNull(user);
     }
 }

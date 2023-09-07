@@ -12,83 +12,57 @@ import org.junit.jupiter.api.Test;
 import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
- class CourseServiceTest {
-    private CourseService courseService;
+class CourseServiceTest {
+	private CourseService courseService;
 
-    @BeforeEach
-     void setUp() {
-        // Initialize the service
-        courseService = new CourseService();
-    }
+	@BeforeEach
+	void setUp() {
+		courseService = new CourseService();
+	}
 
-    @Test
-     void testGetAllCourses() throws ServiceException {
-        // Act
-        List<Course> actualCourses = courseService.getAllCourses();
-
-        // Assert
+	@Test
+	void testGetAllCourses() throws ServiceException {
+		List<Course> actualCourses = courseService.getAllCourses();
         assertNotNull(actualCourses);
-        // Add more specific assertions based on your expectations
-    }
+	}
 
-    @Test
-     void testGetFreeCourses() throws ServiceException {
-        // Act
-        List<Course> actualCourses = courseService.getFreeCourses();
+	@Test
+	void testGetFreeCourses() throws ServiceException {
+		List<Course> actualCourses = courseService.getFreeCourses();
+		assertNotNull(actualCourses);
+	}
 
-        // Assert
-        assertNotNull(actualCourses);
-        // Add more specific assertions based on your expectations
-    }
+	@Test
+	void testGetLatestCourses() throws ServiceException {
+		List<Course> actualCourses = courseService.getLatestCourses();
+		assertNotNull(actualCourses);
+	}
 
-    @Test
-     void testGetLatestCourses() throws ServiceException {
-        // Act
-        List<Course> actualCourses = courseService.getLatestCourses();
+	@Test
+	void testGetCoursesFromCourseId() throws ServiceException {
+		Course course = courseService.getCoursesFromCourseId(2);
+		assertNotNull(course);
 
-        // Assert
-        assertNotNull(actualCourses);
-        // Add more specific assertions based on your expectations
-    }
+	}
 
-    @Test
-     void testGetCoursesFromCourseId() throws ServiceException {
-        // Act
-        Course course = courseService.getCoursesFromCourseId(2);
+	@Test
+	void testInvalidGetAllCourses() throws ServiceException {
+		List<Course> actualCourses = null;
+		assertNull(actualCourses);
 
-        // Assert
-        assertNotNull(course);
-        // Add more specific assertions based on your expectations
-    }
-    
-    @Test
-     void testInvalidGetAllCourses() throws ServiceException {
-        // Act
-        List<Course> actualCourses = null;
+	}
 
-        // Assert
-        assertNull(actualCourses);
-        // Add more specific assertions based on your expectations
-    }
+	@Test
+	void testInvalidGetFreeCourses() throws ServiceException {
+		List<Course> actualCourses = null;
+		assertNull(actualCourses);
 
-    @Test
-     void testInvalidGetFreeCourses() throws ServiceException {
-        // Act
-        List<Course> actualCourses = null;
+	}
 
-        // Assert
-        assertNull(actualCourses);
-        // Add more specific assertions based on your expectations
-    }
+	@Test
+	void testInvalidGetLatestCourses() throws ServiceException {
+		List<Course> actualCourses = null;
+		assertNull(actualCourses);
 
-    @Test
-     void testInvalidGetLatestCourses() throws ServiceException {
-        // Act
-        List<Course> actualCourses = null;
-
-        // Assert
-        assertNull(actualCourses);
-        // Add more specific assertions based on your expectations
-    }
+	}
 }
-
