@@ -21,18 +21,16 @@ public class ConnectionUtil {
 		final String dbPassword;
 
 		// localhost Credentials
-		dbUrl = "jdbc:mysql://localhost:3306/freshstocks_trading";
-		dbUser = "root";
-		dbPassword = "root";
+		dbUrl = System.getenv("DB_URL1");
+		dbUser = System.getenv("DB_USER1");
+		dbPassword = System.getenv("DB_PASSWORD1");
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			throw new DatabaseException("Unable to Connect to Database", e);
-		} catch (ClassNotFoundException e) {
-			throw new DatabaseException("Unable to Connect to Database", e);
-		}
+		} 
 	}
 
 }
