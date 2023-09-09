@@ -23,7 +23,7 @@ class TestReadCourseFeature {
     @Test
     @Order(1)
     void testGetAllCoursesSuccess() {
-    	int userID = 4;
+    	int userID = 1;
         List<Course> cleanedEntries = null;
         try {
             cleanedEntries = courseService.listCourse(userID);

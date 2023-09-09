@@ -40,7 +40,7 @@ public class CourseDAO {
 			pst.setString(11, course.getCompanyCategory());
 			pst.setString(12, course.getTopSkills());
 			pst.setInt(13, course.getUserID());
-
+  
 			// Execute query
 			rows = pst.executeUpdate();
 		} catch (SQLException | DatabaseException e) {
@@ -306,7 +306,7 @@ public class CourseDAO {
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement(
 						"UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE course_id = ?")) {
-
+ 
 			pst.setString(1, course.getCoverImage());
 			pst.setString(2, course.getTiming());
 			pst.setString(3, course.getLanguage());
