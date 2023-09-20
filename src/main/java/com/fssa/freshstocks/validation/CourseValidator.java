@@ -1,5 +1,7 @@
 package com.fssa.freshstocks.validation;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import com.fssa.freshstocks.model.Course;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
@@ -33,6 +35,10 @@ public class CourseValidator {
 			validateCompanyName(course.getCompanyName());
 			validateCompanyCategory(course.getCompanyCategory());
 			validateTopSkils(course.getTopSkills());
+			List<String> videoNames = Arrays.asList(course.getCourseVideoName1(),course.getCourseVideoName2(),course.getCourseVideoName3());
+			List<String> courseVideos = Arrays.asList(course.getCourseVideo1(), course.getCourseVideo2(), course.getCourseVideo3());
+			validateCourseVideoNames(videoNames);
+			validateCourseVideos(courseVideos);
 		} catch (InvalidCourseException e) {
 			throw new InvalidCourseException(
 					"Invalid course details. Please ensure that all course information is valid.");
@@ -53,6 +59,8 @@ public class CourseValidator {
 				throw new InvalidCourseException(
 						"Invalid course details.  Please ensure that all course information is valid.");
 			}
+			List<String> videoNames = Arrays.asList(course.getCourseVideoName1(),course.getCourseVideoName2(),course.getCourseVideoName3());
+			List<String> courseVideos = Arrays.asList(course.getCourseVideo1(), course.getCourseVideo2(), course.getCourseVideo3());
 			validateCourseNotNull(course);
 			validateURL(course.getCoverImage());
 			validateLanguage(course.getLanguage());
@@ -64,6 +72,8 @@ public class CourseValidator {
 			validateCompanyName(course.getCompanyName());
 			validateCompanyCategory(course.getCompanyCategory());
 			validateTopSkils(course.getTopSkills());
+			validateCourseVideoNames(videoNames);
+			validateCourseVideos(courseVideos);
 		} catch (InvalidCourseException e) {
 			throw new InvalidCourseException(
 					"Invalid Updating course details .Please ensure that all course information is valid.");
@@ -246,5 +256,30 @@ public class CourseValidator {
 					"Invalid course top skills. Top skills must be 3 to 150 characters long and may include letters and spaces.");
 		}
 	}
+	
+	// course Video Names
+	public static void validateCourseVideoNames(List<String> videoNames) throws InvalidCourseException {
+	    String regex = "^[A-Za-z\\s]{3,100}$";
+	    
+	    for (String videoName : videoNames) {
+	        boolean match = Pattern.matches(regex, videoName);
+	        if (!match) {
+	            throw new InvalidCourseException(
+	                    "Invalid course video name. Video names must be 3 to 100 characters long and may include letters, and spaces.");
+	        }
+	    }
+	}
+	
+	
+	//course video
+	public static void validateCourseVideos(List<String> videos) throws InvalidCourseException {
+	    for (String video : videos) {
+	        if (video.length() < 3 || video.length() > 100) {
+	            throw new InvalidCourseException(
+	                    "Invalid course video. Video names must be between 3 and 100 characters long.");
+	        }
+	    }
+	}
+	
 
 }

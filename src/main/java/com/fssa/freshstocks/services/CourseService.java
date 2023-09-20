@@ -1,9 +1,12 @@
 package com.fssa.freshstocks.services;
 
+import java.sql.SQLException;
 import java.util.*;
 import com.fssa.freshstocks.dao.CourseDAO;
+import com.fssa.freshstocks.dao.UserDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
+import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.CourseValidator;
 import com.fssa.freshstocks.validation.exception.InvalidCourseException;
@@ -140,5 +143,33 @@ public class CourseService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+	}
+	
+	
+	
+	public boolean purchaseCourse(User user, Course course, int courseId) throws ServiceException {
+	    String userId = Integer.toString(user.getUserId());
+	    String purchasedCourses = user.getPurchasedCourses();
+
+	    // Check if purchasedCourses is not null and contains the course ID
+	    if (purchasedCourses != null && purchasedCourses.contains(String.valueOf(courseId))) {
+	        // The course is already purchased by the user
+	        return false;
+	    }
+
+	    // Add logic to update purchasedCourses string with the new course ID
+	    if (purchasedCourses == null) {
+	        purchasedCourses = String.valueOf(courseId);
+	    } else {
+	        purchasedCourses += "," + courseId;
+	    }
+
+	    UserDAO userDAO = new UserDAO();
+	    
+	    try {
+	        return userDAO.updateUserPurchasedCourses(userId, purchasedCourses);
+	    } catch (DAOException e) {
+	    	throw new ServiceException(e);
+	    }
 	}
 }

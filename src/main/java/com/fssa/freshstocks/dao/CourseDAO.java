@@ -21,34 +21,41 @@ public class CourseDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public boolean createCourse(Course course) throws DAOException {
-		int rows = 0;
+	    int rows = 0;
 
-		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(
-						"INSERT INTO course (course_id, name, cover_image, timing, language, marked_price, selling_price, description, instructor_name, company_name, company_category, top_skills, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+	    try (Connection connection = ConnectionUtil.getConnection();
+	            PreparedStatement pst = connection.prepareStatement(
+	                    "INSERT INTO course (name, cover_image, timing, language, marked_price, selling_price, description, instructor_name, company_name, company_category, top_skills, user_id, courseVideo1, courseVideo2, courseVideo3, courseVideoName1, courseVideoName2, courseVideoName3) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
 
-			pst.setInt(1, course.getCourseID());
-			pst.setString(2, course.getName().toLowerCase().trim());
-			pst.setString(3, course.getCoverImage());
-			pst.setString(4, course.getTiming());
-			pst.setString(5, course.getLanguage());
-			pst.setInt(6, course.getMarkedPrice());
-			pst.setInt(7, course.getSellingPrice());
-			pst.setString(8, course.getDescription());
-			pst.setString(9, course.getInstructorName());
-			pst.setString(10, course.getCompanyName());
-			pst.setString(11, course.getCompanyCategory());
-			pst.setString(12, course.getTopSkills());
-			pst.setInt(13, course.getUserID());
-  
-			// Execute query
-			rows = pst.executeUpdate();
-		} catch (SQLException | DatabaseException e) {
-			throw new DAOException(CourseModuleConstants.CREATE_ERROR_MESSAGE + e);
-		}
+	        pst.setString(1, course.getName().toLowerCase().trim());
+	        pst.setString(2, course.getCoverImage());
+	        pst.setString(3, course.getTiming());
+	        pst.setString(4, course.getLanguage());
+	        pst.setInt(5, course.getMarkedPrice());
+	        pst.setInt(6, course.getSellingPrice());
+	        pst.setString(7, course.getDescription());
+	        pst.setString(8, course.getInstructorName());
+	        pst.setString(9, course.getCompanyName());
+	        pst.setString(10, course.getCompanyCategory());
+	        pst.setString(11, course.getTopSkills());
+	        pst.setInt(12, course.getUserID());
+	        pst.setString(13, course.getCourseVideo1());
+	        pst.setString(14, course.getCourseVideo2());
+	        pst.setString(15, course.getCourseVideo3());
+	        pst.setString(16, course.getCourseVideoName1());
+	        pst.setString(17, course.getCourseVideoName2());
+	        pst.setString(18, course.getCourseVideoName3());
 
-		return (rows == 1);
+	        // Execute query
+	        rows = pst.executeUpdate();
+	    } catch (SQLException | DatabaseException e) {
+	    	e.printStackTrace();
+	        throw new DAOException(CourseModuleConstants.CREATE_ERROR_MESSAGE + e);
+	    }
+
+	    return (rows == 1);
 	}
+
 
 	/**
 	 * Checks whether a course with the same name exists in the database.
@@ -115,10 +122,16 @@ public class CourseDAO {
 					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
 					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
 					int courseID = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
+					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
+					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
+					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
+					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
+					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
+					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
 
 					Course course1 = new Course(username, courseID, name, coverImage, timing, language, markedPrice,
 							sellingPrice, description, instructorName, companyName, companyCategory, topSkills,
-							userID1);
+							userID1,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
 					list1.add(course1);
 
 				}
@@ -156,9 +169,16 @@ public class CourseDAO {
 					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
 					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
 					int courseID = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
+					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
+					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
+					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
+					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
+					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
+					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
 
 					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
-							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID);
+							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID
+							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
 					list1.add(course1);
 
 				}
@@ -197,9 +217,16 @@ public class CourseDAO {
 					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
 					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
 					int courseID = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
+					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
+					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
+					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
+					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
+					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
+					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
 
 					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
-							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID);
+							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID
+							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
 					list1.add(course1);
 
 				}
@@ -237,9 +264,16 @@ public class CourseDAO {
 					String companyCategory = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_CATEGORY);
 					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
 					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
+					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
+					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
+					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
+					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
+					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
+					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
 
 					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
-							description, instructorName, companyName, companyCategory, topSkills, userID1);
+							description, instructorName, companyName, companyCategory, topSkills, userID1
+							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
 					list1.add(course1);
 
 				}
@@ -280,9 +314,16 @@ public class CourseDAO {
 					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
 					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
 					int courseID1 = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
+					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
+					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
+					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
+					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
+					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
+					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
 
 					course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice, description,
-							instructorName, companyName, companyCategory, topSkills, userID1, courseID1);
+							instructorName, companyName, companyCategory, topSkills, userID1, courseID1
+							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
 
 				}
 			}
@@ -304,23 +345,29 @@ public class CourseDAO {
 		int rows = 0;
 
 		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(
-						"UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=? WHERE course_id = ?")) {
- 
-			pst.setString(1, course.getCoverImage());
-			pst.setString(2, course.getTiming());
-			pst.setString(3, course.getLanguage());
-			pst.setInt(4, course.getMarkedPrice());
-			pst.setInt(5, course.getSellingPrice());
-			pst.setString(6, course.getDescription());
-			pst.setString(7, course.getInstructorName());
-			pst.setString(8, course.getCompanyName());
-			pst.setString(9, course.getCompanyCategory());
-			pst.setString(10, course.getTopSkills());
-			pst.setInt(11, courseID);
+	            PreparedStatement pst = connection.prepareStatement(
+	                    "UPDATE course SET cover_image=?, timing=?, language=?, marked_price=?, selling_price=?, description=?, instructor_name=?, company_name=?, company_category=?, top_skills=?, courseVideo1=?, courseVideo2=?, courseVideo3=?, courseVideoName1=?, courseVideoName2=?, courseVideoName3=? WHERE course_id = ?")) {
 
-			// Execute query
-			rows = pst.executeUpdate();
+	        pst.setString(1, course.getCoverImage());
+	        pst.setString(2, course.getTiming());
+	        pst.setString(3, course.getLanguage());
+	        pst.setInt(4, course.getMarkedPrice());
+	        pst.setInt(5, course.getSellingPrice());
+	        pst.setString(6, course.getDescription());
+	        pst.setString(7, course.getInstructorName());
+	        pst.setString(8, course.getCompanyName());
+	        pst.setString(9, course.getCompanyCategory());
+	        pst.setString(10, course.getTopSkills());
+	        pst.setString(11, course.getCourseVideo1());
+	        pst.setString(12, course.getCourseVideo2());
+	        pst.setString(13, course.getCourseVideo3());
+	        pst.setString(14, course.getCourseVideoName1());
+	        pst.setString(15, course.getCourseVideoName2());
+	        pst.setString(16, course.getCourseVideoName3());
+	        pst.setInt(17, courseID);
+
+	        // Execute query
+	        rows = pst.executeUpdate();
 		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(CourseModuleConstants.UPDATE_ERROR_MESSAGE + e);
 		}

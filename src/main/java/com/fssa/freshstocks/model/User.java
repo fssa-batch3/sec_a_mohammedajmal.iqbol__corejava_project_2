@@ -10,10 +10,13 @@ public class User {
 	private String dateOfBirth;
 	private String createdAt;
 	private String modifiedAt;
+	String profilePic;
 	String email;
 	String password;
 	int isSeller;
 	int isDeleted;
+	private String purchasedCourses;
+
 
 	// Constructor for registration
 	/**
@@ -37,6 +40,14 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.isSeller = isSeller;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
 	}
 
 	// Constructor for updating user information
@@ -72,10 +83,10 @@ public class User {
 	 * @param email    The email of the user for login.
 	 * @param password The password of the user for login.
 	 */
-	public User(String email, String password) {
+	public User(String email) {
 		super();
 		this.email = email;
-		this.password = password;
+		// this.password = password;
 	}
 
 	// Constructor for full user information
@@ -94,7 +105,8 @@ public class User {
 	 * @param isDeleted    The deletion status of the user.
 	 */
 	public User(int userID, String username, String gender, String mobileNumber, String dateOfBirth, String email,
-			int isSeller, String createdAt, String modifiedAt, int isDeleted) {
+			String password, int isSeller, String createdAt, String modifiedAt, int isDeleted, String profilePic
+			,String purchasedCourses) {
 		super();
 		this.userId = userID;
 		this.username = username;
@@ -102,10 +114,13 @@ public class User {
 		this.mobileNumber = mobileNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
+		this.password = password;
 		this.isSeller = isSeller;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
 		this.isDeleted = isDeleted;
+		this.profilePic = profilePic;
+		this.purchasedCourses = purchasedCourses;
 	}
 
 	// Constructor for demo practice
@@ -122,6 +137,12 @@ public class User {
 		this.username = name;
 		this.email = emailId;
 		this.password = password;
+	}
+	
+	public User(String email, String password) {
+		super();
+		this.email = email;
+	    this.password = password;
 	}
 
 	public int getUserId() {
@@ -144,7 +165,7 @@ public class User {
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
 	}
-
+	
 	public String getCreatedAt() {
 		return createdAt;
 	}
@@ -183,5 +204,12 @@ public class User {
 		return password;
 	}
 
+	public String getPurchasedCourses() {
+		return purchasedCourses;
+	}
+
+	public void setPurchasedCourses(String purchasedCourses) {
+		this.purchasedCourses = purchasedCourses;
+	}
 
 }

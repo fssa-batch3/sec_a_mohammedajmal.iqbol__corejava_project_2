@@ -25,4 +25,10 @@ public class CourseModuleConstants {
 		public static final String COLUMN_TOP_SKILLS = "top_skills";
 		public static final String COLUMN_USER_ID = "user_id";
 		public static final String COLUMN_COURSE_ID = "course_id";
+		public static final String COLUMN_COURSE_VIDEO1 = "courseVideo1";
+		public static final String COLUMN_COURSE_VIDEO2 = "courseVideo2";
+		public static final String COLUMN_COURSE_VIDEO3 = "courseVideo3";
+		public static final String COLUMN_COURSE_VIDEO_NAME1 = "courseVideoName1";
+		public static final String COLUMN_COURSE_VIDEO_NAME2 = "courseVideoName2";
+		public static final String COLUMN_COURSE_VIDEO_NAME3 = "courseVideoName3";
 }

@@ -21,7 +21,7 @@ public class UserValidator {
 		    }
 				validateName(user.getUsername());
 				validateEmail(user.getEmail());
-				validatePassword(user.getPassword());
+			//	validatePassword(user.getPassword());
 			// Validation succeeded, continue with other operations
 		} catch (InvalidUserException e) {
 			throw new InvalidUserException("Invalid user details. Please ensure that all user information is valid.");

@@ -34,7 +34,7 @@ public class UserDAO {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
 					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
 
-					if (user.getEmail().equals(emailId) && user.getPassword().equals(password)) {
+					if (user.getEmail().equals(emailId)) {
 						match = true;
 					}
 				}
@@ -222,5 +222,22 @@ public class UserDAO {
 		}
 
 		return userProfile;
+	}
+	
+	
+	
+	public boolean updateUserPurchasedCourses(String userId, String purchasedCourses) throws DAOException {
+	    String sql = "UPDATE freshstocks SET purchased_courses = ? WHERE user_id = ?";
+	    
+	    try (Connection connection = ConnectionUtil.getConnection();
+	    		PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        stmt.setString(1, purchasedCourses);
+	        stmt.setString(2, userId);
+	        int rowsAffected = stmt.executeUpdate();
+
+	        return rowsAffected > 0;
+	    } catch (SQLException | DatabaseException e) {
+	    	throw new DAOException("Error Updating Purchase Courses: " + e);
+		}
 	}
 }
