@@ -6,6 +6,7 @@ import com.fssa.freshstocks.dao.CourseDAO;
 import com.fssa.freshstocks.dao.UserDAO;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
+import com.fssa.freshstocks.model.CourseProgressData;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.exception.ServiceException;
 import com.fssa.freshstocks.validation.CourseValidator;
@@ -172,4 +173,91 @@ public class CourseService {
 	    	throw new ServiceException(e);
 	    }
 	}
+	
+	
+    public Course getCourseById(int courseId) throws ServiceException {
+        try {
+            Course course = CourseDAO.getCourseById(courseId);
+
+            if (course != null) {
+                return course;
+            } else {
+                throw new ServiceException("Course with ID " + courseId + " not found.");
+            }
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+    
+    
+    
+    public List<Course> getPurchasedCourses(String email) throws SQLException {
+        // Assuming userDAO is your Data Access Object for users
+    	CourseDAO courseDAO = new CourseDAO();
+    	UserService userService = new UserService();
+       User user = null;
+	try {
+		user = userService.getUserByEmail(email);
+	} catch (ServiceException e) {
+		e.printStackTrace();
+	}
+
+        if (user != null && user.getPurchasedCourses() != null) {
+            // Split the purchasedCourses string into an array of course IDs
+            String[] courseIds = user.getPurchasedCourses().split(",");
+
+            List<Course> purchasedCourses = new ArrayList<>();
+
+            // Assuming courseDAO is your Data Access Object for courses
+            for (String courseId : courseIds) {
+                Course course = null;
+				try {
+					course = courseDAO.getCourseFromCourseId(Integer.parseInt(courseId));
+				} catch (NumberFormatException | DAOException e) {
+					e.printStackTrace();
+				} 
+                if (course != null) {
+                    purchasedCourses.add(course);
+                }
+            }
+
+            return purchasedCourses;
+        }
+
+        return Collections.emptyList(); // User not found or no purchased courses
+    }
+    
+    
+    public CourseProgressData getCourseProgress(int userId, int courseId) throws ServiceException {
+        try {
+        	CourseDAO courseDAO = new CourseDAO();
+            return courseDAO.getCourseProgress(userId, courseId);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+    
+    
+    public void updateVideoWatchStatus(int courseID, int videoID, int userID) throws ServiceException {
+        try {
+        	CourseDAO courseDAO = new CourseDAO();
+        	courseDAO.updateVideoWatchStatus(courseID, videoID, userID);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+    
+    
+    public int updatePurchasedCourses(String updatedPurchasedCourses, int userId) throws ServiceException {
+        int rowsUpdated = 0;
+
+        try {
+        	CourseDAO courseDAO = new CourseDAO();
+            rowsUpdated = courseDAO.updatePurchaseCourse(updatedPurchasedCourses, userId);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return rowsUpdated;
+    }
+    
 }

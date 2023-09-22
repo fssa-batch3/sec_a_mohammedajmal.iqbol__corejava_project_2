@@ -165,6 +165,27 @@ public class UserDAO {
 
 		return (rows == 1);
 	}
+	
+	
+	public boolean updatePassword(String password, String userEmail) throws DAOException {
+		int rows = 0;
+
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement pst = connection.prepareStatement(
+						"UPDATE freshstocks SET password = ? WHERE email = ?")) {
+
+			pst.setString(1, password);
+			pst.setString(2, userEmail);
+
+			// Execute query
+			rows = pst.executeUpdate();
+		} catch (SQLException | DatabaseException e) {
+			e.printStackTrace();
+			throw new DAOException(UserModuleConstants.UPDATE_ERROR_MESSAGE + e);
+		}
+
+		return (rows == 1);
+	}
 
 	/**
 	 * Marks a user as deleted or undeleted in the database.
@@ -239,5 +260,89 @@ public class UserDAO {
 	    } catch (SQLException | DatabaseException e) {
 	    	throw new DAOException("Error Updating Purchase Courses: " + e);
 		}
+	}
+	
+	
+	
+
+	// fetch userID from the provided email
+	public static User fetchUserIDByEmail(String email) {
+		User user1 = null;
+		// Database query
+		String query = "SELECT * FROM freshstocks WHERE email = ?";
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query)) {
+
+			statement.setString(1, email);
+
+			try (ResultSet resultSet = statement.executeQuery()) {
+				if (resultSet.next()) {
+					int userID = resultSet.getInt("user_id");
+					String username = resultSet.getString("username");
+					String gender = resultSet.getString("gender");
+					String mobileNumber = resultSet.getString("mobile_number");
+					String dateOfBirth = resultSet.getString("date_of_birth");
+					String profilePic = resultSet.getString("avatar_url");
+					String userEmail = resultSet.getString("email");
+					String password = resultSet.getString("password");
+					int isSeller = resultSet.getInt("is_seller");
+					String createdAt = resultSet.getString("created_at");
+					String modifiedAt = resultSet.getString("modified_at");
+					int isDeleted = resultSet.getInt("is_deleted");
+					String purchasedCourses;
+					if(resultSet.getString("purchased_courses") != null) {
+					 purchasedCourses = resultSet.getString("purchased_courses");
+					} else {
+					 purchasedCourses = "0";
+					}
+					
+					user1 = new User(userID,username,gender,mobileNumber,dateOfBirth,userEmail,password,isSeller,createdAt,modifiedAt,isDeleted,profilePic,purchasedCourses);
+				}
+			}
+		} catch (SQLException | DatabaseException e) {
+			e.printStackTrace();
+		}
+		return user1;
+	}
+	
+	
+	// fetch userID from the provided email
+	public static User fetchUserIDByEmail(int userId) {
+		User user1 = null;
+		// Database query
+		String query = "SELECT * FROM freshstocks WHERE user_id = ?";
+		try (Connection connection = ConnectionUtil.getConnection();
+				PreparedStatement statement = connection.prepareStatement(query)) {
+
+			statement.setInt(1, userId);
+
+			try (ResultSet resultSet = statement.executeQuery()) {
+				if (resultSet.next()) {
+					int userID = resultSet.getInt("user_id");
+					String username = resultSet.getString("username");
+					String gender = resultSet.getString("gender");
+					String mobileNumber = resultSet.getString("mobile_number");
+					String dateOfBirth = resultSet.getString("date_of_birth");
+					String profilePic = resultSet.getString("avatar_url");
+					String userEmail = resultSet.getString("email");
+					String password = resultSet.getString("password");
+					int isSeller = resultSet.getInt("is_seller");
+					String createdAt = resultSet.getString("created_at");
+					String modifiedAt = resultSet.getString("modified_at");
+					int isDeleted = resultSet.getInt("is_deleted");
+					String purchasedCourses;
+					if(resultSet.getString("purchased_courses") != null) {
+					 purchasedCourses = resultSet.getString("purchased_courses");
+					} else {
+					 purchasedCourses = "0";
+					}
+					
+					user1 = new User(userID,username,gender,mobileNumber,dateOfBirth,userEmail,password,isSeller,createdAt,modifiedAt,isDeleted,profilePic,purchasedCourses);
+				}
+			}
+		} catch (SQLException | DatabaseException e) {
+			e.printStackTrace();
+		}
+		return user1;
 	}
 }

@@ -6,8 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.Course;
+import com.fssa.freshstocks.model.CourseProgressData;
 import com.fssa.freshstocks.utils.ConnectionUtil;
 import com.fssa.freshstocks.utils.exception.DatabaseException;
 
@@ -404,6 +407,134 @@ public class CourseDAO {
 		}
 
 		return (rows == 1);
+	}
+	
+	
+	
+	
+    public static Course getCourseById(int courseId) throws DAOException {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "SELECT * FROM course WHERE course_id = ?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, courseId);
+                
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                    	String courseName = resultSet.getString("name");
+                        String coverImage = resultSet.getString("cover_image");
+                        String timing = resultSet.getString("timing");
+                        String language = resultSet.getString("language");
+                        int markedPrice = resultSet.getInt("marked_price");
+                        int sellingPrice = resultSet.getInt("selling_price");
+                        String description = resultSet.getString("description");
+                        String instructorName = resultSet.getString("instructor_name");
+                        String companyName = resultSet.getString("company_name");
+                        String companyCategory = resultSet.getString("company_category");
+                        String topSkills = resultSet.getString("top_skills");
+                        String courseVideo1 = resultSet.getString("courseVideo1");
+                	    String courseVideo2 = resultSet.getString("courseVideo2");
+                	    String courseVideo3 = resultSet.getString("courseVideo3");
+                	    String courseVideoName1 = resultSet.getString("courseVideoName1");
+                	    String courseVideoName2 = resultSet.getString("courseVideoName2");
+                	    String courseVideoName3 = resultSet.getString("courseVideoName3");
+                	    int userID = resultSet.getInt("user_id");
+                        
+                        return new Course(courseName,coverImage,timing,language,markedPrice,sellingPrice,description,instructorName
+                        		,companyName,companyCategory,topSkills, userID,courseVideo1, courseVideo2, courseVideo3, courseVideoName1,
+                   	         courseVideoName2,courseVideoName3);
+                    } else {
+                        return null; // Course with given ID not found
+                    }
+                }
+            }
+        } catch (SQLException | DatabaseException e) {
+            throw new DAOException("Failed to retrieve course by ID" + e);
+        }
+    }
+    
+    
+	public CourseProgressData getCourseProgress(int userId, int courseId) throws DAOException {
+	    CourseProgressData courseProgressData = null;
+
+	    try {
+	        String query = "SELECT SUM(progress) as total_progress, MAX(modified_at) as latest_modified_at FROM course_progress WHERE user_id = ? AND course_id = ?";
+	        Connection connection = ConnectionUtil.getConnection();
+	        PreparedStatement statement = connection.prepareStatement(query);
+	        statement.setInt(1, userId);
+	        statement.setInt(2, courseId);
+
+	        ResultSet resultSet = statement.executeQuery();
+
+	        if (resultSet.next()) {
+	            double totalProgress = resultSet.getDouble("total_progress");
+	            Timestamp latestModifiedAt = resultSet.getTimestamp("latest_modified_at");
+	            courseProgressData = new CourseProgressData(totalProgress, latestModifiedAt);
+	        }
+
+	        resultSet.close();
+	        statement.close();
+	    } catch (SQLException | DatabaseException e) {
+	    	 throw new DAOException("Failed to retrieve progress and modified at" + e);
+	    }
+
+	    return courseProgressData;
+	}
+	
+	
+	public void updateVideoWatchStatus(int courseID, int videoID, int userID) throws DAOException {
+	    try (Connection connection = ConnectionUtil.getConnection();
+	         PreparedStatement checkIfExistsStmt = connection.prepareStatement(
+	                 "SELECT * FROM course_progress WHERE user_id = ? AND course_id = ? AND video_id = ?");
+	         PreparedStatement updateStmt = connection.prepareStatement(
+	                 "UPDATE course_progress SET watched = true, progress = 100, modified_at = NOW() " +
+	                 "WHERE user_id = ? AND course_id = ? AND video_id = ?");
+	         PreparedStatement insertStmt = connection.prepareStatement(
+	                 "INSERT INTO course_progress (user_id, course_id, video_id, progress, watched, modified_at) " +
+	                 "VALUES (?, ?, ?, ?, true, NOW())")) {
+
+	        checkIfExistsStmt.setInt(1, userID);
+	        checkIfExistsStmt.setInt(2, courseID);
+	        checkIfExistsStmt.setInt(3, videoID);
+	        ResultSet resultSet = checkIfExistsStmt.executeQuery();
+
+	        if (resultSet.next()) {
+	            updateStmt.setInt(1, userID);
+	            updateStmt.setInt(2, courseID);
+	            updateStmt.setInt(3, videoID);
+	            updateStmt.setInt(4, 100);
+	            updateStmt.executeUpdate();
+	        } else {
+	            insertStmt.setInt(1, userID);
+	            insertStmt.setInt(2, courseID);
+	            insertStmt.setInt(3, videoID);
+	            insertStmt.setInt(4, 100); // Set initial progress to 100
+	            insertStmt.executeUpdate();
+	        }
+	    } catch (SQLException | DatabaseException e) {
+	    	 throw new DAOException("Failed to update progress" + e);
+	    }
+	}
+	
+	
+	public int updatePurchaseCourse(String updatedPurchasedCourses, int userId) throws DAOException {
+		// Update the database
+		String sql = "UPDATE freshstocks SET purchased_courses = ? WHERE user_id = ?";
+		int rowsUpdated = 0; // Initialize rowsUpdated
+
+		try (Connection connection = ConnectionUtil.getConnection();
+		     PreparedStatement statement = connection.prepareStatement(sql)) {
+
+		    statement.setString(1, updatedPurchasedCourses);
+		    statement.setInt(2, userId);
+
+		    rowsUpdated = statement.executeUpdate();
+		    
+		} catch (DatabaseException | SQLException e) {
+			 throw new DAOException("Failed to update purchased courses" + e);
+		}
+
+		return rowsUpdated; // Return the value
 	}
 
 }

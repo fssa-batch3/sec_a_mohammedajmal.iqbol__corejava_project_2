@@ -274,7 +274,7 @@ public class CourseValidator {
 	//course video
 	public static void validateCourseVideos(List<String> videos) throws InvalidCourseException {
 	    for (String video : videos) {
-	        if (video.length() < 3 || video.length() > 100) {
+	        if (video.length() < 10) {
 	            throw new InvalidCourseException(
 	                    "Invalid course video. Video names must be between 3 and 100 characters long.");
 	        }

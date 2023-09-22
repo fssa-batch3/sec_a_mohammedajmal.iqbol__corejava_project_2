@@ -15,6 +15,7 @@ public class User {
 	String password;
 	int isSeller;
 	int isDeleted;
+	String confirmPassword;
 	private String purchasedCourses;
 
 
@@ -143,6 +144,12 @@ public class User {
 		super();
 		this.email = email;
 	    this.password = password;
+	}
+	
+	public User(int i,String password, String confirmPassword) {
+		super();
+		this.password = email;
+	    this.confirmPassword = confirmPassword;
 	}
 
 	public int getUserId() {

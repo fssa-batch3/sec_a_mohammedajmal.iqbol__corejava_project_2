@@ -66,6 +66,18 @@ public class UserService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	
+	public boolean updateUserPassword(String password, String userEmail) throws ServiceException {
+		UserDAO userDAO = new UserDAO();
+		try {
+			userDAO.emailAlreadyExist(userEmail);
+			return userDAO.updatePassword(password, userEmail);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e);
+		}
+	}
 
 	/**
 	 * Deletes a user's details based on the given user email.
@@ -97,4 +109,26 @@ public class UserService {
 			throw new ServiceException(e);
 		}
 	}
+	
+	
+    public User getUserByEmail(String email) throws ServiceException {
+        User user = UserDAO.fetchUserIDByEmail(email);
+
+		if (user != null) {
+		    return user;
+		} else {
+		    throw new ServiceException("User with email " + email + " not found.");
+		}
+    }
+    
+    
+    public User getUserByUserId(int userId) throws ServiceException {
+        User user = UserDAO.fetchUserIDByEmail(userId);
+
+		if (user != null) {
+		    return user;
+		} else {
+		    throw new ServiceException("User with userId " + userId + " not found.");
+		}
+    }
 }
