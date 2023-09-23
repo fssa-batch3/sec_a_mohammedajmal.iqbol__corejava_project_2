@@ -23,8 +23,7 @@ public class CommentValidator {
 			validateCourseId(courseId);
 			validateComment(comment.getComment());
 		} catch (InvalidCommentException e) {
-			throw new InvalidCommentException(
-					"Invalid comment details. Please ensure that your comment adheres to the required format.");
+			throw new InvalidCommentException(e.getMessage());
 		}
 	}
 

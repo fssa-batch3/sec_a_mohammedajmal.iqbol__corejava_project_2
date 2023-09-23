@@ -21,7 +21,7 @@ public class CourseValidator {
 		try {
 			if(!validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())) {
 				throw new InvalidCourseException(
-						"Invalid course details.Please ensure that all course information is valid.");
+						"Invalid Price Difference. Marked Price Must be Greater than Selling Price");
 			}
 			validateCourseNotNull(course);
 			validateName(course.getName());
@@ -40,8 +40,7 @@ public class CourseValidator {
 			validateCourseVideoNames(videoNames);
 			validateCourseVideos(courseVideos);
 		} catch (InvalidCourseException e) {
-			throw new InvalidCourseException(
-					"Invalid course details. Please ensure that all course information is valid.");
+			throw new InvalidCourseException(e.getMessage());
 		}
 	}
 
@@ -56,8 +55,7 @@ public class CourseValidator {
 	public static void validateUpdatedCourse(Course course) throws InvalidCourseException {
 		try {
 			if(!validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice())) {
-				throw new InvalidCourseException(
-						"Invalid course details.  Please ensure that all course information is valid.");
+				throw new InvalidCourseException("Invalid Price Difference. Marked Price Must be Greater than Selling Price");
 			}
 			List<String> videoNames = Arrays.asList(course.getCourseVideoName1(),course.getCourseVideoName2(),course.getCourseVideoName3());
 			List<String> courseVideos = Arrays.asList(course.getCourseVideo1(), course.getCourseVideo2(), course.getCourseVideo3());
@@ -75,8 +73,7 @@ public class CourseValidator {
 			validateCourseVideoNames(videoNames);
 			validateCourseVideos(courseVideos);
 		} catch (InvalidCourseException e) {
-			throw new InvalidCourseException(
-					"Invalid Updating course details .Please ensure that all course information is valid.");
+			throw new InvalidCourseException(e.getMessage());
 		}
 	}
 	

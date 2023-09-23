@@ -1,6 +1,8 @@
 package com.fssa.freshstocks.validation;
 
 import com.fssa.freshstocks.model.User;
+
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 import com.fssa.freshstocks.validation.exception.InvalidUserException;
@@ -21,10 +23,10 @@ public class UserValidator {
 		    }
 				validateName(user.getUsername());
 				validateEmail(user.getEmail());
-			//	validatePassword(user.getPassword());
+				validateDateOfBirth(user.getDateOfBirth());
 			// Validation succeeded, continue with other operations
 		} catch (InvalidUserException e) {
-			throw new InvalidUserException("Invalid user details. Please ensure that all user information is valid.");
+			throw new InvalidUserException(e.getMessage());
 		}
 	}
 
@@ -38,8 +40,7 @@ public class UserValidator {
 				validateDateOfBirth(user.getDateOfBirth());
 			// Validation succeeded, continue with other operations
 		} catch (InvalidUserException e) {
-			throw new InvalidUserException(
-					"Invalid Updating user details. Please ensure that all user information is valid.");
+			throw new InvalidUserException(e.getMessage());
 		}
 	}
 
@@ -83,12 +84,20 @@ public class UserValidator {
 	 * @throws InvalidUserException If the date of birth is found to be invalid.
 	 */
 	public static void validateDateOfBirth(String dateOfBirth) throws InvalidUserException {
-		String regex = "^(?:19|20)\\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\\d|3[0-1])$";
-		boolean match = Pattern.matches(regex, dateOfBirth);
-		if (!match) {
-			throw new InvalidUserException(
-					"Invalid date of birth. Please provide a valid date in the format YYYY-MM-DD.");
-		}
+	    String regex = "^(?:19|20)\\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\\d|3[0-1])$";
+	    boolean match = Pattern.matches(regex, dateOfBirth);
+	    if (!match) {
+	        throw new InvalidUserException(
+	                "Invalid date of birth. Please provide a valid date in the format YYYY-MM-DD.");
+	    }
+
+	    LocalDate dob = LocalDate.parse(dateOfBirth);
+	    LocalDate currentDate = LocalDate.now();
+
+	    if (dob.isAfter(currentDate)) {
+	        throw new InvalidUserException(
+	                "Invalid date of birth. Future dates are not allowed.");
+	    }
 	}
 
 	/**
