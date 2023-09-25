@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.freshstocks.constants.CourseModuleConstants;
 import com.fssa.freshstocks.dao.exception.DAOException;
+import com.fssa.freshstocks.model.LeaderboardEntry;
 import com.fssa.freshstocks.utils.ConnectionUtil;
 import com.fssa.freshstocks.utils.exception.DatabaseException;
 
@@ -49,6 +52,37 @@ public class QuizDAO {
         } catch (SQLException | DatabaseException e) {
         	throw new DAOException(e);
         }
+    }
+    
+    
+    
+    // Method to retrieve leaderboard data using an inner join query
+    public List<LeaderboardEntry> getLeaderboardDatas() throws DAOException {
+        List<LeaderboardEntry> leaderboardData = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            String query = "SELECT u.username, u.avatar_url, uqi.quiz_start_time, uqi.streak_count , u.gender " +
+                           "FROM freshstocks u " +
+                           "INNER JOIN user_quiz_info uqi ON u.user_id = uqi.user_id " +
+                           "ORDER BY uqi.streak_count DESC";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                String quizEndTime = resultSet.getString("quiz_start_time");
+                String profileImg = resultSet.getString("avatar_url");
+                String gender = resultSet.getString("gender");
+                int streak = resultSet.getInt("streak_count");
+                leaderboardData.add(new LeaderboardEntry(username, streak, gender,quizEndTime,profileImg));
+            }
+        } catch (SQLException | DatabaseException e) {
+            e.printStackTrace();
+            throw new DAOException(e);
+        }
+
+        return leaderboardData;
     }
 
 
