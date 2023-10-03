@@ -160,16 +160,12 @@ public class CourseService {
     
     
     
-    public List<Course> getPurchasedCourses(String email) throws SQLException {
+    public List<Course> getPurchasedCourses(String email) throws ServiceException, DAOException {
         // Assuming userDAO is your Data Access Object for users
     	CourseDAO courseDAO = new CourseDAO();
     	UserService userService = new UserService();
        User user = null;
-	try {
-		user = userService.getUserByEmail(email);
-	} catch (ServiceException e) {
-		e.printStackTrace();
-	}
+	user = userService.getUserByEmail(email);
 
         if (user != null && user.getPurchasedCourses() != null) {
             // Split the purchasedCourses string into an array of course IDs
@@ -183,7 +179,7 @@ public class CourseService {
 				try {
 					course = courseDAO.getCourseFromCourseId(Integer.parseInt(courseId));
 				} catch (NumberFormatException | DAOException e) {
-					e.printStackTrace();
+					throw new ServiceException(e);
 				} 
                 if (course != null) {
                     purchasedCourses.add(course);

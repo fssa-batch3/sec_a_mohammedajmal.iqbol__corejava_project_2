@@ -52,7 +52,6 @@ public class CourseDAO {
 	        // Execute query
 	        rows = pst.executeUpdate();
 	    } catch (SQLException | DatabaseException e) {
-	    	e.printStackTrace();
 	        throw new DAOException(CourseModuleConstants.CREATE_ERROR_MESSAGE + e);
 	    }
 
@@ -360,32 +359,31 @@ public class CourseDAO {
     }
     
     
-	public CourseProgressData getCourseProgress(int userId, int courseId) throws DAOException {
-	    CourseProgressData courseProgressData = null;
+    public CourseProgressData getCourseProgress(int userId, int courseId) throws DAOException {
+        CourseProgressData courseProgressData = null;
 
-	    try {
-	        String query = "SELECT SUM(progress) as total_progress, MAX(modified_at) as latest_modified_at FROM course_progress WHERE user_id = ? AND course_id = ?";
-	        Connection connection = ConnectionUtil.getConnection();
-	        PreparedStatement statement = connection.prepareStatement(query);
-	        statement.setInt(1, userId);
-	        statement.setInt(2, courseId);
+        try {
+            String query = "SELECT SUM(progress) as total_progress, MAX(modified_at) as latest_modified_at FROM course_progress WHERE user_id = ? AND course_id = ?";
+            try (Connection connection = ConnectionUtil.getConnection();
+                 PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, userId);
+                statement.setInt(2, courseId);
 
-	        ResultSet resultSet = statement.executeQuery();
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        double totalProgress = resultSet.getDouble("total_progress");
+                        Timestamp latestModifiedAt = resultSet.getTimestamp("latest_modified_at");
+                        courseProgressData = new CourseProgressData(totalProgress, latestModifiedAt);
+                    }
+                }
+            }
+        } catch (SQLException | DatabaseException e) {
+            throw new DAOException("Failed to retrieve progress and modified at" + e);
+        }
 
-	        if (resultSet.next()) {
-	            double totalProgress = resultSet.getDouble("total_progress");
-	            Timestamp latestModifiedAt = resultSet.getTimestamp("latest_modified_at");
-	            courseProgressData = new CourseProgressData(totalProgress, latestModifiedAt);
-	        }
+        return courseProgressData;
+    }
 
-	        resultSet.close();
-	        statement.close();
-	    } catch (SQLException | DatabaseException e) {
-	    	 throw new DAOException("Failed to retrieve progress and modified at" + e);
-	    }
-
-	    return courseProgressData;
-	}
 	
 	
 	public void updateVideoWatchStatus(int courseID, int videoID, int userID) throws DAOException {
@@ -408,7 +406,6 @@ public class CourseDAO {
 	            updateStmt.setInt(1, userID);
 	            updateStmt.setInt(2, courseID);
 	            updateStmt.setInt(3, videoID);
-	            updateStmt.setInt(4, 100);
 	            updateStmt.executeUpdate();
 	        } else {
 	            insertStmt.setInt(1, userID);

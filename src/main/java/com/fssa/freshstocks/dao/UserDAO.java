@@ -26,8 +26,6 @@ public class UserDAO {
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
 	public User login(User user) throws DAOException {
-		boolean match = false;
-
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement(UserModuleConstants.USER_SELECT_QUERY)) {
 
@@ -183,7 +181,6 @@ public class UserDAO {
 			// Execute query
 			rows = pst.executeUpdate();
 		} catch (SQLException | DatabaseException e) {
-			e.printStackTrace();
 			throw new DAOException(UserModuleConstants.UPDATE_ERROR_MESSAGE + e);
 		}
 
@@ -269,7 +266,7 @@ public class UserDAO {
 	
 
 	// fetch userID from the provided email
-	public static User fetchUserIDByEmail(String email) {
+	public static User fetchUserIDByEmail(String email) throws DAOException {
 		User user1 = null;
 		// Database query
 		String query = "SELECT * FROM freshstocks WHERE email = ?";
@@ -303,14 +300,14 @@ public class UserDAO {
 				}
 			}
 		} catch (SQLException | DatabaseException e) {
-			e.printStackTrace();
+			throw new DAOException("Error fetching user details: " + e);
 		}
 		return user1;
 	}
 	
 	
 	// fetch userID from the provided email
-	public static User fetchUserIDByEmail(int userId) {
+	public static User fetchUserIDByEmail(int userId) throws DAOException {
 		User user1 = null;
 		// Database query
 		String query = "SELECT * FROM freshstocks WHERE user_id = ?";
@@ -344,13 +341,13 @@ public class UserDAO {
 				}
 			}
 		} catch (SQLException | DatabaseException e) {
-			e.printStackTrace();
+			throw new DAOException("Error fetching user details: " + e);
 		}
 		return user1;
 	}
 	
 	
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() throws SQLException, DAOException {
         List<User> users = new ArrayList<>();
         User user1 = null;
         try (Connection connection = ConnectionUtil.getConnection();
@@ -383,7 +380,7 @@ public class UserDAO {
 				users.add(user1);
             }
         } catch (DatabaseException e) {
-			e.printStackTrace();
+        	throw new DAOException("Error fetching all users: " + e);
 		}
 
         return users;

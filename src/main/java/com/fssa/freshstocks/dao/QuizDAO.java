@@ -60,13 +60,13 @@ public class QuizDAO {
     public List<LeaderboardEntry> getLeaderboardDatas() throws DAOException {
         List<LeaderboardEntry> leaderboardData = new ArrayList<>();
 
-        try (Connection conn = ConnectionUtil.getConnection()) {
-            String query = "SELECT u.username, u.avatar_url, uqi.quiz_start_time, uqi.streak_count , u.gender " +
-                           "FROM freshstocks u " +
-                           "INNER JOIN user_quiz_info uqi ON u.user_id = uqi.user_id " +
-                           "ORDER BY uqi.streak_count DESC";
-
-            PreparedStatement statement = conn.prepareStatement(query);
+        try (Connection conn = ConnectionUtil.getConnection();
+                PreparedStatement statement = conn.prepareStatement(
+                        "SELECT u.username, u.avatar_url, uqi.quiz_start_time, uqi.streak_count , u.gender " +
+                        "FROM freshstocks u " +
+                        "INNER JOIN user_quiz_info uqi ON u.user_id = uqi.user_id " +
+                        "ORDER BY uqi.streak_count DESC")) {
+        	
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -78,7 +78,6 @@ public class QuizDAO {
                 leaderboardData.add(new LeaderboardEntry(username, streak, gender,quizEndTime,profileImg));
             }
         } catch (SQLException | DatabaseException e) {
-            e.printStackTrace();
             throw new DAOException(e);
         }
 

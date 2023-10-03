@@ -87,7 +87,6 @@ public class UserService {
 			String newPassword = PasswordUtil.hashPassword(password);
 			return userDAO.updatePassword(newPassword, userEmail);
 		} catch (DAOException e) {
-			e.printStackTrace();
 			throw new ServiceException(e);
 		}
 	}
@@ -125,23 +124,19 @@ public class UserService {
 	
 	
     public User getUserByEmail(String email) throws ServiceException {
-        User user = UserDAO.fetchUserIDByEmail(email);
-
-		if (user != null) {
-		    return user;
-		} else {
-		    throw new ServiceException("User with email " + email + " not found.");
+		try {
+			return UserDAO.fetchUserIDByEmail(email);
+		} catch (DAOException e) {
+			throw new ServiceException("User with email " + email + " not found.");
 		}
     }
     
     
     public User getUserByUserId(int userId) throws ServiceException {
-        User user = UserDAO.fetchUserIDByEmail(userId);
-
-		if (user != null) {
-		    return user;
-		} else {
-		    throw new ServiceException("User with userId " + userId + " not found.");
+		try {
+			return UserDAO.fetchUserIDByEmail(userId);
+		} catch (DAOException e) {
+			 throw new ServiceException("User with userId " + userId + " not found.");
 		}
     }
 }
