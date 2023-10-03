@@ -31,6 +31,7 @@ public class CourseValidator {
 			validateSellingPrice(course.getSellingPrice());
 			validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice());
 			validateTiming(course.getTiming());
+			validateDescription(course.getDescription());
 			validateInsutructorName(course.getInstructorName());
 			validateCompanyName(course.getCompanyName());
 			validateCompanyCategory(course.getCompanyCategory());
@@ -66,6 +67,7 @@ public class CourseValidator {
 			validateSellingPrice(course.getSellingPrice());
 			validatePriceDifference(course.getMarkedPrice(), course.getSellingPrice());
 			validateTiming(course.getTiming());
+			validateDescription(course.getDescription());
 			validateInsutructorName(course.getInstructorName());
 			validateCompanyName(course.getCompanyName());
 			validateCompanyCategory(course.getCompanyCategory());
@@ -85,8 +87,9 @@ public class CourseValidator {
 	 * @throws InvalidCourseException If the course name is found to be invalid.
 	 */
 	public static void validateName(String name) throws InvalidCourseException {
+		String trimmedName = name.trim();
 		String regex = "^(?=.*[A-Za-z])[A-Za-z0-9\\s]{3,30}$";
-		if (!Pattern.matches(regex, name)) {
+		if (!Pattern.matches(regex, trimmedName)) {
 			throw new InvalidCourseException(
 					"Invalid course name. Course names must be 3 to 30 characters long and may include letters, numbers, and spaces.");
 		}
@@ -127,8 +130,9 @@ public class CourseValidator {
 	 * @throws InvalidCourseException If the language name is found to be invalid.
 	 */
 	public static void validateLanguage(String name) throws InvalidCourseException {
+		String trimmedLanguage = name.trim();
 		String regex = "^[A-Za-z\\s]{3,30}$";
-		if (!Pattern.matches(regex, name)) {
+		if (!Pattern.matches(regex, trimmedLanguage)) {
 			throw new InvalidCourseException(
 					"Invalid course language. Course languages must be 3 to 30 characters long and may include letters and spaces.");
 		}
@@ -144,7 +148,7 @@ public class CourseValidator {
 	public static void validateMarkedPrice(int markedprice) throws InvalidCourseException {
 		String mp = Integer.toString(markedprice);
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
-		if (!Pattern.matches(pricePattern, mp)) {
+		if (!Pattern.matches(pricePattern, mp) || !mp.equals(Integer.toString(Integer.parseInt(mp)))) {
 			throw new InvalidCourseException(
 					"Invalid course marked price. Please provide a valid price (e.g., 100 or 99.99).");
 		}
@@ -160,7 +164,7 @@ public class CourseValidator {
 	public static void validateSellingPrice(int sellingprice) throws InvalidCourseException {
 		String sp = Integer.toString(sellingprice);
 		String pricePattern = "^(\\d+\\.\\d{1,2}|\\d+)$";
-		if (!Pattern.matches(pricePattern, sp)) {
+		if (!Pattern.matches(pricePattern, sp) || !sp.equals(Integer.toString(Integer.parseInt(sp)))) {
 			throw new InvalidCourseException(
 					"Invalid course selling price. Please provide a valid price (e.g., 100 or 99.99).");
 		}
@@ -187,7 +191,8 @@ public class CourseValidator {
 	 */
 	public static void validateTiming(String timing) throws InvalidCourseException {
 		String courseTimingPattern = "^(\\d+)hrs$";
-		if (!Pattern.matches(courseTimingPattern, timing)) {
+		int hours = Integer.parseInt(timing.replaceAll("\\D+", ""));
+		if (!Pattern.matches(courseTimingPattern, timing) || hours <= 0) {
 			throw new InvalidCourseException(
 					"Invalid course timing. Please provide a valid timing format (e.g., 10hrs).");
 		}
@@ -201,8 +206,9 @@ public class CourseValidator {
 	 * @throws InvalidCourseException If the instructor name is found to be invalid.
 	 */
 	public static void validateInsutructorName(String instructorname) throws InvalidCourseException {
+		String trimmedInstructorName = instructorname.trim();
 		String regex = "^[A-Za-z\\s]{3,50}$";
-		if (!Pattern.matches(regex, instructorname)) {
+		if (!Pattern.matches(regex, trimmedInstructorName)) {
 			throw new InvalidCourseException(
 					"Invalid course instructor name. Instructor names must be 3 to 50 characters long and may include letters and spaces.");
 		}
@@ -216,8 +222,9 @@ public class CourseValidator {
 	 * @throws InvalidCourseException If the company name is found to be invalid.
 	 */
 	public static void validateCompanyName(String companyname) throws InvalidCourseException {
+		String trimmedComapnyName = companyname.trim();
 		String regex = "^[A-Za-z\\s]{3,100}$";
-		if (!Pattern.matches(regex, companyname)) {
+		if (!Pattern.matches(regex, trimmedComapnyName)) {
 			throw new InvalidCourseException(
 					"Invalid course company name. Company names must be 3 to 100 characters long and may include letters and spaces.");
 		}
@@ -232,8 +239,9 @@ public class CourseValidator {
 	 *                                invalid.
 	 */
 	public static void validateCompanyCategory(String companycategory) throws InvalidCourseException {
+		String trimmedCompanyCategory = companycategory.trim();
 		String regex = "^[A-Za-z\\s]{3,100}$";
-		if (!Pattern.matches(regex, companycategory)) {
+		if (!Pattern.matches(regex, trimmedCompanyCategory)) {
 			throw new InvalidCourseException(
 					"Invalid course company category. Company categories must be 3 to 100 characters long and may include letters and spaces.");
 		}
@@ -247,19 +255,40 @@ public class CourseValidator {
 	 * @throws InvalidCourseException If the top skills are found to be invalid.
 	 */
 	public static void validateTopSkils(String topskills) throws InvalidCourseException {
+		String trimmedTopSkills = topskills.trim();
 		String regex = "^[A-Za-z\\s]{3,150}$";
-		if (!Pattern.matches(regex, topskills)) {
+		if (!Pattern.matches(regex, trimmedTopSkills)) {
 			throw new InvalidCourseException(
 					"Invalid course top skills. Top skills must be 3 to 150 characters long and may include letters and spaces.");
 		}
 	}
+	
+	
+	/**
+	 * Validates a course description to ensure it is not empty and contains more than 30 words.
+	 *
+	 * @param description The description to be validated.
+	 * @throws InvalidCourseException If the description is found to be invalid.
+	 */
+	public static void validateDescription(String description) throws InvalidCourseException {
+	    if (description == null || description.trim().isEmpty()) {
+	        throw new InvalidCourseException("Description cannot be empty.");
+	    }
+	    String[] words = description.trim().split("\\s+");
+	    
+	    if (words.length < 30) {
+	        throw new InvalidCourseException("Description must contain more than 30 words.");
+	    }
+	}
+	
 	
 	// course Video Names
 	public static void validateCourseVideoNames(List<String> videoNames) throws InvalidCourseException {
 	    String regex = "^[A-Za-z\\s]{3,100}$";
 	    
 	    for (String videoName : videoNames) {
-	        boolean match = Pattern.matches(regex, videoName);
+	    	String trimmedVideoName = videoName.trim();
+	        boolean match = Pattern.matches(regex, trimmedVideoName);
 	        if (!match) {
 	            throw new InvalidCourseException(
 	                    "Invalid course video name. Video names must be 3 to 100 characters long and may include letters, and spaces.");

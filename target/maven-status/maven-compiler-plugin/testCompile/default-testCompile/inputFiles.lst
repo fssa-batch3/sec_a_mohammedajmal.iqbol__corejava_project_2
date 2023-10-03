@@ -1,9 +1,11 @@
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\CommentServiceTest.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestUpdate.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCourseURL.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestReadCourseFeature.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCommentBody.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestLogin.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUpdatedCourse.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\CourseDAOTest.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCourseTopSkills.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestCreateCourseFeature.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestUpdateCourseFeature.java
@@ -16,6 +18,7 @@ C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_proj
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCourse.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidCourseName.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCourseTiming.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\UserServiceTest.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUserMobileNumber.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestRegister.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCourseInstructorName.java
@@ -28,9 +31,11 @@ C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_proj
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestDeleteCommentFeature.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCourseCategory.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUserDateOfBirth.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUpdateUser.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUserEmail.java
-C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUsername.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUserName.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestGetAllCommentsFeature.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateUserGender.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\validation\TestValidateCoursePriceDifference.java
+C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\CourseServiceTest.java
 C:\Users\MohammedAjmalIqbol\eclipse-workspace\mohammedajmal.iqbol__corejava_project_2\src\test\java\com\fssa\freshstocks\services\TestDelete.java

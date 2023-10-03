@@ -24,6 +24,9 @@ public class UserValidator {
 				validateName(user.getUsername());
 				validateEmail(user.getEmail());
 				validateDateOfBirth(user.getDateOfBirth());
+				validatePassword(user.getPassword());
+				validateMobileNumber(user.getMobileNumber());
+				validateGender(user.getGender());
 			// Validation succeeded, continue with other operations
 		} catch (InvalidUserException e) {
 			throw new InvalidUserException(e.getMessage());

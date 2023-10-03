@@ -192,100 +192,6 @@ public class CourseDAO {
 		return list1;
 	}
 
-	/**
-	 * Retrieves list of courses which is free of cost from the database.
-	 *
-	 * @param course The Course object representing the user and additional criteria
-	 *               for course retrieval.
-	 * @throws DAOException If there's an error while interacting with the database.
-	 */
-	public List<Course> getFreeCourse() throws DAOException {
-		List<Course> list1 = new ArrayList<>();
-		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection
-						.prepareStatement("SELECT * FROM course WHERE selling_price=0 AND is_deleted = 0")) {
-			try (ResultSet resultSet = pst.executeQuery()) {
-
-				while (resultSet.next()) {
-					String name = resultSet.getString("name");
-					String coverImage = resultSet.getString(CourseModuleConstants.COLUMN_COVER_IMAGE);
-					String timing = resultSet.getString(CourseModuleConstants.COLUMN_TIMING);
-					String language = resultSet.getString(CourseModuleConstants.COLUMN_LANGUAGE);
-					int markedPrice = resultSet.getInt(CourseModuleConstants.COLUMN_MARKED_PRICE);
-					int sellingPrice = resultSet.getInt(CourseModuleConstants.COLUMN_SELLING_PRICE);
-					String description = resultSet.getString(CourseModuleConstants.COLUMN_DESCRIPTION);
-					String instructorName = resultSet.getString(CourseModuleConstants.COLUMN_INSTRUCTOR_NAME);
-					String companyName = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_NAME);
-					String companyCategory = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_CATEGORY);
-					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
-					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
-					int courseID = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
-					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
-					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
-					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
-					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
-					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
-					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
-
-					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
-							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID
-							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
-					list1.add(course1);
-
-				}
-			}
-		} catch (SQLException | DatabaseException e) {
-			throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
-		}
-		return list1;
-	}
-
-	/**
-	 * Retrieves list of courses which is last created 5 courses from the database.
-	 *
-	 * @param course The Course object representing the user and additional criteria
-	 *               for course retrieval.
-	 * @throws DAOException If there's an error while interacting with the database.
-	 */
-	public List<Course> getLatestCourse() throws DAOException {
-		List<Course> list1 = new ArrayList<>();
-		try (Connection connection = ConnectionUtil.getConnection();
-				PreparedStatement pst = connection.prepareStatement(
-						"SELECT * FROM course WHERE created_at <= CURDATE() ORDER BY created_at DESC LIMIT 5")) {
-			try (ResultSet resultSet = pst.executeQuery()) {
-
-				while (resultSet.next()) {
-					String name = resultSet.getString("name");
-					String coverImage = resultSet.getString(CourseModuleConstants.COLUMN_COVER_IMAGE);
-					String timing = resultSet.getString(CourseModuleConstants.COLUMN_TIMING);
-					String language = resultSet.getString(CourseModuleConstants.COLUMN_LANGUAGE);
-					int markedPrice = resultSet.getInt(CourseModuleConstants.COLUMN_MARKED_PRICE);
-					int sellingPrice = resultSet.getInt(CourseModuleConstants.COLUMN_SELLING_PRICE);
-					String description = resultSet.getString(CourseModuleConstants.COLUMN_DESCRIPTION);
-					String instructorName = resultSet.getString(CourseModuleConstants.COLUMN_INSTRUCTOR_NAME);
-					String companyName = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_NAME);
-					String companyCategory = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_CATEGORY);
-					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
-					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
-					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
-					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
-					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
-					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
-					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
-					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
-
-					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
-							description, instructorName, companyName, companyCategory, topSkills, userID1
-							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
-					list1.add(course1);
-
-				}
-			}
-		} catch (SQLException | DatabaseException e) {
-			throw new DAOException(CourseModuleConstants.READ_ERROR_MESSAGE + e);
-		}
-		return list1;
-	}
 
 	/**
 	 * Retrieves a list of courses belonging to a specific course from the database.
@@ -536,5 +442,48 @@ public class CourseDAO {
 
 		return rowsUpdated; // Return the value
 	}
+	
+	
+    public List<Course> getCoursesBySeller(int sellerId) throws DAOException {
+        List<Course> courses = new ArrayList<>();
+
+        try (Connection connection = ConnectionUtil.getConnection();
+        		PreparedStatement statement = connection.prepareStatement("SELECT * FROM course WHERE user_id = ?")) {
+            statement.setInt(1, sellerId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+            	String courseName = resultSet.getString("name");
+                String coverImage = resultSet.getString("cover_image");
+                String timing = resultSet.getString("timing");
+                String language = resultSet.getString("language");
+                int markedPrice = resultSet.getInt("marked_price");
+                int sellingPrice = resultSet.getInt("selling_price");
+                String description = resultSet.getString("description");
+                String instructorName = resultSet.getString("instructor_name");
+                String companyName = resultSet.getString("company_name");
+                String companyCategory = resultSet.getString("company_category");
+                String topSkills = resultSet.getString("top_skills");
+                String courseVideo1 = resultSet.getString("courseVideo1");
+        	    String courseVideo2 = resultSet.getString("courseVideo2");
+        	    String courseVideo3 = resultSet.getString("courseVideo3");
+        	    String courseVideoName1 = resultSet.getString("courseVideoName1");
+        	    String courseVideoName2 = resultSet.getString("courseVideoName2");
+        	    String courseVideoName3 = resultSet.getString("courseVideoName3");
+        	    int userID = resultSet.getInt("user_id");
+        	    int courseID = resultSet.getInt("course_id");
+                
+                Course course = new Course(courseName,coverImage,timing,language,markedPrice,sellingPrice,description,instructorName
+                		,companyName,companyCategory,topSkills, userID,courseID,courseVideo1, courseVideo2, courseVideo3, courseVideoName1,
+           	         courseVideoName2,courseVideoName3);
+                
+                courses.add(course);
+            }
+        } catch (SQLException | DatabaseException e) {
+        	throw new DAOException("Failed to get all courses by seller" + e);
+		}
+
+        return courses;
+    }
 
 }

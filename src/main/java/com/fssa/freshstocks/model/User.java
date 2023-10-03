@@ -65,6 +65,24 @@ public class User {
 		this.mobileNumber = mobileNumber;
 		this.dateOfBirth = dateOfBirth;
 	}
+	
+	
+	
+	/**
+	 * Creates a new User object with updated information.
+	 *
+	 * @param profilepic   The updated profilepic of the user.
+	 * @param gender       The updated gender of the user.
+	 * @param mobileNumber The updated mobile number of the user.
+	 * @param dateOfBirth  The updated date of birth of the user.
+	 */
+	public User(String profilepic ,String gender, String mobileNumber, String dateOfBirth) {
+		super();
+		this.profilePic = profilepic;
+		this.gender = gender;
+		this.mobileNumber = mobileNumber;
+		this.dateOfBirth = dateOfBirth;
+	}
 
 	// Constructor for deleting a user
 	/**
@@ -150,6 +168,10 @@ public class User {
 		super();
 		this.password = email;
 	    this.confirmPassword = confirmPassword;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public int getUserId() {

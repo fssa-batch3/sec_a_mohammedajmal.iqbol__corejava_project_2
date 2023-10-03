@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.utils;
 
 import java.sql.Connection;
+
 import com.fssa.freshstocks.utils.exception.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class ConnectionUtil {
 		dbUrl = System.getenv("DB_URL1");
 		dbUser = System.getenv("DB_USER1");
 		dbPassword = System.getenv("DB_PASSWORD1");
-
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(dbUrl, dbUser, dbPassword);

@@ -5,6 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fssa.freshstocks.constants.*;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
@@ -21,7 +25,7 @@ public class UserDAO {
 	 * @return {@code true} if the login was successful, {@code false} otherwise.
 	 * @throws DAOException If there's an error while interacting with the database.
 	 */
-	public boolean login(User user) throws DAOException {
+	public User login(User user) throws DAOException {
 		boolean match = false;
 
 		try (Connection connection = ConnectionUtil.getConnection();
@@ -34,15 +38,13 @@ public class UserDAO {
 					String emailId = resultSet.getString(UserModuleConstants.EMAIL_COLUMN_NAME);
 					String password = resultSet.getString(UserModuleConstants.PASSWORD_COLUMN_NAME);
 
-					if (user.getEmail().equals(emailId)) {
-						match = true;
-					}
+					return new User(emailId, password);
 				}
 			}
 		} catch (SQLException | DatabaseException e) {
 			throw new DAOException(UserModuleConstants.EMAIL_ERROR_MESSAGE + e);
 		}
-		return match;
+		return null;
 	}
 
 	/**
@@ -150,12 +152,13 @@ public class UserDAO {
 
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement(
-						"UPDATE freshstocks SET gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?")) {
+						"UPDATE freshstocks SET avatar_url= ?, gender = ?, mobile_number = ?, date_of_birth = ? WHERE email = ?")) {
 
-			pst.setString(1, user.getGender());
-			pst.setString(2, user.getMobileNumber());
-			pst.setString(3, user.getDateOfBirth());
-			pst.setString(4, userEmail);
+			pst.setString(1, user.getProfilePic());
+			pst.setString(2, user.getGender());
+			pst.setString(3, user.getMobileNumber());
+			pst.setString(4, user.getDateOfBirth());
+			pst.setString(5, userEmail);
 
 			// Execute query
 			rows = pst.executeUpdate();
@@ -345,4 +348,47 @@ public class UserDAO {
 		}
 		return user1;
 	}
+	
+	
+    public List<User> getAllUsers() throws SQLException {
+        List<User> users = new ArrayList<>();
+        User user1 = null;
+        try (Connection connection = ConnectionUtil.getConnection();
+        		Statement statement = connection.createStatement();) {
+            String query = "SELECT * FROM freshstocks";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+            	int userID = resultSet.getInt("user_id");
+				String username = resultSet.getString("username");
+				String gender = resultSet.getString("gender");
+				String mobileNumber = resultSet.getString("mobile_number");
+				String dateOfBirth = resultSet.getString("date_of_birth");
+				String profilePic = resultSet.getString("avatar_url");
+				String userEmail = resultSet.getString("email");
+				String password = resultSet.getString("password");
+				int isSeller = resultSet.getInt("is_seller");
+				String createdAt = resultSet.getString("created_at");
+				String modifiedAt = resultSet.getString("modified_at");
+				int isDeleted = resultSet.getInt("is_deleted");
+				String purchasedCourses;
+				if(resultSet.getString("purchased_courses") != null) {
+				 purchasedCourses = resultSet.getString("purchased_courses");
+				} else {
+				 purchasedCourses = "0";
+				}
+				
+				user1 = new User(userID,username,gender,mobileNumber,dateOfBirth,userEmail,password,isSeller,createdAt,modifiedAt,isDeleted,profilePic,purchasedCourses);
+				
+				users.add(user1);
+            }
+        } catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+
+        return users;
+    }
+	
+	
+	
 }

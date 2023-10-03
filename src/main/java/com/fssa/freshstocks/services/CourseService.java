@@ -65,37 +65,6 @@ public class CourseService {
 	}
 
 	/**
-	 * Retrieves a list of courses which is free of cost from the database.
-	 *
-	 * @return A list of full Course objects.
-	 * @throws ServiceException If an error occurs while retrieving the course list.
-	 */
-	public List<Course> getFreeCourses() throws ServiceException {
-		CourseDAO courseDAO = new CourseDAO();
-		try {
-			return courseDAO.getFreeCourse();
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-	}
-
-	/**
-	 * Retrieves a list of courses which is created latest 5 courses from the
-	 * database.
-	 *
-	 * @return A list of full Course objects.
-	 * @throws ServiceException If an error occurs while retrieving the course list.
-	 */
-	public List<Course> getLatestCourses() throws ServiceException {
-		CourseDAO courseDAO = new CourseDAO();
-		try {
-			return courseDAO.getLatestCourse();
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-	}
-
-	/**
 	 * Retrieves a course which using courseID from the database.
 	 *
 	 * @return full Course object.
@@ -235,6 +204,15 @@ public class CourseService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
+    }
+    
+    public List<Course> getCoursesBySeller(int sellerId) throws ServiceException {
+     try {
+    	CourseDAO courseDAO = new CourseDAO();
+        return courseDAO.getCoursesBySeller(sellerId);
+    } catch (DAOException e) {
+        throw new ServiceException(e);
+    }
     }
     
     

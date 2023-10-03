@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.services;
 
 import com.fssa.freshstocks.dao.UserDAO;
+import com.fssa.freshstocks.utils.PasswordUtil;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.exception.ServiceException;
@@ -22,6 +23,8 @@ public class UserService {
 		User user1 = new User(user.getEmail(), user.getPassword());
 		try {
 			UserValidator.validateUser(user);
+			// set the hashed password from the plain password
+			user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
 	        if (userDAO.emailExist(user1)) {
 	            return false; // Email already exists
 	        } else {
@@ -42,7 +45,15 @@ public class UserService {
 	public boolean loginUser(User user) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		try {
-			return userDAO.login(user);
+			User gettedUser = userDAO.login(user);
+			
+			if (gettedUser == null) {
+				throw new DAOException("User is not registered");
+			}
+			if (!PasswordUtil.checkPassword(user.getPassword(), gettedUser.getPassword())) {
+				throw new ServiceException("Login Failed - password mismatch");
+			}
+			return true;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -72,7 +83,9 @@ public class UserService {
 		UserDAO userDAO = new UserDAO();
 		try {
 			userDAO.emailAlreadyExist(userEmail);
-			return userDAO.updatePassword(password, userEmail);
+			// set the hashed password from the plain password
+			String newPassword = PasswordUtil.hashPassword(password);
+			return userDAO.updatePassword(newPassword, userEmail);
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new ServiceException(e);
