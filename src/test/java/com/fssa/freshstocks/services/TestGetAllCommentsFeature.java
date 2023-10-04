@@ -27,7 +27,7 @@ class TestGetAllCommentsFeature {
     @Test
     @Order(1)
     void testGetAllCommentSuccess() {
-        int courseID = 4;
+        int courseID = 31;
         try {
             cleanedEntries = commentDAO.getAllComments(courseID);
             if (cleanedEntries.isEmpty()) {
@@ -38,11 +38,11 @@ class TestGetAllCommentsFeature {
         }
         assertTrue(cleanedEntries.size() > 0);
     }
-
+ 
     @Test
     @Order(2)
     void testGetAllCommentsInvalid() {
-        int courseID = 10;
+        int courseID = 0;
         try {
             cleanedEntries = commentDAO.getAllComments(courseID);
             assertFalse(cleanedEntries.size() > 0);

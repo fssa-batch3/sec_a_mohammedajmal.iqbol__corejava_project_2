@@ -1,6 +1,5 @@
 package com.fssa.freshstocks.services;
 
-import java.sql.SQLException;
 import java.util.*;
 import com.fssa.freshstocks.dao.CourseDAO;
 import com.fssa.freshstocks.dao.UserDAO;

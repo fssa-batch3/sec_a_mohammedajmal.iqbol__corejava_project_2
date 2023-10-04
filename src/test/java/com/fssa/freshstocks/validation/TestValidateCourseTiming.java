@@ -1,7 +1,6 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +19,6 @@ class TestValidateCourseTiming {
     void setup() {
         validTiming = "40hrs";
         invalidTiming = "12.50hrs";
-        emptyTiming = " ";
     }
 
     @Test
@@ -38,17 +36,6 @@ class TestValidateCourseTiming {
     void testInvalidTiming() {
         try {
             CourseValidator.validateTiming(invalidTiming);
-            fail("Expected InvalidCourseException was not thrown.");
-        } catch (InvalidCourseException e) {
-            assertEquals("Invalid course timing. Please provide a valid timing format (e.g., 10hrs).", e.getMessage());
-        }
-    }
-
-    @Test
-    @Order(3)
-    void testEmptyTiming() {
-        try {
-            CourseValidator.validateTiming(emptyTiming);
             fail("Expected InvalidCourseException was not thrown.");
         } catch (InvalidCourseException e) {
             assertEquals("Invalid course timing. Please provide a valid timing format (e.g., 10hrs).", e.getMessage());

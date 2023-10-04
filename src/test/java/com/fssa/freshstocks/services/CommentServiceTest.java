@@ -24,7 +24,7 @@ import com.fssa.freshstocks.services.exception.ServiceException;
     @Test
      void testListCommentWithValidCourseId() throws ServiceException {
         // Arrange
-        int courseId = 2;
+        int courseId = 14;
 
         // Act
         List<Comment> comments = commentService.listComment(courseId);
@@ -48,7 +48,7 @@ import com.fssa.freshstocks.services.exception.ServiceException;
     @Test
      void testGetCommentByValidCommentID() throws ServiceException {
         // Arrange
-        int commentId = 5;
+        int commentId = 26;
 
         // Act
         Comment comment = commentService.getCommentByCommentID(commentId);
@@ -57,7 +57,7 @@ import com.fssa.freshstocks.services.exception.ServiceException;
         assertNotNull(comment);
         // Add more specific assertions based on your expectations
     }
-
+ 
     @Test
      void testGetCommentByInvalidCommentID() {
         // Arrange
@@ -73,7 +73,7 @@ import com.fssa.freshstocks.services.exception.ServiceException;
     
     @Test
     void testCommentConstructor() {
-        Comment comment = new Comment(1, 2, 19, "This is a comment");
+        Comment comment = new Comment(27, 14, 56, "nice course");
         assertNotNull(comment);
     }
 }

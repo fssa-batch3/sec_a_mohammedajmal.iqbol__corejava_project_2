@@ -23,7 +23,7 @@ class TestReadCourseFeature {
     @Test
     @Order(1)
     void testGetAllCoursesSuccess() {
-    	int userID = 1;
+    	int userID = 67;
         List<Course> cleanedEntries = null;
         try {
             cleanedEntries = courseService.listCourse(userID);
@@ -32,7 +32,7 @@ class TestReadCourseFeature {
         }
         if (cleanedEntries == null || cleanedEntries.isEmpty()) {
             System.out.println("Courses Don't Exist!");
-        }
+        } 
         // TODO add a check to check is all courses are same as the user ID.
         assertTrue(cleanedEntries != null && cleanedEntries.size() > 0);
     }

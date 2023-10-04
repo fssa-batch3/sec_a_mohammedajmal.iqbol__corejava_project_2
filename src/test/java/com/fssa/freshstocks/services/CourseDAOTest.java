@@ -22,22 +22,26 @@ class CourseDAOTest {
 
     @Test
     void testSameNameExistWithMatchingName() throws DAOException {
-    	Course course1 = new Course("stock analysis course",
+    	Course course1 = new Course("foreign ex course",
     	        "https://example.com/image1.png",
     	        "10hrs", "English", 5000, 2000,
-    	        "the course gives you the fair idea about how to start trading and become a day trader", "Ajmalll",
-    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+    	        "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmalll",
+    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         boolean result = courseDAO.sameNameExist(course1);
         assertTrue(result);
     }
-
+ 
     @Test
     void testSameNameExistWithNonMatchingName() throws DAOException {
     	Course course1 = new Course("Course" + nanotime,
     	        "https://example.com/image1.png",
     	        "10hrs", "English", 5000, 2000,
-    	        "the course gives you the fair idea about how to start trading and become a day trader", "Ajmalll",
-    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+    	        "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmalll",
+    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         boolean result = courseDAO.sameNameExist(course1);
         assertFalse(result);
     }

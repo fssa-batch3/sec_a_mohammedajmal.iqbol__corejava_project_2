@@ -1,7 +1,6 @@
 package com.fssa.freshstocks.validation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,59 +29,81 @@ class TestValidateCourse {
         validCourse = new Course("Stock Courses",
             "https://example.com/course_image.jpg",
             "10hrs", "English", 5000, 2000,
-            "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-            "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+            "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+            "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+	        "Intermediate Investing","Advanced Trading");
         InvalidCourseNull = null;
         InvalidCourseName = new Course(" ",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseImageURL = new Course("Stock Courses",
                 "//encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjRRyaiUBPcuRCnOz0_5tK9eZBjGgbBORTqA1vCil3RcZjI7fRHcEorMenJnLBNak1Y4E&usqp=CAU",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseTiming = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10:00 hours", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseLanguage = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", " ", 5000, 2000,
                 "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseMarkedPrice = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", -5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseSellingPrice = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", 5000, -2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseInstructorName = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal234231",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal234231",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseCompanyName = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                " ", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                " ", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseCompanyCategory = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading & Finance", "learn core concepts SMC and Technical Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading & Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         InvalidCourseTopSkills = new Course("Stock Courses",
                 "https://example.com/course_image.jpg",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmal",
-                "freshstocks", "Trading and Finance", "technical & Analysis", 4);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmal",
+                "freshstocks", "Trading and Finance", "technical & Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         
     }
 
@@ -95,7 +116,7 @@ class TestValidateCourse {
             e.printStackTrace();
             fail("Unexpected exception was thrown.");
         }
-    }
+    } 
 
     @Test
     @Order(2)

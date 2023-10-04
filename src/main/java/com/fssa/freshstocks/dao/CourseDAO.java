@@ -73,7 +73,7 @@ public class CourseDAO {
 		try (Connection connection = ConnectionUtil.getConnection();
 				PreparedStatement pst = connection.prepareStatement("SELECT * FROM course WHERE name = ?")) {
 
-			pst.setString(1, course.getName());
+			pst.setString(1, course.getName()); 
 
 			ResultSet resultSet = pst.executeQuery();
 
@@ -379,7 +379,7 @@ public class CourseDAO {
             }
         } catch (SQLException | DatabaseException e) {
             throw new DAOException("Failed to retrieve progress and modified at" + e);
-        }
+        } 
 
         return courseProgressData;
     }

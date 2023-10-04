@@ -23,19 +23,19 @@ class TestDeleteCourseFeature {
     @Test
     @Order(1)
     void testDeleteCourseSuccess() {
-        int courseID = 4;
+        int courseID = 28;
         try {
             assertTrue(courseService.deleteCourse(courseID, isDeleted));
         } catch (ServiceException e) {
             e.printStackTrace();
             fail();
         }
-    }
+    } 
 
     @Test
     @Order(2)
     void testDeleteCourseFail() {
-        int courseID = 1;
+        int courseID = -1;
         try {
             assertFalse(courseService.deleteCourse(courseID, isDeleted));
         } catch (ServiceException e) {

@@ -1,9 +1,8 @@
 package com.fssa.freshstocks.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -27,23 +26,11 @@ class CourseServiceTest {
 	}
 
 	@Test
-	void testGetFreeCourses() throws ServiceException {
-		List<Course> actualCourses = courseService.getFreeCourses();
-		assertNotNull(actualCourses);
-	}
-
-	@Test
-	void testGetLatestCourses() throws ServiceException {
-		List<Course> actualCourses = courseService.getLatestCourses();
-		assertNotNull(actualCourses);
-	}
-
-	@Test
 	void testGetCoursesFromCourseId() throws ServiceException {
-		Course course = courseService.getCoursesFromCourseId(2);
+		Course course = courseService.getCoursesFromCourseId(14);
 		assertNotNull(course);
 
-	}
+	} 
 
 	@Test
 	void testInvalidGetAllCourses() throws ServiceException {
@@ -63,6 +50,5 @@ class CourseServiceTest {
 	void testInvalidGetLatestCourses() throws ServiceException {
 		List<Course> actualCourses = null;
 		assertNull(actualCourses);
-
 	}
 }

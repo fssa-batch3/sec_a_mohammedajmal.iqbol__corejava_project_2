@@ -195,6 +195,22 @@ public class User {
 		this.modifiedAt = modifiedAt;
 	}
 	
+	
+	public User(int userID,String username, String gender, String mobileNumber, String dateOfBirth, String email, int isSeller,
+			String createdAt, String modifiedAt, int isDeleted) {
+		super();
+		this.userId = userID;
+		this.username = username;
+		this.gender = gender;
+		this.mobileNumber = mobileNumber;
+		this.dateOfBirth = dateOfBirth;
+		this.email = email;
+		this.isSeller = isSeller;
+		this.createdAt = createdAt;
+		this.modifiedAt = modifiedAt;
+		this.isDeleted = isDeleted;
+	}
+	
 	public String getCreatedAt() {
 		return createdAt;
 	}

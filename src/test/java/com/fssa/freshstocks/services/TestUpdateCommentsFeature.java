@@ -22,15 +22,15 @@ class TestUpdateCommentsFeature {
     @Test
     @Order(1)
     void testUpdateCommentSuccess() {
-        int commentId = 1;
-        Comment comment = new Comment("this is test update comments");
+        int commentId = 27;
+        Comment comment = new Comment("nice course");
         try {
             assertTrue(commentService.updateComment(comment, commentId));
         } catch (ServiceException e) {
             e.printStackTrace();
             fail();
         }
-    }
+    } 
 
     @Test
     @Order(2)

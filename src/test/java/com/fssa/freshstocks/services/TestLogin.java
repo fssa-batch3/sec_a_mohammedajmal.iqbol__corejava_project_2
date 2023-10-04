@@ -21,7 +21,7 @@ class TestLogin {
     @Test
     @Order(1)
     void TestValidUser() {
-        User user1 = new User("ajmal@gmail.com", "Ajmal@123");
+        User user1 = new User("ajmal78@gmail.com", "$2a$10$YMVXGolAWg/.aW7iscPMPO8jazI6uAecwyKVZAyn.IFaRwSjfxJ3y");
         try {
             assertTrue(userService.loginUser(user1));
         } catch (ServiceException e) {
@@ -32,7 +32,7 @@ class TestLogin {
     @Test
     @Order(2)
     void TestInValidUser() {
-        User user1 = new User("hacker@gmail.com", "Hacker@123");
+        User user1 = new User("hacker@gmail.com", "$2a$10$YMVXGolAWg/.aW7iscPMPO8jazI6uAecwyKVZAyn.IFaRwSjfxJ3y");
         try {
             assertFalse(userService.loginUser(user1));
         } catch (ServiceException e) {

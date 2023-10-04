@@ -23,7 +23,7 @@ class TestCreateCommentFeature {
     @Test
     @Order(1)
     void testCreateCommentSuccess() {
-        Comment comment1 = new Comment(4, 4, "This course is really informative and well-structured.");
+        Comment comment1 = new Comment(14, 56, "This course is really informative and well-structured.");
         try {
             assertTrue(commentService.registerComment(comment1));
         } catch (ServiceException e) {

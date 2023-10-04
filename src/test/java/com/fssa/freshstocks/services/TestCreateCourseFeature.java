@@ -29,14 +29,16 @@ class TestCreateCourseFeature {
     	Course course1 = new Course("Course" + nanotime,
     	        "https://example.com/image1.png",
     	        "10hrs", "English", 5000, 2000,
-    	        "the course gives you the fair idea about how to start trading and become a day trader", "Ajmalll",
-    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4);
+    	        "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmalll",
+    	        "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 4,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         try {
             assertTrue(courseService.registerCourse(course1));
         } catch (ServiceException e) {
             e.printStackTrace();
             fail();
-        }
+        } 
     }
 
     @Test
@@ -45,8 +47,10 @@ class TestCreateCourseFeature {
         Course course1 = new Course("chart patterns course",
                 "example.com/image1.png",
                 "10hrs", "English", 5000, 2000,
-                "the course gives you the fair idea about how to start trading and become a day trader", "Ajmall",
-                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 1);
+                "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmall",
+                "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis", 1,"data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
+    	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
+    	        "Intermediate Investing","Advanced Trading");
         try {
             assertFalse(courseService.registerCourse(course1));
         } catch (ServiceException e) {

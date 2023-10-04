@@ -1,14 +1,13 @@
 package com.fssa.freshstocks.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fssa.freshstocks.constants.CourseModuleConstants;
 import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.LeaderboardEntry;
 import com.fssa.freshstocks.utils.ConnectionUtil;
@@ -54,7 +53,7 @@ public class QuizDAO {
         }
     }
     
-    
+     
     
     // Method to retrieve leaderboard data using an inner join query
     public List<LeaderboardEntry> getLeaderboardDatas() throws DAOException {

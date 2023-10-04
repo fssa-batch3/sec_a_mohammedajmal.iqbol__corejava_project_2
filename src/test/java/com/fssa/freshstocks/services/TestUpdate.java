@@ -23,20 +23,20 @@ class TestUpdate {
     @Test
     @Order(1)
     void TestUpdateSuccess() {
-        User user1 = new User("Male", "9500320194", "2004-12-26");
-        String userEmail = "ajmal@gmail.com";
+        User user1 = new User("data:image/jpeg;base64,/9j/4Sm8RXhpZgAASUkqAAg","Male", "9500320194", "2004-12-26");
+        String userEmail = "user3591901615593200@gmail.com";
         try {
             assertTrue(userService.updateUser(user1, userEmail));
         } catch (ServiceException e) {
             e.printStackTrace();
             fail();
         }
-    }
-
+    } 
+ 
     @Test
     @Order(2)
     void TestUpdateFail() {
-        User user1 = new User("Male", "9500320194", "2004-12-26");
+        User user1 = new User("data:image/jpeg;base64,/9j/4Sm8RXhpZgAASUkqAAg","Male", "9500320194", "2004-12-26");
         // this userEmail doesn't exist so, it returns false and our test case is true
         String userEmail = "aj@gmail.com";
         try {

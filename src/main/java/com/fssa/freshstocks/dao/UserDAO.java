@@ -345,7 +345,7 @@ public class UserDAO {
 		}
 		return user1;
 	}
-	
+	 
 	
     public List<User> getAllUsers() throws SQLException, DAOException {
         List<User> users = new ArrayList<>();

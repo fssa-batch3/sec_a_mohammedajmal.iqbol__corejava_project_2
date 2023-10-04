@@ -169,7 +169,7 @@ public class CourseValidator {
 					"Invalid course selling price. Please provide a valid price (e.g., 100 or 99.99).");
 		}
 	}
-
+ 
 	/**
 	 * Validates the price difference between marked price and selling price.
 	 *
@@ -195,7 +195,7 @@ public class CourseValidator {
 		if (!Pattern.matches(courseTimingPattern, timing) || hours <= 0) {
 			throw new InvalidCourseException(
 					"Invalid course timing. Please provide a valid timing format (e.g., 10hrs).");
-		}
+		} 
 	}
 
 	/**
