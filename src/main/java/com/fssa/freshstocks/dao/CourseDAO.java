@@ -316,7 +316,13 @@ public class CourseDAO {
 	
 	
 	
-	
+	/**
+	 * Retrieves a course by its unique identifier.
+	 *
+	 * @param courseId The unique identifier of the course to retrieve.
+	 * @return The Course object associated with the provided ID, or null if not found.
+	 * @throws DAOException If an error occurs during the retrieval process.
+	 */
     public static Course getCourseById(int courseId) throws DAOException {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "SELECT * FROM course WHERE course_id = ?";
@@ -358,7 +364,14 @@ public class CourseDAO {
         }
     }
     
-    
+    /**
+     * Retrieves progress data for a specific user in a particular course.
+     *
+     * @param userId The unique identifier of the user.
+     * @param courseId The unique identifier of the course.
+     * @return The CourseProgressData object containing progress information.
+     * @throws DAOException If an error occurs during the retrieval process.
+     */
     public CourseProgressData getCourseProgress(int userId, int courseId) throws DAOException {
         CourseProgressData courseProgressData = null;
 
@@ -385,7 +398,14 @@ public class CourseDAO {
     }
 
 	
-	
+    /**
+     * Updates the watch status of a video for a user in a specific course.
+     *
+     * @param courseID The unique identifier of the course.
+     * @param videoID The unique identifier of the video.
+     * @param userID The unique identifier of the user.
+     * @throws DAOException If an error occurs during the update process.
+     */
 	public void updateVideoWatchStatus(int courseID, int videoID, int userID) throws DAOException {
 	    try (Connection connection = ConnectionUtil.getConnection();
 	         PreparedStatement checkIfExistsStmt = connection.prepareStatement(
@@ -419,7 +439,14 @@ public class CourseDAO {
 	    }
 	}
 	
-	
+	/**
+	 * Updates the list of purchased courses for a user.
+	 *
+	 * @param updatedPurchasedCourses The updated list of purchased courses.
+	 * @param userId The unique identifier of the user.
+	 * @return The number of rows updated in the database.
+	 * @throws DAOException If an error occurs during the update process.
+	 */
 	public int updatePurchaseCourse(String updatedPurchasedCourses, int userId) throws DAOException {
 		// Update the database
 		String sql = "UPDATE freshstocks SET purchased_courses = ? WHERE user_id = ?";
@@ -440,7 +467,13 @@ public class CourseDAO {
 		return rowsUpdated; // Return the value
 	}
 	
-	
+	/**
+	 * Retrieves a list of courses associated with a seller.
+	 *
+	 * @param sellerId The unique identifier of the seller.
+	 * @return A list of courses sold by the seller.
+	 * @throws DAOException If an error occurs during the retrieval process.
+	 */
     public List<Course> getCoursesBySeller(int sellerId) throws DAOException {
         List<Course> courses = new ArrayList<>();
 

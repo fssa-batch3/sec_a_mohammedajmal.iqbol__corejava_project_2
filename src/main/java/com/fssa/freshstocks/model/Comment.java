@@ -48,14 +48,6 @@ public class Comment {
 		this.createdTime = createdTime;
 	}
 
-	public int getCommentId() {
-		return commentId;
-	}
-
-	public String getCreatedTime() {
-		return createdTime;
-	}
-
 	/**
 	 * Constructor for creating a comment with comment ID, course ID, user ID, and
 	 * comment body.
@@ -65,7 +57,6 @@ public class Comment {
 	 * @param userId      The ID of the user who posted the comment.
 	 * @param commentBody The content of the comment.
 	 */
-
 	public Comment(int commentId, int courseId, int userId, String comment) {
 		this.commentId = commentId;
 		this.courseId = courseId;
@@ -73,10 +64,12 @@ public class Comment {
 		this.commentBody = comment;
 	}
 
-	public String getUserProfile() {
-		return userProfile;
-	}
-
+	/**
+	 * Constructor for updating a comment with comment ID, comment body.
+	 *
+	 * @param commentId   The ID of the comment.
+	 * @param commentBody The content of the comment.
+	 */
 	public Comment(int commentID, String commentBody) {
 		this.commentId = commentID;
 		this.commentBody = commentBody;
@@ -112,6 +105,17 @@ public class Comment {
 	public String getComment() {
 		return commentBody;
 	}
+	
+	public String getUserProfile() {
+		return userProfile;
+	}
 
+	public int getCommentId() {
+		return commentId;
+	}
+
+	public String getCreatedTime() {
+		return createdTime;
+	}
 
 }

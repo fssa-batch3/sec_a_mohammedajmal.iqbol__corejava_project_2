@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.fssa.freshstocks.dao.exception.DAOException;
 import com.fssa.freshstocks.model.User;
 import com.fssa.freshstocks.services.exception.ServiceException;
 
@@ -39,6 +42,43 @@ import com.fssa.freshstocks.services.exception.ServiceException;
        String userProfile = userService.getUserProfilesFromUserID(userID);
        assertNull(userProfile);
    }
+    
+    @Test
+    void testGetUserFromEmail() throws ServiceException {
+       String email = "ajmal78@gmail.com";
+       User user = userService.getUserByEmail(email);
+       assertNotNull(user);
+   }
+    
+    @Test
+    void testGetUserFromUserID() throws ServiceException {
+       int userID = 65;
+       User user = userService.getUserByUserId(userID);
+       assertNotNull(user);
+   }
+    
+    @Test
+    public void testpdatePassword() throws DAOException {
+        boolean user;
+		try {
+			user = userService.updateUserPassword("$2a$10$E4SqDEbGKCYMD5b/wzsruuvgbH0BNwYTOfV.egtJ7qD886yVg2Jqi", "user478900606602600@gmail.com");
+		} catch (ServiceException e) {
+			throw new DAOException(e);
+		}
+        assertTrue(user);
+    }
+    
+    @Test
+    public void testpdatePasswordInvalid() throws DAOException {
+        boolean user;
+		try {
+			user = userService.updateUserPassword("$2a$10$E4SqDEbGKCYMD5b/wzsruuvgbH0BNwYTOfV.egtJ7qD886yVg2Jqi", "user47890@gmail.com");
+		} catch (ServiceException e) {
+			throw new DAOException(e);
+		}
+        assertFalse(user);
+    }
+    
     
     @Test
     void testDetailedConstructor() {

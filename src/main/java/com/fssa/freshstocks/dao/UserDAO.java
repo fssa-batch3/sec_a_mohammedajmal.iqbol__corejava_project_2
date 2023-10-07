@@ -167,7 +167,14 @@ public class UserDAO {
 		return (rows == 1);
 	}
 	
-	
+	/**
+	 * Updates the user's password in the database.
+	 *
+	 * @param password The new password.
+	 * @param userEmail The email address associated with the user.
+	 * @return True if the password was updated successfully, false otherwise.
+	 * @throws DAOException If an error occurs during the update process.
+	 */
 	public boolean updatePassword(String password, String userEmail) throws DAOException {
 		int rows = 0;
 
@@ -246,7 +253,14 @@ public class UserDAO {
 	}
 	
 	
-	
+	/**
+	 * Updates the purchased courses for a user in the database.
+	 *
+	 * @param userId The unique identifier of the user.
+	 * @param purchasedCourses A string representing the updated list of purchased courses.
+	 * @return True if the update was successful, false otherwise.
+	 * @throws DAOException If an error occurs during the update process.
+	 */
 	public boolean updateUserPurchasedCourses(String userId, String purchasedCourses) throws DAOException {
 	    String sql = "UPDATE freshstocks SET purchased_courses = ? WHERE user_id = ?";
 	    
@@ -263,9 +277,14 @@ public class UserDAO {
 	}
 	
 	
-	
 
-	// fetch userID from the provided email
+	/**
+	 * Retrieves user details based on the provided email address.
+	 *
+	 * @param email The email address of the user.
+	 * @return The User object associated with the provided email, or null if not found.
+	 * @throws DAOException If an error occurs during the retrieval process.
+	 */
 	public static User fetchUserIDByEmail(String email) throws DAOException {
 		User user1 = null;
 		// Database query
@@ -306,7 +325,13 @@ public class UserDAO {
 	}
 	
 	
-	// fetch userID from the provided email
+	/**
+	 * Retrieves user details based on the provided user ID.
+	 *
+	 * @param userId The unique identifier of the user.
+	 * @return The User object associated with the provided user ID, or null if not found.
+	 * @throws DAOException If an error occurs during the retrieval process.
+	 */
 	public static User fetchUserIDByEmail(int userId) throws DAOException {
 		User user1 = null;
 		// Database query
@@ -346,7 +371,13 @@ public class UserDAO {
 		return user1;
 	}
 	 
-	
+	/**
+	 * Retrieves a list of all users from the database.
+	 *
+	 * @return A list of User objects representing all users.
+	 * @throws SQLException If an SQL error occurs during the retrieval process.
+	 * @throws DAOException If an error occurs during the retrieval process.
+	 */
     public List<User> getAllUsers() throws SQLException, DAOException {
         List<User> users = new ArrayList<>();
         User user1 = null;

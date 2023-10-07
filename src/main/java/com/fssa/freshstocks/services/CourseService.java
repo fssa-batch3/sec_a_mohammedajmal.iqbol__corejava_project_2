@@ -115,7 +115,15 @@ public class CourseService {
 	}
 	
 	
-	
+	/**
+	 * Purchases a course for a user.
+	 *
+	 * @param user The user making the purchase.
+	 * @param course The course being purchased.
+	 * @param courseId The unique identifier of the course.
+	 * @return True if the purchase was successful, false if the course is already purchased.
+	 * @throws ServiceException If an error occurs during the purchase process.
+	 */
 	public boolean purchaseCourse(User user, Course course, int courseId) throws ServiceException {
 	    String userId = Integer.toString(user.getUserId());
 	    String purchasedCourses = user.getPurchasedCourses();
@@ -143,6 +151,13 @@ public class CourseService {
 	}
 	
 	
+	/**
+	 * Retrieves a course by its unique identifier.
+	 *
+	 * @param courseId The unique identifier of the course to retrieve.
+	 * @return The course with the specified ID.
+	 * @throws ServiceException If an error occurs during the retrieval process.
+	 */
     public Course getCourseById(int courseId) throws ServiceException {
         try {
             Course course = CourseDAO.getCourseById(courseId);
@@ -158,7 +173,14 @@ public class CourseService {
     }
     
     
-    
+    /**
+     * Retrieves a list of courses that a user has purchased.
+     *
+     * @param email The email address of the user.
+     * @return A list of purchased courses.
+     * @throws ServiceException If an error occurs during the retrieval process.
+     * @throws DAOException If an error occurs in the data access layer.
+     */
     public List<Course> getPurchasedCourses(String email) throws ServiceException, DAOException {
         // Assuming userDAO is your Data Access Object for users
     	CourseDAO courseDAO = new CourseDAO();
@@ -192,6 +214,14 @@ public class CourseService {
     }
     
     
+    /**
+     * Retrieves the progress data of a user in a specific course.
+     *
+     * @param userId The unique identifier of the user.
+     * @param courseId The unique identifier of the course.
+     * @return The progress data of the user in the specified course.
+     * @throws ServiceException If an error occurs during the retrieval process.
+     */
     public CourseProgressData getCourseProgress(int userId, int courseId) throws ServiceException {
         try {
         	CourseDAO courseDAO = new CourseDAO();
@@ -201,6 +231,14 @@ public class CourseService {
         }
     }
     
+    
+    /**
+     * Retrieves a list of courses associated with a seller.
+     *
+     * @param sellerId The unique identifier of the seller.
+     * @return A list of courses sold by the seller.
+     * @throws ServiceException If an error occurs during the retrieval process.
+     */
     public List<Course> getCoursesBySeller(int sellerId) throws ServiceException {
      try {
     	CourseDAO courseDAO = new CourseDAO();
@@ -210,7 +248,14 @@ public class CourseService {
     }
     }
     
-    
+    /**
+     * Updates the watch status of a video for a user in a specific course.
+     *
+     * @param courseID The unique identifier of the course.
+     * @param videoID The unique identifier of the video.
+     * @param userID The unique identifier of the user.
+     * @throws ServiceException If an error occurs during the update process.
+     */
     public void updateVideoWatchStatus(int courseID, int videoID, int userID) throws ServiceException {
         try {
         	CourseDAO courseDAO = new CourseDAO();
@@ -220,7 +265,14 @@ public class CourseService {
         }
     }
     
-    
+    /**
+     * Updates the list of purchased courses for a user.
+     *
+     * @param updatedPurchasedCourses The updated list of purchased courses.
+     * @param userId The unique identifier of the user.
+     * @return The number of rows updated in the database.
+     * @throws ServiceException If an error occurs during the update process.
+     */
     public int updatePurchasedCourses(String updatedPurchasedCourses, int userId) throws ServiceException {
         int rowsUpdated = 0;
 

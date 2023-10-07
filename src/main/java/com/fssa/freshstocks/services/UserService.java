@@ -78,7 +78,14 @@ public class UserService {
 		}
 	}
 	
-	
+	/**
+	 * Updates the user's password.
+	 *
+	 * @param password The new password.
+	 * @param userEmail The email address associated with the user.
+	 * @return True if the password was updated successfully, false otherwise.
+	 * @throws ServiceException If an error occurs during the update process.
+	 */
 	public boolean updateUserPassword(String password, String userEmail) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		try {
@@ -113,6 +120,13 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * Retrieves user profiles based on the user's ID.
+	 *
+	 * @param userID The unique identifier of the user.
+	 * @return A string containing the user's profile information.
+	 * @throws ServiceException If an error occurs during the retrieval process.
+	 */
 	public String getUserProfilesFromUserID(int userID) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		try {
@@ -122,7 +136,13 @@ public class UserService {
 		}
 	}
 	
-	
+	/**
+	 * Retrieves a user based on their email address.
+	 *
+	 * @param email The email address of the user.
+	 * @return The user associated with the provided email.
+	 * @throws ServiceException If an error occurs during the retrieval process.
+	 */
     public User getUserByEmail(String email) throws ServiceException {
 		try {
 			return UserDAO.fetchUserIDByEmail(email);
@@ -131,7 +151,13 @@ public class UserService {
 		}
     }
     
-    
+    /**
+     * Retrieves a user based on their user ID.
+     *
+     * @param userId The unique identifier of the user.
+     * @return The user associated with the provided user ID.
+     * @throws ServiceException If an error occurs during the retrieval process.
+     */
     public User getUserByUserId(int userId) throws ServiceException {
 		try {
 			return UserDAO.fetchUserIDByEmail(userId);

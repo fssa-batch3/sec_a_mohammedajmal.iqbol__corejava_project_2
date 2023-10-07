@@ -15,6 +15,15 @@ import com.fssa.freshstocks.utils.exception.DatabaseException;
 
 public class QuizDAO {
 	
+	/**
+	 * Inserts or updates user quiz data.
+	 *
+	 * @param userId The unique identifier of the user.
+	 * @param streak The user's streak count in quizzes.
+	 * @param quizStartTime The timestamp indicating the start time of the quiz.
+	 * @param answeredToday A boolean indicating if the user has answered today's quiz.
+	 * @throws DAOException If an error occurs during the insertion or update process.
+	 */
     public void insertOrUpdateUserData(int userId, int streak, Timestamp quizStartTime, boolean answeredToday) throws DAOException {
         try (Connection connection = ConnectionUtil.getConnection()) {
             // Check if a row with the given user_id already exists
@@ -55,7 +64,12 @@ public class QuizDAO {
     
      
     
-    // Method to retrieve leaderboard data using an inner join query
+    /**
+     * Retrieves leaderboard data by performing an inner join query.
+     *
+     * @return A list of LeaderboardEntry objects containing leaderboard information.
+     * @throws DAOException If an error occurs during the retrieval process.
+     */
     public List<LeaderboardEntry> getLeaderboardDatas() throws DAOException {
         List<LeaderboardEntry> leaderboardData = new ArrayList<>();
 

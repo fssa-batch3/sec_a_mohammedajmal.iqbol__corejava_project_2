@@ -1,6 +1,7 @@
 package com.fssa.freshstocks.model;
 
 public class Question {
+	// Fields
     private String question;
     private String[] options;
     private String correctAnswer;
@@ -9,6 +10,7 @@ public class Question {
     private String option3;
     private String option4;
 
+    // Getters and Setters
     public String getQuestion() {
         return question;
     }

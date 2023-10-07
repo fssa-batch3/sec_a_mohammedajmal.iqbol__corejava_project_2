@@ -87,6 +87,13 @@ public class CommentDAO {
 		return comments;
 	}
 
+	/**
+	 * Retrieves a comment by its unique identifier.
+	 *
+	 * @param commentID The unique identifier of the comment.
+	 * @return The Comment object associated with the provided ID, or null if not found.
+	 * @throws DAOException If an error occurs during the retrieval process.
+	 */
 	public Comment getCommentByID(int commentID) throws DAOException {
 		Comment comment1 = null;
 		try (Connection connection = ConnectionUtil.getConnection();

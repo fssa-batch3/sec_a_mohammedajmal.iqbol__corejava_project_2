@@ -59,16 +59,12 @@ import com.fssa.freshstocks.services.exception.ServiceException;
     }
  
     @Test
-     void testGetCommentByInvalidCommentID() {
+     void testGetCommentByInvalidCommentID() throws ServiceException {
         // Arrange
         int invalidCommentId = -1;
 
-        // Act and Assert
-        try {
 			assertNull(commentService.getCommentByCommentID(invalidCommentId));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
+		
     }
     
     @Test

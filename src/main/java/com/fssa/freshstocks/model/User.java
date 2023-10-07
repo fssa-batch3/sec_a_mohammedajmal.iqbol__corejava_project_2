@@ -43,15 +43,6 @@ public class User {
 		this.isSeller = isSeller;
 	}
 
-	public String getProfilePic() {
-		return profilePic;
-	}
-
-	public void setProfilePic(String profilePic) {
-		this.profilePic = profilePic;
-	}
-
-	// Constructor for updating user information
 	/**
 	 * Creates a new User object with updated information.
 	 *
@@ -65,7 +56,6 @@ public class User {
 		this.mobileNumber = mobileNumber;
 		this.dateOfBirth = dateOfBirth;
 	}
-	
 	
 	
 	/**
@@ -84,7 +74,6 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	// Constructor for deleting a user
 	/**
 	 * Creates a new User object for deleting a user.
 	 *
@@ -95,7 +84,6 @@ public class User {
 		this.userId = userId;
 	}
 
-	// Constructor for user login
 	/**
 	 * Creates a new User object for user login.
 	 *
@@ -105,10 +93,8 @@ public class User {
 	public User(String email) {
 		super();
 		this.email = email;
-		// this.password = password;
 	}
 
-	// Constructor for full user information
 	/**
 	 * Creates a new User object with full information.
 	 *
@@ -142,7 +128,6 @@ public class User {
 		this.purchasedCourses = purchasedCourses;
 	}
 
-	// Constructor for demo practice
 	/**
 	 * Creates a new User object for demo practice.
 	 *
@@ -158,30 +143,43 @@ public class User {
 		this.password = password;
 	}
 	
+	/**
+	 * Constructs a User object with the specified email and password.
+	 *
+	 * @param email The email address of the user.
+	 * @param password The password associated with the user.
+	 */
 	public User(String email, String password) {
 		super();
 		this.email = email;
 	    this.password = password;
 	}
 	
+	/**
+	 * Constructs a User object with the specified password and confirmPassword.
+	 *
+	 * @param i The integer parameter added for unique constructor.
+	 * @param password The password associated with the user.
+	 * @param confirmPassword The confirmation of the user's password.
+	 */
 	public User(int i,String password, String confirmPassword) {
 		super();
 		this.password = email;
 	    this.confirmPassword = confirmPassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public int getIsDeleted() {
-		return isDeleted;
-	}
-
+	/**
+	 * Constructs a User object with the specified details.
+	 *
+	 * @param username The username of the user.
+	 * @param gender The gender of the user.
+	 * @param mobileNumber The mobile number of the user.
+	 * @param dateOfBirth The date of birth of the user.
+	 * @param email The email address of the user.
+	 * @param isSeller A flag indicating if the user is a seller.
+	 * @param createdAt The timestamp indicating when the user account was created.
+	 * @param modifiedAt The timestamp indicating when the user account was last modified.
+	 */
 	public User(String username, String gender, String mobileNumber, String dateOfBirth, String email, int isSeller,
 			String createdAt, String modifiedAt) {
 		super();
@@ -195,7 +193,20 @@ public class User {
 		this.modifiedAt = modifiedAt;
 	}
 	
-	
+	/**
+	 * Constructs a User object with the specified details including user ID and deletion status.
+	 *
+	 * @param userID The unique identifier of the user.
+	 * @param username The username of the user.
+	 * @param gender The gender of the user.
+	 * @param mobileNumber The mobile number of the user.
+	 * @param dateOfBirth The date of birth of the user.
+	 * @param email The email address of the user.
+	 * @param isSeller A flag indicating if the user is a seller.
+	 * @param createdAt The timestamp indicating when the user account was created.
+	 * @param modifiedAt The timestamp indicating when the user account was last modified.
+	 * @param isDeleted A flag indicating if the user account is marked as deleted.
+	 */
 	public User(int userID,String username, String gender, String mobileNumber, String dateOfBirth, String email, int isSeller,
 			String createdAt, String modifiedAt, int isDeleted) {
 		super();
@@ -210,6 +221,8 @@ public class User {
 		this.modifiedAt = modifiedAt;
 		this.isDeleted = isDeleted;
 	}
+	
+	// Getters And Setters
 	
 	public String getCreatedAt() {
 		return createdAt;
@@ -226,8 +239,6 @@ public class User {
 	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
-
-	// Getters And Setters
 
 	public int getIsSeller() {
 		return isSeller;
@@ -255,6 +266,26 @@ public class User {
 
 	public void setPurchasedCourses(String purchasedCourses) {
 		this.purchasedCourses = purchasedCourses;
+	}
+	
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
 	}
 
 }

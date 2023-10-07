@@ -7,7 +7,15 @@ public class LeaderboardEntry {
     private String quizEndTime;
     private String image;
 
-    // Constructor
+    /**
+     * Constructs a LeaderboardEntry object with the specified name, streak, gender, quiz end time, and User Profile image URL.
+     *
+     * @param name The name of the leaderboard entry.
+     * @param streak The streak count of the user.
+     * @param gender The gender of the user.
+     * @param quizEndTime The end time of the quiz associated with the user.
+     * @param image The URL of the user's profile image.
+     */
     public LeaderboardEntry(String name, int streak, String gender, String quizEndTime, String image) {
         this.name = name;
         this.streak = streak;

@@ -47,6 +47,13 @@ public class CommentService {
 		}
 	}
 
+	/**
+	 * Retrieves a comment for a given course ID.
+	 *
+	 * @param comment The course ID.
+	 * @return A Comment object associated with the given course ID.
+	 * @throws ServiceException If an error occurs while retrieving the comment.
+	 */
 	public Comment getCommentByCommentID(int commentId) throws ServiceException {
 		CommentDAO commentDAO = new CommentDAO();
 		try {

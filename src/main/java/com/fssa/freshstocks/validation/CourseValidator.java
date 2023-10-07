@@ -282,7 +282,12 @@ public class CourseValidator {
 	}
 	
 	
-	// course Video Names
+	/**
+	 * Validates a list of course Video Names to ensure it is not empty and contains alphabets and space.
+	 *
+	 * @param course Video Names The Course Video Names to be Validated.
+	 * @throws InvalidCourseException If the Names is found to be invalid.
+	 */
 	public static void validateCourseVideoNames(List<String> videoNames) throws InvalidCourseException {
 	    String regex = "^[A-Za-z\\s]{3,100}$";
 	    
@@ -297,7 +302,12 @@ public class CourseValidator {
 	}
 	
 	
-	//course video
+	/**
+	 * Validates a list of course Video URL to ensure it is not empty and its length should be more than 10.
+	 *
+	 * @param course Video URL The Course Video URL to be Validated.
+	 * @throws InvalidCourseException If the Video URL is found to be invalid.
+	 */
 	public static void validateCourseVideos(List<String> videos) throws InvalidCourseException {
 	    for (String video : videos) {
 	        if (video.length() < 10) {

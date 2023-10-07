@@ -20,66 +20,10 @@ public class Course {
 	private String courseVideo3;
 	private String courseVideoName1;
 	private String courseVideoName2;
-	public String getCourseVideo1() {
-		return courseVideo1;
-	}
-
-	public void setCourseVideo1(String courseVideo1) {
-		this.courseVideo1 = courseVideo1;
-	}
-
-	public String getCourseVideo2() {
-		return courseVideo2;
-	}
-
-	public void setCourseVideo2(String courseVideo2) {
-		this.courseVideo2 = courseVideo2;
-	}
-
-	public String getCourseVideo3() {
-		return courseVideo3;
-	}
-
-	public void setCourseVideo3(String courseVideo3) {
-		this.courseVideo3 = courseVideo3;
-	}
-
-	public String getCourseVideoName1() {
-		return courseVideoName1;
-	}
-
-	public void setCourseVideoName1(String courseVideoName1) {
-		this.courseVideoName1 = courseVideoName1;
-	}
-
-	public String getCourseVideoName2() {
-		return courseVideoName2;
-	}
-
-	public void setCourseVideoName2(String courseVideoName2) {
-		this.courseVideoName2 = courseVideoName2;
-	}
-
-	public String getCourseVideoName3() {
-		return courseVideoName3;
-	}
-
-	public void setCourseVideoName3(String courseVideoName3) {
-		this.courseVideoName3 = courseVideoName3;
-	}
-
 	private String courseVideoName3;
 	private int userID;
 	private String username;
 	private String createdAt;
-
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
-	}
 
 	// Constructor to create a course
 	/**
@@ -146,7 +90,7 @@ public class Course {
 			int userID, String createdAt,String courseVideo1,String courseVideo2,String courseVideo3,String courseVideoName1,String courseVideoName2
 			,String courseVideoName3) {
 		super();
-		this.name = name;
+		this.name = name; 
 		this.coverImage = coverImage;
 		this.timing = timing;
 		this.language = language;
@@ -327,7 +271,13 @@ public class Course {
 		this.courseID = courseID;
 	}
 	
-	
+	/**
+	 * Create a Course object with course payment information.
+	 *
+	 * @param courseID        The ID of the course.
+	 * @param name            The name of the course.
+	 * @param sellingPrice    The selling price of the course.
+	 */	
     public Course(int courseID, String name, int sellingPrice) {
         this.courseID = courseID;
         this.name = name;
@@ -396,6 +346,62 @@ public class Course {
 
 	public int getCourseID() {
 		return courseID;
+	}
+	
+	public String getCourseVideo1() {
+		return courseVideo1;
+	}
+
+	public void setCourseVideo1(String courseVideo1) {
+		this.courseVideo1 = courseVideo1;
+	}
+
+	public String getCourseVideo2() {
+		return courseVideo2;
+	}
+
+	public void setCourseVideo2(String courseVideo2) {
+		this.courseVideo2 = courseVideo2;
+	}
+
+	public String getCourseVideo3() {
+		return courseVideo3;
+	}
+
+	public void setCourseVideo3(String courseVideo3) {
+		this.courseVideo3 = courseVideo3;
+	}
+
+	public String getCourseVideoName1() {
+		return courseVideoName1;
+	}
+
+	public void setCourseVideoName1(String courseVideoName1) {
+		this.courseVideoName1 = courseVideoName1;
+	}
+
+	public String getCourseVideoName2() {
+		return courseVideoName2;
+	}
+
+	public void setCourseVideoName2(String courseVideoName2) {
+		this.courseVideoName2 = courseVideoName2;
+	}
+
+	public String getCourseVideoName3() {
+		return courseVideoName3;
+	}
+
+	public void setCourseVideoName3(String courseVideoName3) {
+		this.courseVideoName3 = courseVideoName3;
+	}
+	
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 
 }
