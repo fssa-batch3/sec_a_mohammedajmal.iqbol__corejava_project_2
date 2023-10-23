@@ -171,16 +171,9 @@ public class CourseDAO {
 					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
 					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
 					int courseID = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
-					String courseVideo1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO1);
-					String courseVideo2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO2);
-					String courseVideo3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO3);
-					String courseVideoName1 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME1);
-					String courseVideoName2 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME2);
-					String courseVideoName3 = resultSet.getString(CourseModuleConstants.COLUMN_COURSE_VIDEO_NAME3);
 
 					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
-							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID
-							,courseVideo1,courseVideo2,courseVideo3,courseVideoName1,courseVideoName2,courseVideoName3);
+							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID);
 					list1.add(course1);
 
 				}
@@ -515,5 +508,73 @@ public class CourseDAO {
 
         return courses;
     }
+    
+    
+    /**
+     * Retrieves a list of courses from the database with a specified limit and offset.
+     *
+     * @param offset The starting point for fetching courses.
+     * @param limit The maximum number of courses to fetch.
+     * @return A list of courses within the specified limit and offset.
+     * @throws DAOException If an error occurs while fetching courses.
+     */
+    public List<Course> getCoursesWithLimitOffset(int offset, int limit) throws DAOException {
+        List<Course> courses = new ArrayList<>();
+
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM course WHERE is_deleted = 0 LIMIT ? OFFSET ?")) {
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+					String name = resultSet.getString("name");
+					String coverImage = resultSet.getString(CourseModuleConstants.COLUMN_COVER_IMAGE);
+					String timing = resultSet.getString(CourseModuleConstants.COLUMN_TIMING);
+					String language = resultSet.getString(CourseModuleConstants.COLUMN_LANGUAGE);
+					int markedPrice = resultSet.getInt(CourseModuleConstants.COLUMN_MARKED_PRICE);
+					int sellingPrice = resultSet.getInt(CourseModuleConstants.COLUMN_SELLING_PRICE);
+					String description = resultSet.getString(CourseModuleConstants.COLUMN_DESCRIPTION);
+					String instructorName = resultSet.getString(CourseModuleConstants.COLUMN_INSTRUCTOR_NAME);
+					String companyName = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_NAME);
+					String companyCategory = resultSet.getString(CourseModuleConstants.COLUMN_COMPANY_CATEGORY);
+					String topSkills = resultSet.getString(CourseModuleConstants.COLUMN_TOP_SKILLS);
+					int userID1 = resultSet.getInt(CourseModuleConstants.COLUMN_USER_ID);
+					int courseID = resultSet.getInt(CourseModuleConstants.COLUMN_COURSE_ID);
+
+					Course course1 = new Course(name, coverImage, timing, language, markedPrice, sellingPrice,
+							description, instructorName, companyName, companyCategory, topSkills, userID1, courseID);
+					courses.add(course1);
+                }
+            }
+        } catch (SQLException | DatabaseException e) {
+            throw new DAOException(e);
+        }
+
+        return courses;
+    }
+
+    /**
+     * Retrieves the total count of courses in the database.
+     *
+     * @return The total count of courses in the database.
+     * @throws DAOException If an error occurs while fetching the total course count.
+     */
+    public int getTotalCourseCount() throws DAOException {
+        int totalCourses = 0;
+
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM course WHERE is_deleted = 0");
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                totalCourses = resultSet.getInt(1);
+            }
+        } catch (SQLException | DatabaseException e) {
+            throw new DAOException(e);
+        }
+
+        return totalCourses;
+    }
+
 
 }

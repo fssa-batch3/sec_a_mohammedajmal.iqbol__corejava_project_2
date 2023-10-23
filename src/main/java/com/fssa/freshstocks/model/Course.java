@@ -271,6 +271,26 @@ public class Course {
 		this.courseID = courseID;
 	}
 	
+	
+	public Course(String name, String coverImage, String timing, String language, int markedPrice, int sellingPrice,
+			String description, String instructorName, String companyName, String companyCategory, String topSkills,int userID, 
+			int courseID) {
+		super();
+		this.name = name;
+		this.coverImage = coverImage;
+		this.timing = timing;
+		this.language = language;
+		this.markedPrice = markedPrice;
+		this.sellingPrice = sellingPrice;
+		this.description = description;
+		this.instructorName = instructorName;
+		this.companyName = companyName;
+		this.companyCategory = companyCategory;
+		this.topSkills = topSkills;
+		this.userID = userID;
+		this.courseID = courseID;
+	}
+	
 	/**
 	 * Create a Course object with course payment information.
 	 *

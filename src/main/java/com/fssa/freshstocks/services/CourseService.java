@@ -285,4 +285,38 @@ public class CourseService {
         return rowsUpdated;
     }
     
+    
+    /**
+     * Retrieves a list of courses from the database with a specified limit and offset.
+     *
+     * @param offset The starting point for fetching courses.
+     * @param limit The maximum number of courses to fetch.
+     * @return A list of courses within the specified limit and offset.
+     * @throws ServiceException If an error occurs while fetching courses.
+     */
+    public List<Course> getCoursesWithLimitOffset(int offset, int limit) throws ServiceException {
+        try {
+        	CourseDAO courseDAO = new CourseDAO();
+            return courseDAO.getCoursesWithLimitOffset(offset, limit);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
+     * Retrieves the total count of courses in the database.
+     *
+     * @return The total count of courses in the database.
+     * @throws ServiceException If an error occurs while fetching the total course count.
+     */
+    public int getTotalCourseCount() throws ServiceException {
+        try {
+        	CourseDAO courseDAO = new CourseDAO();
+            return courseDAO.getTotalCourseCount();
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    
 }
