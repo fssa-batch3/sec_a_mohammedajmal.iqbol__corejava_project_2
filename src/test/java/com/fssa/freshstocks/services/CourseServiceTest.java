@@ -65,7 +65,7 @@ class CourseServiceTest {
 
     @Test
     public void testGetCourseByIdValid() throws DAOException {
-        Course course = CourseDAO.getCourseById(34);
+        Course course = CourseDAO.getCourseById(22);
         assertNotNull(course);
     }
 

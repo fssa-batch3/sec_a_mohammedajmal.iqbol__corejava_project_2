@@ -522,7 +522,7 @@ public class CourseDAO {
         List<Course> courses = new ArrayList<>();
 
         try (Connection connection = ConnectionUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM course WHERE is_deleted = 0 LIMIT ? OFFSET ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM course WHERE is_deleted = 0 ORDER BY created_at DESC LIMIT ? OFFSET ?")) {
             statement.setInt(1, limit);
             statement.setInt(2, offset);
 

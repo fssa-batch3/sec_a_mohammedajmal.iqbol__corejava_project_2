@@ -23,7 +23,7 @@ class TestDeleteCourseFeature {
     @Test
     @Order(1)
     void testDeleteCourseSuccess() {
-        int courseID = 28;
+        int courseID = 48;
         try {
             assertTrue(courseService.deleteCourse(courseID, isDeleted));
         } catch (ServiceException e) {

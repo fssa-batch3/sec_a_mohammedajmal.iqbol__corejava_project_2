@@ -28,7 +28,7 @@ class CourseDAOTest {
 
     @Test
     void testSameNameExistWithMatchingName() throws DAOException {
-    	Course course1 = new Course("foreign ex course",
+    	Course course1 = new Course("cand course",
     	        "https://example.com/image1.png",
     	        "10hrs", "English", 5000, 2000,
     	        "the course gives you the fair idea about how to start trading and become a day trader by understanding the core concepts of stock market trading from scratch to end", "Ajmalll",
@@ -56,7 +56,7 @@ class CourseDAOTest {
 
     @Test
     public void testGetCourseByIdValid() throws DAOException {
-        Course course = CourseDAO.getCourseById(34);
+        Course course = CourseDAO.getCourseById(22);
         assertNotNull(course);
     }
 

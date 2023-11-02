@@ -48,7 +48,7 @@ import com.fssa.freshstocks.services.exception.ServiceException;
     @Test
      void testGetCommentByValidCommentID() throws ServiceException {
         // Arrange
-        int commentId = 26;
+        int commentId = 68;
 
         // Act
         Comment comment = commentService.getCommentByCommentID(commentId);

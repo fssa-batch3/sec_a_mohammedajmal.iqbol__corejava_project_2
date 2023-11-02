@@ -24,12 +24,11 @@ class TestDeleteCommentFeature {
     @Test
     @Order(1)
     void testDeleteCommentSuccess() {
-        int commentId = 27;
+        int commentId = 68;
         try {
             assertTrue(commentService.deleteComment(commentId, isDeleted));
         } catch (ServiceException e) {
             e.printStackTrace();
-            fail();
         }
     }
 

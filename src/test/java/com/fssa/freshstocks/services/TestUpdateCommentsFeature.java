@@ -22,7 +22,7 @@ class TestUpdateCommentsFeature {
     @Test
     @Order(1)
     void testUpdateCommentSuccess() {
-        int commentId = 27;
+        int commentId = 70;
         Comment comment = new Comment("nice course");
         try {
             assertTrue(commentService.updateComment(comment, commentId));

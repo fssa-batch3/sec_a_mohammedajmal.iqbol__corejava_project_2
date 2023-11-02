@@ -29,7 +29,7 @@ class TestUpdateCourseFeature {
                 "freshstocks", "Trading and Finance", "learn core concepts SMC and Technical Analysis","data:video/mp4;base64,AAAAGGZ0eXBtcDQy",
     	        "data:video/mp4;base64,AAAAGGZ0eXBtcDQy","data:video/mp4;base64,AAAAGGZ0eXBtcDQy","Stock Investing Beginner",
     	        "Intermediate Investing","Advanced Trading");
-        int courseID = 11;
+        int courseID = 10;
         try {
             assertTrue(courseService.updateCourse(course1, courseID));
         } catch (ServiceException e) {

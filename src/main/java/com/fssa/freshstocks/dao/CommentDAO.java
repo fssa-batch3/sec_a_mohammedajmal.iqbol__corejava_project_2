@@ -134,7 +134,7 @@ public class CommentDAO {
 		long minutes = istTimeDifferenceMillis / (60 * 1000);
 		long hours = minutes / 60;
 		long days = hours / 24;
-
+		
 		if (days > 0) {
 			return days + (days == 1 ? " day ago" : " days ago");
 		} else if (hours > 0) {
